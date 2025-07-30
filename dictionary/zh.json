@@ -1,0 +1,105 @@
+{
+  "Index": {
+    "appName": "屏幕背景设计工具",
+    "heroTitle": "创建屏幕背景",
+    "heroSubtitle": "为您的设备设计和定制精美且有用的背景",
+    "toolTitle": "设计工具",
+    "getStarted": "立即开始",
+    "featuresTitle": "主要功能",
+    "feature1Title": "轻松定制",
+    "feature1Desc": "直观的工具帮助您创建完美背景",
+    "feature2Title": "多种选择",
+    "feature2Desc": "可选择纯色或上传自己的图片",
+    "feature3Title": "实时预览",
+    "feature3Desc": "设计时即时查看效果",
+    "testimonialsTitle": "用户评价",
+    "testimonial1Text": "这个工具节省了我大量时间！",
+    "testimonial1Author": "张先生，设计师",
+    "testimonial2Text": "创建专业背景的最简单方式",
+    "testimonial2Author": "李女士，开发者",
+    "ctaTitle": "准备好开始了吗？",
+    "ctaSubtitle": "立即开始设计您的完美背景",
+    "ctaButton": "开始设计",
+    "faqTitle": "常见问题",
+    "faqQuestion1": "如何下载我的设计？",
+    "faqAnswer1": "完成设计后点击下载按钮",
+    "faqQuestion2": "可以使用自己的图片吗？",
+    "faqAnswer2": "可以，您可以上传任何图片作为背景",
+    "faqQuestion3": "这个工具是免费的吗？",
+    "faqAnswer3": "是的，完全免费且无隐藏收费"
+  },
+  "BackgoundSetting": {
+    "title": "背景设置",
+    "colorOption": "颜色背景",
+    "imageOption": "图片背景",
+    "selectColor": "选择颜色",
+    "uploadImage": "上传图片"
+  },
+  "PreviewBar": {
+    "previewFullscreen": "全屏预览",
+    "downloadSize": "尺寸",
+    "downloadBackground": "下载图片"
+  },
+  "TextEditor": {
+    "title": "文字编辑",
+    "defaultText": "输入您的文字",
+    "textColor": "文字颜色",
+    "fontFamily": "选择字体",
+    "fontWeight": "字体粗细"
+  },
+  "Metadata": {
+    "title": "屏幕背景设计工具",
+    "description": "用于设计自定义屏幕背景的工具"
+  },
+  "Footer": {
+    "copyright": "© {year} 屏幕背景设计工具 版权所有"
+  },
+  "BlackScreen": {
+    "toolTitle": "黑色屏幕设计工具",
+    "seoTitle": "纯黑屏幕生成器 - 创建纯黑背景",
+    "seoDescription": "生成纯黑屏幕用于OLED显示、暗黑模式测试和节能。自定义并下载高质量黑色背景。",
+    "heroTitle": "纯黑屏幕生成器",
+    "heroSubtitle": "为您的设备创建完美黑色背景",
+    "feature1Title": "OLED友好",
+    "feature1Desc": "纯黑色可节省OLED显示屏电量",
+    "feature2Title": "暗黑模式测试",
+    "feature2Desc": "完美用于测试暗黑模式界面",
+    "feature3Title": "高质量",
+    "feature3Desc": "任何分辨率下都清晰锐利的纯黑背景",
+    "ctaTitle": "准备好使用了吗？",
+    "ctaSubtitle": "立即开始使用您的完美黑色背景",
+    "ctaButton": "使用纯黑屏幕"
+  },
+  "WhiteScreen": {
+    "toolTitle": "白色屏幕设计工具",
+    "seoTitle": "纯白屏幕生成器 - 创建纯白背景",
+    "seoDescription": "生成纯白屏幕用于显示测试、亮色模式测试和校准。自定义并下载高质量白色背景。",
+    "heroTitle": "纯白屏幕生成器",
+    "heroSubtitle": "为您的设备创建完美白色背景",
+    "feature1Title": "显示测试",
+    "feature1Desc": "纯白色可用于检测显示屏坏点和均匀性",
+    "feature2Title": "亮色模式测试",
+    "feature2Desc": "完美用于测试亮色模式界面",
+    "feature3Title": "高质量",
+    "feature3Desc": "任何分辨率下都清晰锐利的纯白背景",
+    "ctaTitle": "准备好使用了吗？",
+    "ctaSubtitle": "立即开始使用您的完美白色背景",
+    "ctaButton": "使用纯白屏幕"
+  },
+  "DoNotWriteOnThisPage": {
+    "seoTitle": "请勿在此页书写生成器 - 创建自定义背景",
+    "seoDescription": "生成'请勿在此页书写'背景，适用于笔记本、白板等。自定义文字和颜色，下载高质量图片。",
+    "toolTitle": "请勿在此页书写生成器",
+    "heroTitle": "创建自定义'请勿在此页书写'背景",
+    "heroSubtitle": "为您的笔记本、白板和设备设计完美背景",
+    "feature1Title": "可自定义文字",
+    "feature1Desc": "可更改文字、字体和颜色以满足需求",
+    "feature2Title": "背景选项",
+    "feature2Desc": "可选择纯色或上传自定义背景图片",
+    "feature3Title": "高质量",
+    "feature3Desc": "可下载高分辨率图片用于各种用途",
+    "ctaTitle": "准备好开始了吗？",
+    "ctaSubtitle": "立即开始设计您的自定义背景",
+    "ctaButton": "创建背景"
+  }
+}

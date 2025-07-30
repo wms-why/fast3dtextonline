@@ -1,0 +1,88 @@
+import { Flex, Heading } from "@radix-ui/themes";
+import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+
+export interface TextProp {
+  text: string;
+  color: string;
+  font: string;
+  weight: string;
+}
+
+export function getFontPath(fontName: string, fontWeight: String) {
+  return `/fonts/${fontName}_${fontWeight}.typeface.json`;
+}
+
+export const FontWeights = ["regular", "bold"];
+export const FontNames = ["gentilis", "helvetiker", "optimer"];
+
+export default function TextEditor({
+  text,
+  setText,
+}: {
+  text: TextProp;
+  setText: (text: TextProp) => void;
+}) {
+  const t = useTranslations("TextEditor");
+
+  useEffect(() => {
+    // 初始化默认文本
+    let textStr = text.text == "default" ? t("defaultText") : text.text;
+    setText({ ...text, text: textStr });
+  }, []);
+
+  return (
+    <Flex className="p-4 border rounded-lg " gap={"3"} direction={"column"}>
+      <Heading size={"3"} className="font-medium text-lg" >{t("title")}</Heading>
+      <textarea
+        value={text.text}
+        onChange={e => setText({ ...text, text: e.target.value })}
+        className="w-full p-3 border rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        rows={4}
+      />
+      <div className="space-y-1">
+        <label className="block text-sm text-muted-foreground">
+          {t("textColor")}
+        </label>
+        <input
+          type="color"
+          value={text.color}
+          onChange={e => setText({ ...text, text: e.target.value })}
+          className="w-full h-10 rounded-md cursor-pointer"
+        />
+      </div>
+      <div className="space-y-1">
+        <label className="block text-sm text-muted-foreground">
+          {t("fontFamily")}
+        </label>
+        <select
+          value={text.font}
+          onChange={(e) => setText({ ...text, font: e.target.value })}
+          className="w-full p-2 border rounded-md"
+        >
+          {FontNames.map((name) => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="space-y-2">
+        <label className="block text-sm text-muted-foreground">
+          {t("fontWeight")}
+        </label>
+        <select
+          value={text.weight}
+          onChange={(e) => setText({ ...text, weight: e.target.value })}
+          className="w-full p-2 border rounded-md"
+        >
+          {FontWeights.map((weight) => (
+            <option key={weight} value={weight}>
+              {weight}
+            </option>
+          ))}
+        </select>
+      </div>
+    </Flex>
+  );
+}

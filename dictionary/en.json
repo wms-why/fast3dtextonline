@@ -1,0 +1,105 @@
+{
+  "Index": {
+    "appName": "Screen Designer",
+    "heroTitle": "Create Screen Designs",
+    "heroSubtitle": "Design and customize beautiful and useful backgrounds for your devices",
+    "toolTitle": "Design Tool",
+    "getStarted": "Get Started",
+    "featuresTitle": "Key Features",
+    "feature1Title": "Easy Customization",
+    "feature1Desc": "Intuitive tools to create perfect backgrounds",
+    "feature2Title": "Multiple Options",
+    "feature2Desc": "Choose from colors or upload your own images",
+    "feature3Title": "Real-time Preview",
+    "feature3Desc": "See changes instantly as you design",
+    "testimonialsTitle": "What Our Users Say",
+    "testimonial1Text": "This tool saved me hours of work!",
+    "testimonial1Author": "John D., Designer",
+    "testimonial2Text": "The easiest way to create professional backgrounds",
+    "testimonial2Author": "Sarah M., Developer",
+    "ctaTitle": "Ready to Create?",
+    "ctaSubtitle": "Start designing your perfect background today",
+    "ctaButton": "Start Designing",
+    "faqTitle": "Frequently Asked Questions",
+    "faqQuestion1": "How do I download my design?",
+    "faqAnswer1": "Click the download button after finishing your design",
+    "faqQuestion2": "Can I use my own images?",
+    "faqAnswer2": "Yes, you can upload any image as background",
+    "faqQuestion3": "Is this tool free to use?",
+    "faqAnswer3": "Yes, it's completely free with no hidden charges"
+  },
+  "BackgoundSetting": {
+    "title": "Background Setting",
+    "colorOption": "Color",
+    "imageOption": "Image",
+    "selectColor": "choose color",
+    "uploadImage": "upload image"
+  },
+  "PreviewBar": {
+    "previewFullscreen": "Fullscreen Preview",
+    "downloadSize": "Size",
+    "downloadBackground": "Download"
+  },
+  "TextEditor": {
+    "title": "Text Editor",
+    "defaultText": "please input your text",
+    "textColor": "Text Color",
+    "fontFamily": "Font Family",
+    "fontWeight": "Font Weight"
+  },
+  "Metadata": {
+    "title": "Screen Designer",
+    "description": "Tool for designing custom screen backgrounds"
+  },
+  "Footer": {
+    "copyright": "© {year} Screen Designer. All rights reserved."
+  },
+  "BlackScreen": {
+    "toolTitle": "Black Screen Design Tool",
+    "seoTitle": "Black Screen Generator - Create Pure Black Backgrounds",
+    "seoDescription": "Generate pure black screens for OLED displays, dark mode testing, and energy saving. Customize and download high-quality black backgrounds.",
+    "heroTitle": "Pure Black Screen Generator",
+    "heroSubtitle": "Create perfect black backgrounds for your devices",
+    "feature1Title": "OLED Friendly",
+    "feature1Desc": "True black saves power on OLED displays",
+    "feature2Title": "Dark Mode Testing",
+    "feature2Desc": "Perfect for testing dark mode interfaces",
+    "feature3Title": "High Quality",
+    "feature3Desc": "Crisp, pure black backgrounds at any resolution",
+    "ctaTitle": "Ready to Use?",
+    "ctaSubtitle": "Start using your perfect black background now",
+    "ctaButton": "Use Black Screen"
+  },
+  "WhiteScreen": {
+    "toolTitle": "White Screen Design Tool",
+    "seoTitle": "White Screen Generator - Create Pure White Backgrounds",
+    "seoDescription": "Generate pure white screens for display testing, light mode testing, and calibration. Customize and download high-quality white backgrounds.",
+    "heroTitle": "Pure White Screen Generator",
+    "heroSubtitle": "Create perfect white backgrounds for your devices",
+    "feature1Title": "Display Testing",
+    "feature1Desc": "Pure white helps detect dead pixels and screen uniformity",
+    "feature2Title": "Light Mode Testing",
+    "feature2Desc": "Perfect for testing light mode interfaces",
+    "feature3Title": "High Quality",
+    "feature3Desc": "Crisp, pure white backgrounds at any resolution",
+    "ctaTitle": "Ready to Use?",
+    "ctaSubtitle": "Start using your perfect white background now",
+    "ctaButton": "Use White Screen"
+  },
+  "DoNotWriteOnThisPage": {
+    "seoTitle": "Do Not Write On This Page Generator - Create Custom Backgrounds",
+    "seoDescription": "Generate 'Do Not Write On This Page' backgrounds for notebooks, whiteboards and more. Customize text and colors, then download high-quality images.",
+    "toolTitle": "Do Not Write On This Page Generator",
+    "heroTitle": "Create Custom 'Do Not Write On This Page' Backgrounds",
+    "heroSubtitle": "Design perfect backgrounds for your notebooks, whiteboards and devices",
+    "feature1Title": "Customizable Text",
+    "feature1Desc": "Change the text, font and color to suit your needs",
+    "feature2Title": "Background Options",
+    "feature2Desc": "Choose from colors or upload your own background image",
+    "feature3Title": "High Quality",
+    "feature3Desc": "Download crisp, high-resolution images for any use",
+    "ctaTitle": "Ready to Create?",
+    "ctaSubtitle": "Start designing your custom background now",
+    "ctaButton": "Create Background"
+  }
+}
