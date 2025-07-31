@@ -5,13 +5,14 @@ import { Eye, Download } from "lucide-react";
 import { BackgroundProp } from "./BackgroundSelector";
 import { TextProp } from "./TextSetting";
 import { Box, Flex } from "@radix-ui/themes";
-import { init as threeInit, updateBackground, updateTextProps } from "./ThreeTools";
+import { getPicture, resize, init as threeInit, updateBackground, updateTextProps } from "./ThreeTools";
 
 const Sizes = [
   "1920x1080",
   "1024x768",
   "800x600",
 ]
+
 
 function gcd(a: number, b: number): number {
   return b === 0 ? a : gcd(b, a % b);
@@ -29,24 +30,25 @@ export default function PreviewToolbar({
   background: BackgroundProp;
   text: TextProp;
 }) {
+  let host = process.env.NEXT_PUBLIC_HOST?.substring("https://".length);
   const t = useTranslations("PreviewBar");
   const [aspectRadio, setAspectRadio] = useState<number>(0);
   const container = useRef<HTMLCanvasElement>(null);
+  const fullscreenElement = useRef<HTMLImageElement>(null);
+  const [picture, setPicture] = useState<string | null>(null);
 
   const updateSize = () => {
-    const box = container.current!;
     const split = Sizes[aspectRadio].split("x").map(Number);
-    box.width = split[0];
-    box.height = split[1];
+    resize(split[0], split[1], container.current!.clientWidth, container.current!.clientHeight);
   }
   useEffect(() => {
     function init() {
       if (!container.current) {
         setTimeout(init, 100);
       } else {
-        updateSize();
         const box = container.current;
-        threeInit(box);
+        const split = Sizes[aspectRadio].split("x").map(Number);
+        threeInit(box, split[0], split[1]);
         console.log("three init");
       }
     }
@@ -69,48 +71,44 @@ export default function PreviewToolbar({
 
   const handleDownload = () => {
 
-    if (!container.current) return;
-    const canvas = container.current;
-
     // 创建下载链接
-    // const link = document.createElement("a");
-    // link.download = `background-${downloadSize.width}x${downloadSize.height}.png`;
-    // link.href = canvas.toDataURL("image/png");
-    // link.click();
+    const link = document.createElement("a");
+    link.download = `${host}_${Sizes[aspectRadio]}.png`;
+    link.href = getPicture(0, 0);
+    link.click();
 
   };
 
 
   const handleFullScreen = () => {
-    if (!container.current) return;
 
-    const canvas = container.current;
     const width = window.screen.width;
     const height = window.screen.height;
-    canvas.style.width = "100vw";
-    canvas.style.height = "100vh";
-    canvas.width = width;
-    canvas.height = height;
 
-    if (canvas.requestFullscreen) {
-      canvas.requestFullscreen();
-    } else if ((canvas as any).webkitRequestFullscreen) {
-      (canvas as any).webkitRequestFullscreen();
-    } else if ((canvas as any).msRequestFullscreen) {
-      (canvas as any).msRequestFullscreen();
-    }
+    const img = getPicture(width, height);
+    setPicture(img);
 
-    // 退出全屏时隐藏canvas
-    const onFullscreenChange = () => {
-      if (!document.fullscreenElement) {
+    setTimeout(() => {
 
-        canvas.style.removeProperty("width");
-        canvas.style.removeProperty("height");
-        updateSize();
-        document.removeEventListener("fullscreenchange", onFullscreenChange);
+      let imgDom = fullscreenElement.current!;
+
+      if (imgDom.requestFullscreen) {
+        imgDom.requestFullscreen();
+      } else if ((imgDom as any).webkitRequestFullscreen) {
+        (imgDom as any).webkitRequestFullscreen();
+      } else if ((imgDom as any).msRequestFullscreen) {
+        (imgDom as any).msRequestFullscreen();
       }
-    };
-    document.addEventListener("fullscreenchange", onFullscreenChange);
+
+      // 退出全屏时隐藏canvas
+      const onFullscreenChange = () => {
+        if (!document.fullscreenElement) {
+          setPicture(null);
+          document.removeEventListener("fullscreenchange", onFullscreenChange);
+        }
+      };
+      document.addEventListener("fullscreenchange", onFullscreenChange);
+    }, 0);
 
   };
 
@@ -138,6 +136,10 @@ export default function PreviewToolbar({
         backgroundSize: "contain",
         backgroundPosition: "center",
       }} />
+
+      {picture && (
+        <img ref={fullscreenElement} src={picture} className="w-screen h-screen" />
+      )}
 
       <Flex gap={"9"} className="justify-around">
         <button

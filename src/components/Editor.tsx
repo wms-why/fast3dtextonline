@@ -6,20 +6,25 @@ import BackgroundSelector, {
 import PreviewToolbar from "./common/PreviewToolbar";
 import TextSetting, { FontNames, FontWeights, TextProp } from "./common/TextSetting";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 /**
  * 全特性工具栏
  * @returns
  */
 export default function Page() {
+
+
+  const t = useTranslations("TextEditor");
+
   const [background, setBackground] = useState<BackgroundProp>({
     type: "color",
-    color: "#ffffff",
+    color: "#c4b1b1",
     image: null,
   });
   const [text, setText] = useState<TextProp>({
-    text: "default",
-    color: "black",
+    text: t("defaultText"),
+    color: "#8e86fe",
     font: FontNames[0],
     weight: FontWeights[0],
   });

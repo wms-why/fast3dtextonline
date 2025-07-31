@@ -25,12 +25,6 @@ export default function TextEditor({
 }) {
   const t = useTranslations("TextEditor");
 
-  useEffect(() => {
-    // 初始化默认文本
-    let textStr = text.text == "default" ? t("defaultText") : text.text;
-    setText({ ...text, text: textStr });
-  }, []);
-
   return (
     <Flex className="p-4 border rounded-lg " gap={"3"} direction={"column"}>
       <Heading size={"3"} className="font-medium text-lg" >{t("title")}</Heading>
@@ -47,7 +41,7 @@ export default function TextEditor({
         <input
           type="color"
           value={text.color}
-          onChange={e => setText({ ...text, text: e.target.value })}
+          onChange={e => setText({ ...text, color: e.target.value })}
           className="w-full h-10 rounded-md cursor-pointer"
         />
       </div>

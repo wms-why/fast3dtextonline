@@ -5,52 +5,66 @@ import { Font, FontLoader } from "three/addons/loaders/FontLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 
 THREE.Cache.enabled = true;
-// import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 let camera: THREE.PerspectiveCamera,
   scene: THREE.Scene,
   renderer: THREE.WebGLRenderer,
-  container: HTMLElement;
+  controls: OrbitControls,
+  container: HTMLCanvasElement;
 
-export function init(_container: HTMLCanvasElement) {
+export function init(
+  _container: HTMLCanvasElement,
+  width: number,
+  height: number
+) {
   container = _container;
   scene = new THREE.Scene();
-  // scene.background = new THREE.Color(0xcccccc);
-  // scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
-
-  const width = container.clientWidth;
-  const height = container.clientHeight;
 
   renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: true,
     canvas: container,
   });
-  renderer.setPixelRatio(window.devicePixelRatio);
-  // renderer.setSize(width, height);
+  renderer.setPixelRatio(1);
+  renderer.setSize(width, height, false);
   renderer.setAnimationLoop(animate);
 
-  camera = new THREE.PerspectiveCamera(60, width / height, 1, 1000);
-  camera.position.set(400, 200, 0);
+  camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
+  camera.position.set(0, 80, 0);
+
+  // const domWidth = container.clientWidth;
+  // const domHeight = container.clientHeight;
+
+  // camera = new THREE.OrthographicCamera(
+  //   domWidth / -2,
+  //   domWidth / 2,
+  //   domHeight / 2,
+  //   domHeight / -2,
+  //   0.1,
+  //   1000
+  // );
+
+  // camera.position.set(0, 10, 0);
 
   // controls
 
-  // controls = new OrbitControls(camera, renderer.domElement);
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.screenSpacePanning = false;
 
-  // controls.enable = false;
-  // controls.listenToKeyEvents(window); // optional
+  controls.enabled = true;
 
-  // //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+  //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
 
-  // controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-  // controls.dampingFactor = 0.05;
+  controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+  controls.dampingFactor = 0.05;
 
-  // controls.screenSpacePanning = false;
+  controls.screenSpacePanning = false;
 
-  // controls.minDistance = 100;
-  // controls.maxDistance = 500;
+  controls.minDistance = 0.1;
+  controls.maxDistance = 50000;
 
-  // controls.maxPolarAngle = Math.PI / 2;
+  controls.maxPolarAngle = Math.PI / 2;
 
   // lights
 
@@ -64,27 +78,35 @@ export function init(_container: HTMLCanvasElement) {
 
   const ambientLight = new THREE.AmbientLight(0x555555);
   scene.add(ambientLight);
-
-  const observer = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-    console.log("resize");
-
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-  });
-
-  observer.observe(container);
 }
 
 function animate() {
-  // controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+  controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
   render();
 }
 
 function render() {
   renderer.render(scene, camera);
+}
+
+export function resize(
+  width: number,
+  height: number,
+  clientWidth: number,
+  clientHeight: number
+) {
+  console.log("resize to width = " + width + " height = " + height);
+
+  camera.aspect = width / height;
+  // camera = new THREE.OrthographicCamera(
+  //   clientWidth / -2,
+  //   clientWidth / 2,
+  //   clientHeight / 2,
+  //   clientHeight / -2,
+  //   0.1,
+  //   1000
+  // );
+  renderer.setSize(width, height, false);
 }
 
 let textMesh: THREE.Mesh;
@@ -109,14 +131,17 @@ export async function updateTextProps(textProps: TextProp) {
       side: THREE.DoubleSide,
     });
     let geo = await getTextGeometry(textProps);
-
+    let size = new THREE.Vector3();
+    geo.boundingBox?.getSize(size);
     let textMesh1 = new THREE.Mesh(geo, mat);
-    textMesh1.rotation.x = 0;
-    textMesh1.rotation.y = Math.PI * 2;
+    textMesh1.rotateX(-Math.PI / 2);
+    textMesh1.scale.multiplyScalar(100 / size.x);
 
     scene.add(textMesh1);
 
     textMesh = textMesh1;
+
+    lastTextProps = textProps;
 
     return;
   }
@@ -130,6 +155,8 @@ export async function updateTextProps(textProps: TextProp) {
   } else {
     (textMesh.material as THREE.MeshLambertMaterial).color.set(textProps.color);
   }
+
+  lastTextProps = textProps;
 }
 
 async function getTextGeometry(textProps: TextProp) {
@@ -181,21 +208,25 @@ async function loadFont(textProps: TextProp) {
   return font;
 }
 
-function createText(textProps: TextProp, font: Font) {}
-
-// function refreshText() {
-//   group.remove(textMesh1);
-//   if (mirror) group.remove(textMesh2);
-
-//   if (!text) return;
-
-//   createText();
-// }
-
 export function updateBackground(bg: BackgroundProp) {
   if (bg.type === "color") {
     scene.background = new THREE.Color(bg.color);
   } else {
     scene.background = null;
   }
+}
+
+export function getPicture(width: number, height: number) {
+  if (width == 0 || height == 0) {
+    render();
+    return container.toDataURL("image/png");
+  }
+
+  let lastWidth = renderer.domElement.width;
+  let lastHeight = renderer.domElement.height;
+  renderer.setSize(width, height, false);
+  render();
+  const img = container.toDataURL("image/png");
+  renderer.setSize(lastWidth, lastHeight, false);
+  return img;
 }
