@@ -16,16 +16,6 @@ export default function Header() {
 
         <Flex gap={"4"} justify={"between"} align={"center"}>
           <Link
-            href="/black-screen"
-          >
-            Black Screen
-          </Link>
-          <Link
-            href="/white-screen"
-          >
-            White Screen
-          </Link>
-          <Link
             href="/do-not-write-on-this-page"
           >
             Do Not Write On This Page

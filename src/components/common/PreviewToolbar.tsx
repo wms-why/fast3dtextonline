@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Eye, Download } from "lucide-react";
 import { BackgroundProp } from "./BackgroundSelector";
 import { TextProp } from "./TextSetting";
-import { Box, Flex } from "@radix-ui/themes";
+import { Text, Flex } from "@radix-ui/themes";
 import { getPicture, resize, init as threeInit, updateBackground, updateTextProps } from "./ThreeTools";
 
 const Sizes = [
@@ -12,7 +12,6 @@ const Sizes = [
   "1024x768",
   "800x600",
 ]
-
 
 function gcd(a: number, b: number): number {
   return b === 0 ? a : gcd(b, a % b);
@@ -128,6 +127,12 @@ export default function PreviewToolbar({
 
   return (
     <Flex direction={"column"} justify={"center"} align={"center"} p="2" className="rounded-lg border w-full" gap={"2"}>
+      <Flex gap={"4"} >
+        {t("tipsTitle")}:
+        <Text>{t("mouseLeft")}</Text>
+        <Text>{t("mouseMiddle")}</Text>
+        <Text>{t("mouseRight")}</Text>
+      </Flex>
       <canvas ref={container} className="w-full border border-gray-300" style={{
         aspectRatio: AspectRatio[aspectRadio],
         // backgroundColor: background.type === "color" ? background.color : "none",

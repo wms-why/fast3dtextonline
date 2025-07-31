@@ -1,6 +1,5 @@
 import { Flex, Heading } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
 
 export interface TextProp {
   text: string;
@@ -10,13 +9,18 @@ export interface TextProp {
 }
 
 export function getFontPath(fontName: string, fontWeight: String) {
-  return `/fonts/${fontName}_${fontWeight}.typeface.json`;
+  if (fontName != "noto_sans_zh") {
+    return `/fonts/${fontName}_${fontWeight}.typeface.json`;
+  } else {
+    fontWeight = fontWeight.charAt(0).toUpperCase() + fontWeight.slice(1);
+    return `https://fast3dtest.mysoul.fun/Noto_Sans_SC_${fontWeight}.json`;
+  }
 }
 
 export const FontWeights = ["regular", "bold"];
-export const FontNames = ["gentilis", "helvetiker", "optimer"];
+export const FontNames = ["gentilis", "helvetiker", "optimer", "noto_sans_zh"];
 
-export default function TextEditor({
+export default function TextSetting({
   text,
   setText,
 }: {

@@ -3,8 +3,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useTranslations } from "next-intl";
-import DoNotWriteOnThisPage from "@/components/screen/DoNotWriteOnThisPage";
 import { Metadata } from "next";
+import Editor from "@/components/Editor";
+import { FontNames, FontWeights } from "@/components/common/TextSetting";
 
 export default function Page({
   params,
@@ -17,6 +18,13 @@ export default function Page({
 
   const t = useTranslations("DoNotWriteOnThisPage");
   const indexT = useTranslations("Index");
+
+  const text = {
+    text: "Do Not Write On This Page",
+    color: "#8e86fe",
+    font: FontNames[0],
+    weight: FontWeights[0],
+  }
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
@@ -41,7 +49,7 @@ export default function Page({
           <h2 className="text-3xl font-bold text-center mb-12">
             {t("toolTitle")}
           </h2>
-          <DoNotWriteOnThisPage></DoNotWriteOnThisPage>
+          <Editor textProp={text} backgroundProp={undefined}></Editor>
         </section>
 
         {/* Features Section */}

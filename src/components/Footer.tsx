@@ -9,18 +9,6 @@ export default function Footer() {
       <Flex justify={"between"} align={"center"} direction={"column"} gap={"2"} p="2">
         <Flex justify={"center"} gap={"4"}>
           <Link
-            href="/black-screen"
-            className="text-sm text-muted-foreground hover:text-primary"
-          >
-            Black Screen
-          </Link>
-          <Link
-            href="/white-screen"
-            className="text-sm text-muted-foreground hover:text-primary"
-          >
-            White Screen
-          </Link>
-          <Link
             href="/do-not-write-on-this-page"
             className="text-sm text-muted-foreground hover:text-primary"
           >

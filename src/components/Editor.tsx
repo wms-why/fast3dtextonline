@@ -12,17 +12,16 @@ import { useTranslations } from "next-intl";
  * 全特性工具栏
  * @returns
  */
-export default function Page() {
-
+export default function Page({ textProp, backgroundProp }: { textProp: TextProp | undefined, backgroundProp: BackgroundProp | undefined }) {
 
   const t = useTranslations("TextEditor");
 
-  const [background, setBackground] = useState<BackgroundProp>({
+  const [background, setBackground] = useState<BackgroundProp>(backgroundProp || {
     type: "color",
     color: "#c4b1b1",
     image: null,
   });
-  const [text, setText] = useState<TextProp>({
+  const [text, setText] = useState<TextProp>(textProp || {
     text: t("defaultText"),
     color: "#8e86fe",
     font: FontNames[0],
