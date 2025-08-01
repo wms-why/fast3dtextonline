@@ -3,9 +3,9 @@ import { useState, useRef, useEffect, } from "react";
 import { useTranslations } from "next-intl";
 import { Eye, Download } from "lucide-react";
 import { BackgroundProp } from "./BackgroundSelector";
-import { TextProp } from "./TextSetting";
 import { Text, Flex } from "@radix-ui/themes";
 import { getPicture, resize, init as threeInit, updateBackground, updateTextProps } from "./ThreeTools";
+import { TextProp } from "./TextSetting";
 
 const Sizes = [
   "1920x1080",

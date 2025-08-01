@@ -1,11 +1,11 @@
 import * as THREE from "three";
-import { getFontPath, TextProp } from "./TextSetting";
 import { BackgroundProp } from "./BackgroundSelector";
 import { Font, FontLoader } from "three/addons/loaders/FontLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 
 THREE.Cache.enabled = true;
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { TextProp, getFontPath } from "./TextSetting";
 
 let camera: THREE.PerspectiveCamera,
   scene: THREE.Scene,

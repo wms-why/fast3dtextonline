@@ -4,6 +4,7 @@
     "heroTitle": "Create Stunning 3D Text Designs",
     "heroSubtitle": "Generate and customize beautiful 3D text effects for your projects",
     "toolTitle": "3D Text Generator Tool",
+    "toolMore": "need more options",
     "getStarted": "Generate Now",
     "featuresTitle": "Powerful Features",
     "feature1Title": "3D Text Customization",
@@ -45,6 +46,8 @@
     "downloadBackground": "Download"
   },
   "TextEditor": {
+    "seoTitle": "3D Text Generator - More Options",
+    "seoDescription": "Fast Create professional 3D text with more options. control the color, font, and effect",
     "title": "Text Editor",
     "defaultText": "please input your text",
     "textColor": "Text Color",
@@ -59,10 +62,10 @@
     "copyright": "© {year} Screen Designer. All rights reserved."
   },
   "DoNotWriteOnThisPage": {
-    "seoTitle": "Do Not Write On This Page Generator - Custom Background Creator",
-    "seoDescription": "Free online tool to generate professional 'Do Not Write On This Page' backgrounds. Customize text, colors and download high-resolution images for notebooks, whiteboards and screens.",
-    "toolTitle": "Do Not Write On This Page Generator",
-    "heroTitle": "Professional 'Do Not Write On This Page' Background Creator",
+    "seoTitle": "Do Not Write On This Page - 3D Text Generator",
+    "seoDescription": "Free online tool to generate 'Do Not Write On This Page' 3D Text. Customize text, colors and download high-resolution images for notebooks, whiteboards and screens.",
+    "toolTitle": "'Do Not Write On This Page' Generator",
+    "heroTitle": "'Do Not Write On This Page' 3D Text Generator",
     "heroSubtitle": "Generate and customize perfect backgrounds for notebooks, whiteboards and digital screens",
     "feature1Title": "Text Customization",
     "feature1Desc": "Fully customize text content, fonts and colors to create your perfect design",
@@ -72,6 +75,6 @@
     "feature3Desc": "Download print-ready high-quality images in multiple formats",
     "ctaTitle": "Create Your Custom Background Now",
     "ctaSubtitle": "Start generating professional 'Do Not Write On This Page' designs",
-    "ctaButton": "Generate Background"
+    "ctaButton": "Generate 3D Text"
   }
 }

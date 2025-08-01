@@ -1,63 +1,6 @@
 import { Flex, Heading } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
-
-export const FontWeights = ["regular", "bold"];
-export const FontNames = ["gentilis", "helvetiker", "optimer", "Noto_Sans_SC_zh", "Alibaba_PuHuiTi_3.0_zh"];
-
-type FontFrom = "local" | "upload";
-export class TextProp {
-  text: string
-  color: string
-  fontFrom: FontFrom
-  font: string
-  weight: string
-
-  constructor(
-    text: string,
-    color: string,
-    fontFrom: FontFrom,
-    font: string,
-    weight: string) {
-
-    this.text = text;
-    this.color = color;
-    this.fontFrom = fontFrom;
-    this.font = font;
-    this.weight = weight;
-  }
-
-  static default(text: string): TextProp {
-
-    let font = FontNames[0];
-
-    if (containsChinese(text)) {
-      font = "Alibaba_PuHuiTi_3.0_zh";
-    }
-    return {
-      text,
-      color: "#8e86fe",
-      font,
-      weight: FontWeights[0],
-      fontFrom: "local",
-    }
-  }
-}
-
-function containsChinese(str: string) {
-  return /[\u4e00-\u9fa5]/.test(str);
-}
-
-export function getFontPath(fontName: string, fontWeight: String) {
-  if (!fontName.endsWith("zh")) {
-    return `/fonts/${fontName}_${fontWeight}.typeface.json`;
-  } else {
-    fontWeight = fontWeight.charAt(0).toUpperCase() + fontWeight.slice(1);
-    let font = fontName.slice(0, -3);
-    return `https://fast3dtest.mysoul.fun/${font}_${fontWeight}.json`;
-  }
-}
-
-
+import { FontNames, FontWeights, TextProp } from "./TextSetting";
 
 export default function TextSetting({
   text,

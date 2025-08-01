@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useTranslations } from "next-intl";
 import { Metadata } from "next";
-import Editor from "@/components/Editor";
-import { FontNames, FontWeights } from "@/components/common/TextSetting";
+import Editor from "@/components/SimpleEditor";
+import { FontNames, FontWeights, TextProp } from "@/components/common/TextSetting";
 
 export default function Page({
   params,
@@ -19,12 +19,7 @@ export default function Page({
   const t = useTranslations("DoNotWriteOnThisPage");
   const indexT = useTranslations("Index");
 
-  const text = {
-    text: "Do Not Write On This Page",
-    color: "#8e86fe",
-    font: FontNames[0],
-    weight: FontWeights[0],
-  }
+  const text = TextProp.default("Do Not Write On This Page");
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">

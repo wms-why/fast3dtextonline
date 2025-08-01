@@ -2,7 +2,7 @@ import { use } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Editor from "@/components/Editor";
+import Editor from "@/components/SimpleEditor";
 import { useTranslations } from "next-intl";
 import { Locales } from "@/i18n/config";
 import { Metadata } from "next";
@@ -182,7 +182,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       images: [`${host}/og-image.png`],
-      creator: "@s0ver5",
+      creator: "Yaomker",
     },
     alternates: {
       canonical: `${host}`,

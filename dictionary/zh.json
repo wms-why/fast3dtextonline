@@ -4,6 +4,7 @@
     "heroTitle": "创建惊艳的3D文字设计",
     "heroSubtitle": "为您的项目生成并定制精美的3D文字效果",
     "toolTitle": "3D文字生成工具",
+    "toolMore": "需要更多选项",
     "getStarted": "立即生成",
     "featuresTitle": "强大功能",
     "feature1Title": "3D文字定制",
@@ -45,6 +46,8 @@
     "downloadBackground": "下载图片"
   },
   "TextEditor": {
+    "seoTitle": "3D 文字生成器 - 更多的选项",
+    "seoDescription": "快速创建具有更多选项的专业 3D 文本。控制颜色、字体和效果",
     "title": "文字编辑",
     "defaultText": "输入您的文字",
     "textColor": "文字颜色",
