@@ -20,30 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     })),
     {
-      url: baseUrl + "/black-screen",
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 1,
-    },
-    ...locales.map((locale) => ({
-      url: `${baseUrl}/${locale}/black-screen`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-    {
-      url: baseUrl + "/white-screen",
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 1,
-    },
-    ...locales.map((locale) => ({
-      url: `${baseUrl}/${locale}/white-screen`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-    {
       url: baseUrl + "/do-not-write-on-this-page",
       lastModified: new Date(),
       changeFrequency: "yearly",
