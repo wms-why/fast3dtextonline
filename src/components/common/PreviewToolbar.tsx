@@ -1,11 +1,12 @@
 "use client";
 import { useState, useRef, useEffect, } from "react";
-import { useTranslations } from "next-intl";
-import { Eye, Download } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Eye, Download, Share } from "lucide-react";
 import { BackgroundProp } from "./BackgroundSelector";
-import { Text, Flex } from "@radix-ui/themes";
+import { Text, Flex, Button, Select, AlertDialog, Code, Blockquote, Box } from "@radix-ui/themes";
 import { getPicture, resize, init as threeInit, updateBackground, updateTextProps } from "./ThreeTools";
 import { TextProp } from "./TextSetting";
+import { encodeText, getShareLink } from "@/lib/utils";
 
 const Sizes = [
   "1920x1080",
@@ -35,6 +36,9 @@ export default function PreviewToolbar({
   const container = useRef<HTMLCanvasElement>(null);
   const fullscreenElement = useRef<HTMLImageElement>(null);
   const [picture, setPicture] = useState<string | null>(null);
+  const [shareError, setShareError] = useState<string | null>(null);
+  const [shareLink, setShareLink] = useState<string | null>(null);
+  const locale = useLocale();
 
   const updateSize = () => {
     const split = Sizes[aspectRadio].split("x").map(Number);
@@ -76,7 +80,7 @@ export default function PreviewToolbar({
       updateTextProps(text);
 
       console.log("text change", text);
-    }, 1000);
+    }, 200);
 
     return () => clearTimeout(timeoutId);
   }, [text]);
@@ -124,6 +128,35 @@ export default function PreviewToolbar({
 
   };
 
+  const handleShare = () => {
+    setShareError(null);
+    setShareLink(null);
+    if (background.type == "image" && background.image) {
+      setShareError(t("shareErrorNotSupportDesc"));
+      return;
+    }
+
+    const bg = { ...background, image: null };
+    let txt = JSON.stringify({ bg, text });
+    txt = encodeText(txt);
+
+
+    const link = getShareLink(txt, locale);
+
+    setShareLink(link);
+
+  }
+
+  const copyLink = () => {
+    if (shareLink) {
+      navigator.clipboard.writeText(shareLink).catch(err => {
+        console.error("copy error:", err);
+        alert("copy error");
+      });
+    }
+
+  }
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "F11") {
@@ -160,33 +193,76 @@ export default function PreviewToolbar({
       )}
 
       <Flex gap={"9"} className="justify-around">
-        <button
+
+        {/* 全屏预览按钮 */}
+        <Button
           onClick={() => handleFullScreen()}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <Eye className="w-4 h-4" />
           {t("previewFullscreen")} (F11)
-        </button>
+        </Button>
+
+        {/* 分享按钮 */}
+        <AlertDialog.Root>
+          <AlertDialog.Trigger>
+            <Button
+              onClick={() => handleShare()}
+            >
+              <Share className="w-4 h-4" />
+              {t("share")}
+            </Button>
+          </AlertDialog.Trigger>
+          <AlertDialog.Content maxWidth="450px">
+            <AlertDialog.Title>{t("share")}</AlertDialog.Title>
+            {!shareError ? (<AlertDialog.Description size="2">
+
+              {t("shareSuccessDesc")} !
+              <br />
+              <Code className="mt-2">
+                {shareLink}
+              </Code>
+            </AlertDialog.Description>) :
+              (<AlertDialog.Description size="2" className="text-red-500">
+                {shareError}
+              </AlertDialog.Description>)}
+
+            <Flex gap="3" mt="4" justify="end">
+              {!shareError && <AlertDialog.Action>
+                <Button variant="soft" color="blue" onClick={() => copyLink()}>
+                  {t("shareDialogCopyLink")}
+                </Button>
+              </AlertDialog.Action>
+              }
+
+              <AlertDialog.Cancel>
+                <Button variant="soft" color="gray">
+                  {t("shareDialogClose")}
+                </Button>
+              </AlertDialog.Cancel>
+
+            </Flex>
+          </AlertDialog.Content>
+        </AlertDialog.Root>
+
+
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <label className="text-sm font-medium text-muted-foreground">
               {t("downloadSize")}
             </label>
-            <select
-              value={`${aspectRadio}`}
-              onChange={(e) => setAspectRadio(parseInt(e.target.value))}
-              className="h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-            >
-              {AspectRatio.map((_, i) => <option key={i} value={i}>{Sizes[i]}</option>)}
-            </select>
+            <Select.Root defaultValue={`${aspectRadio}`} onValueChange={(e) => setAspectRadio(parseInt(e))}>
+              <Select.Trigger />
+              <Select.Content>
+                {AspectRatio.map((_, i) => <Select.Item key={i} value={i + ""}>{Sizes[i]}</Select.Item>)}
+              </Select.Content>
+            </Select.Root>
           </div>
-          <button
+          <Button
             onClick={handleDownload}
-            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <Download className="w-4 h-4" />
             {t("downloadBackground")}
-          </button>
+          </Button>
         </div>
       </Flex>
 

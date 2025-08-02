@@ -3,6 +3,12 @@
     "appName": "Fast3DText",
     "editorName": "Editor"
   },
+  "ErrorPage": {
+    "title": "Some thing went wrong",
+    "sorry": "Sorry!",
+    "tryAgain": "Try again",
+    "backToHome": "Back to Home"
+  },
   "HomePage": {
     "heroTitle": "Create Stunning 3D Text Designs",
     "heroSubtitle": "Generate and customize beautiful 3D text effects for your projects",
@@ -46,7 +52,12 @@
     "mouseRight": "mouse right for move",
     "previewFullscreen": "Fullscreen Preview",
     "downloadSize": "Size",
-    "downloadBackground": "Download"
+    "downloadBackground": "Download",
+    "share": "Share Link",
+    "shareErrorNotSupportDesc": "Not Support Share Backgound Image At Now",
+    "shareSuccessDesc": "The link has been generated and is permanently valid",
+    "shareDialogClose": "Close",
+    "shareDialogCopyLink": "Copy Link"
   },
   "TextEditor": {
     "seoTitle": "3D Text Generator - More Options",

@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@radix-ui/themes";
+import { Flex, Heading, Select } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
 
 export const FontWeights = ["regular", "bold"];
@@ -92,33 +92,25 @@ export default function TextSetting({
         <label className="block text-sm text-muted-foreground">
           {t("fontFamily")}
         </label>
-        <select
-          value={text.font}
-          onChange={(e) => setText({ ...text, font: e.target.value })}
-          className="w-full p-2 border rounded-md"
-        >
-          {FontNames.map((name) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </select>
+        <Select.Root defaultValue={`${text.font}`} onValueChange={(e) => setText({ ...text, font: e })}>
+          <Select.Trigger />
+          <Select.Content>
+            {FontNames.map((name) => <Select.Item key={name} value={name}>{name}</Select.Item>)}
+          </Select.Content>
+        </Select.Root>
       </div>
       <div className="space-y-2">
         <label className="block text-sm text-muted-foreground">
           {t("fontWeight")}
         </label>
-        <select
-          value={text.weight}
-          onChange={(e) => setText({ ...text, weight: e.target.value })}
-          className="w-full p-2 border rounded-md"
-        >
-          {FontWeights.map((weight) => (
-            <option key={weight} value={weight}>
-              {weight}
-            </option>
-          ))}
-        </select>
+
+        <Select.Root defaultValue={`${text.weight}`} onValueChange={(e) => setText({ ...text, weight: e })}>
+          <Select.Trigger />
+          <Select.Content>
+            {FontWeights.map((name) => <Select.Item key={name} value={name}>{name}</Select.Item>)}
+          </Select.Content>
+        </Select.Root>
+
       </div>
     </Flex>
   );

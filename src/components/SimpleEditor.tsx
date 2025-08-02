@@ -14,39 +14,43 @@ import { useRouter } from "@/i18n/navigation";
  * 简易工具
  * @returns
  */
-export default function Page({ textProp, backgroundProp }: { textProp: TextProp | undefined, backgroundProp: BackgroundProp | undefined }) {
+export default function Page() {
 
   const t = useTranslations("TextEditor");
   const tIndex = useTranslations("HomePage");
 
   const router = useRouter();
 
-  const [background, setBackground] = useState<BackgroundProp>(backgroundProp || {
+  let backgroundProp = {
     type: "color",
     color: "#c4b1b1",
     image: null,
-  });
+  } satisfies BackgroundProp;
 
-  const [text, setText] = useState<TextProp>(textProp || TextProp.default(t("defaultText")));
+  let textProp = TextProp.default(t("defaultText"));
 
-  useEffect(() => {
-    let bg = sessionStorage.getItem("background");
+  const [background, setBackground] = useState<BackgroundProp>(backgroundProp);
 
-    if (bg) {
-      console.log("初始化设置 bg", bg);
+  const [text, setText] = useState<TextProp>(textProp);
 
-      setBackground(JSON.parse(bg));
-    }
+  // useEffect(() => {
+  //   let bg = sessionStorage.getItem("background");
 
-    let txt = sessionStorage.getItem("text");
+  //   if (bg) {
+  //     console.log("初始化设置 bg", bg);
 
-    if (txt) {
-      console.log("初始化设置 txt", txt);
+  //     setBackground(JSON.parse(bg));
+  //   }
 
-      setText(JSON.parse(txt));
-    }
+  //   let txt = sessionStorage.getItem("text");
 
-  }, []);
+  //   if (txt) {
+  //     console.log("初始化设置 txt", txt);
+
+  //     setText(JSON.parse(txt));
+  //   }
+
+  // }, []);
 
   useEffect(() => {
     sessionStorage.setItem("background", JSON.stringify(background));
@@ -65,12 +69,11 @@ export default function Page({ textProp, backgroundProp }: { textProp: TextProp 
           setBackground={setBackground}
         />
         <SimpleTextSetting text={text} setText={setText} />
+        <Box className="text-center"> <Link className="cursor-pointer" underline="always" onClick={() => { router.push("/editor") }}>{tIndex("toolMore")} ?</Link> </Box>
       </Flex>
 
       <Flex className="w-2/3" direction={"column"} justify={"between"}>
         <PreviewToolbar background={background} text={text} />
-
-        <Box className="text-center"> <Link onClick={() => { router.push("/editor") }}>{tIndex("toolMore")}?</Link> </Box>
       </Flex>
     </Flex>
   );

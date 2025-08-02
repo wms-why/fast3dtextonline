@@ -7,6 +7,8 @@ import PreviewToolbar from "./common/PreviewToolbar";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import TextSetting, { TextProp } from "./common/TextSetting";
+import { useSearchParams } from "next/navigation";
+import { decodeText } from "@/lib/utils";
 
 /**
  * 全特性工具栏
@@ -16,12 +18,16 @@ export default function Page({ textProp, backgroundProp }: { textProp: TextProp 
 
   const t = useTranslations("TextEditor");
 
-  const [background, setBackground] = useState<BackgroundProp>({
+  backgroundProp = backgroundProp || {
     type: "color",
     color: "#c4b1b1",
     image: null,
-  });
-  const [text, setText] = useState<TextProp>(TextProp.default(t("defaultText")));
+  } satisfies BackgroundProp;
+
+  textProp = textProp || TextProp.default(t("defaultText"));
+
+  const [background, setBackground] = useState<BackgroundProp>(backgroundProp!);
+  const [text, setText] = useState<TextProp>(textProp!);
 
   return (
     <Flex gap={"2"}>

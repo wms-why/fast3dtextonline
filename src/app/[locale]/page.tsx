@@ -1,5 +1,4 @@
-import { use } from "react";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Editor from "@/components/SimpleEditor";
@@ -42,7 +41,7 @@ export default function HomePage() {
             <Heading as="h2" size={"8"}>
               {t("toolTitle")}
             </Heading>
-            <Editor textProp={undefined} backgroundProp={undefined} ></Editor>
+            <Editor></Editor>
           </Flex>
 
         </Section>

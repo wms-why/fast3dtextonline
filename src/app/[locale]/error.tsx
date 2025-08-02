@@ -1,29 +1,25 @@
 "use client";
 
 import { ServerCrash } from "lucide-react";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
 import { Button } from "@radix-ui/themes";
 
 export default function Error({
-  params,
   error,
   reset,
 }: {
-  params: Promise<{ locale: string }>;
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
   }, [error]);
-  const { locale } = use(params);
-  setRequestLocale(locale);
-  const t = useTranslations("error");
+  const t = useTranslations("ErrorPage");
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center">
@@ -34,12 +30,15 @@ export default function Error({
         {t("title")}
       </h1>
       <p className="mb-8 text-lg text-gray-600">{t("sorry")}</p>
+      {/* <p>
+        {`${error.cause}`}
+      </p> */}
       <div className="flex flex-col gap-4 sm:flex-row">
         <Button onClick={() => reset()} variant="classic">
           {t("tryAgain")}
         </Button>
         <Button variant="outline" asChild>
-          <Link href="/">{t("returnHome")}</Link>
+          <Link href="/">{t("backToHome")}</Link>
         </Button>
       </div>
     </div>

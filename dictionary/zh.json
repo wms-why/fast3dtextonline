@@ -3,6 +3,12 @@
     "appName": "Fast3DText",
     "editorName": "编辑器"
   },
+  "ErrorPage": {
+    "title": " 错误页面",
+    "sorry": "对不起!",
+    "tryAgain": "再试一下",
+    "backToHome": "回到主页"
+  },
   "HomePage": {
     "heroTitle": "创建惊艳的3D文字设计",
     "heroSubtitle": "为您的项目生成并定制精美的3D文字效果",
@@ -46,7 +52,12 @@
     "mouseRight": "鼠标右键拖动移动",
     "previewFullscreen": "全屏预览",
     "downloadSize": "尺寸",
-    "downloadBackground": "下载图片"
+    "downloadBackground": "下载图片",
+    "share": "分享链接",
+    "shareErrorNotSupportDesc": "分享时暂不支持图片背景",
+    "shareSuccessDesc": "链接已生成，永久有效",
+    "shareDialogClose": "关闭",
+    "shareDialogCopyLink": "复制链接"
   },
   "TextEditor": {
     "seoTitle": "3D 文字生成器 - 更多的选项",

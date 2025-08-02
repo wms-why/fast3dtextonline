@@ -1,28 +1,31 @@
 
+import { BackgroundProp } from "@/components/common/BackgroundSelector";
+import { TextProp } from "@/components/common/TextSetting";
 import Footer from "@/components/Footer";
 import FullEditor from "@/components/FullEditor";
 import Header from "@/components/Header";
 import { Locales } from "@/i18n/config";
-import { Flex } from "@radix-ui/themes";
+import { Box, Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { use } from "react";
+import { getTranslations } from "next-intl/server";
 const host = process.env.NEXT_PUBLIC_HOST;
 export default function Page() {
 
-  return (
-    <Flex direction={"column"} gap={"4"}>
-      <Header />
-      <FullEditor
-        textProp={undefined}
-        backgroundProp={undefined}
-      />
-      <Footer />
-    </Flex>
-
-  );
+  return (<OnlyPage textProp={undefined} backgroundProp={undefined}></OnlyPage>)
 }
 
+export function OnlyPage({ textProp, backgroundProp }: { textProp: TextProp | undefined, backgroundProp: BackgroundProp | undefined }) {
+  return <Flex direction={"column"} gap={"4"}>
+    <Header />
+    <Box p="4">
+      <FullEditor
+        textProp={textProp}
+        backgroundProp={backgroundProp}
+      />
+    </Box>
+    <Footer />
+  </Flex>;
+}
 const locales = Locales;
 
 export function generateStaticParams() {
