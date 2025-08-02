@@ -1,9 +1,9 @@
 import { decodeText } from "@/lib/utils";
 import { OnlyPage } from "../page";
 
-export default function Page({ params }: { params: { data: string } }) {
+export default async function Page({ params }: { params: Promise<{ data: string }> }) {
 
-  const data = params['data']
+  const { data } = await params
 
   let backgroundProp, textProp
 
