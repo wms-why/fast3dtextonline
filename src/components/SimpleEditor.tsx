@@ -14,20 +14,20 @@ import { useRouter } from "@/i18n/navigation";
  * 简易工具
  * @returns
  */
-export default function Page() {
+export default function SimpleEditor({ textProp, backgroundProp }: { textProp: TextProp | undefined, backgroundProp: BackgroundProp | undefined }) {
 
   const t = useTranslations("TextEditor");
   const tIndex = useTranslations("HomePage");
 
   const router = useRouter();
 
-  let backgroundProp = {
+  backgroundProp = {
     type: "color",
     color: "#c4b1b1",
     image: null,
   } satisfies BackgroundProp;
 
-  let textProp = TextProp.default(t("defaultText"));
+  textProp = textProp || TextProp.default(t("defaultText"));
 
   const [background, setBackground] = useState<BackgroundProp>(backgroundProp);
 

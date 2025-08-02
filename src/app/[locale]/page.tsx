@@ -41,7 +41,7 @@ export default function HomePage() {
             <Heading as="h2" size={"8"}>
               {t("toolTitle")}
             </Heading>
-            <Editor></Editor>
+            <Editor textProp={undefined} backgroundProp={undefined}></Editor>
           </Flex>
 
         </Section>
