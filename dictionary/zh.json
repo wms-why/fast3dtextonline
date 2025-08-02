@@ -1,6 +1,9 @@
 {
-  "Index": {
+  "Header": {
     "appName": "Fast3DText",
+    "editorName": "编辑器"
+  },
+  "HomePage": {
     "heroTitle": "创建惊艳的3D文字设计",
     "heroSubtitle": "为您的项目生成并定制精美的3D文字效果",
     "toolTitle": "3D文字生成工具",

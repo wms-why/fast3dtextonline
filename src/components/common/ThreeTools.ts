@@ -13,11 +13,20 @@ let camera: THREE.PerspectiveCamera,
   controls: OrbitControls,
   container: HTMLCanvasElement;
 
+console.log("three tool loaded");
+
+let inited = false;
+
 export function init(
   _container: HTMLCanvasElement,
   width: number,
   height: number
 ) {
+  // if (inited) {
+  //   renderer.dispose();
+  // }
+
+  inited = true;
   container = _container;
   scene = new THREE.Scene();
 
@@ -156,6 +165,7 @@ export async function updateTextProps(textProps: TextProp) {
     (textMesh.material as THREE.MeshLambertMaterial).color.set(textProps.color);
   }
 
+  scene.add(textMesh);
   lastTextProps = textProps;
 }
 

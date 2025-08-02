@@ -47,8 +47,8 @@ export default function PreviewToolbar({
       } else {
         const box = container.current;
         const split = Sizes[aspectRadio].split("x").map(Number);
-        threeInit(box, split[0], split[1]);
-        console.log("three init");
+        const initSuccess = threeInit(box, split[0], split[1]);
+        console.log("three init ", initSuccess);
       }
     }
 
@@ -59,13 +59,26 @@ export default function PreviewToolbar({
   useEffect(updateSize, [aspectRadio]);
 
   useEffect(() => {
-    updateBackground(background);
-    console.log("background init");
+
+    const timeoutId = setTimeout(() => {
+      updateBackground(background);
+
+      console.log("background change", background);
+    }, 200);
+
+    return () => clearTimeout(timeoutId);
+
   }, [background]);
 
   useEffect(() => {
-    updateTextProps(text);
-    console.log("text init");
+
+    const timeoutId = setTimeout(() => {
+      updateTextProps(text);
+
+      console.log("text change", text);
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
   }, [text]);
 
   const handleDownload = () => {

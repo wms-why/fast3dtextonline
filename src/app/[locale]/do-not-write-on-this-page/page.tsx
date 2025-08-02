@@ -7,17 +7,10 @@ import { Metadata } from "next";
 import Editor from "@/components/SimpleEditor";
 import { FontNames, FontWeights, TextProp } from "@/components/common/TextSetting";
 
-export default function Page({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = use(params);
-  // Enable static rendering
-  setRequestLocale(locale);
+export default function Page() {
 
   const t = useTranslations("DoNotWriteOnThisPage");
-  const indexT = useTranslations("Index");
+  const indexT = useTranslations("HomePage");
 
   const text = TextProp.default("Do Not Write On This Page");
 

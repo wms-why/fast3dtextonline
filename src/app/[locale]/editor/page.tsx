@@ -3,9 +3,10 @@ import Footer from "@/components/Footer";
 import FullEditor from "@/components/FullEditor";
 import Header from "@/components/Header";
 import { Locales } from "@/i18n/config";
-import { Box, Flex } from "@radix-ui/themes";
+import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { use } from "react";
 const host = process.env.NEXT_PUBLIC_HOST;
 export default function Page() {
 

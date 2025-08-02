@@ -7,7 +7,7 @@ export const routing = defineRouting({
 
   // Used when no locale matches
   defaultLocale: "en",
-  localeDetection: true,
+  localeDetection: false,
   //to remove the locale prefix from the url
-  localePrefix: "never",
+  localePrefix: "as-needed",
 });

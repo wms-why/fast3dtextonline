@@ -1,6 +1,9 @@
 {
-  "Index": {
+  "Header": {
     "appName": "Fast3DText",
+    "editorName": "Editor"
+  },
+  "HomePage": {
     "heroTitle": "Create Stunning 3D Text Designs",
     "heroSubtitle": "Generate and customize beautiful 3D text effects for your projects",
     "toolTitle": "3D Text Generator Tool",

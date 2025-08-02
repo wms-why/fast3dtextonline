@@ -8,16 +8,9 @@ import { Locales } from "@/i18n/config";
 import { Metadata } from "next";
 import { Box, Flex, Heading, Section, Text } from "@radix-ui/themes";
 const host = process.env.NEXT_PUBLIC_HOST;
-export default function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = use(params);
-  // Enable static rendering
-  setRequestLocale(locale);
+export default function HomePage() {
 
-  const t = useTranslations("Index");
+  const t = useTranslations("HomePage");
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">

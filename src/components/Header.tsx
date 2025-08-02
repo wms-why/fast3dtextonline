@@ -1,10 +1,16 @@
+'use client'
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { ModeToggle } from "./ModeToggle";
 import { Box, Flex, Link, Strong, Text } from "@radix-ui/themes";
+import { useRouter } from "@/i18n/navigation";
 
 export default function Header() {
-  const t = useTranslations("Index");
+
+  const t = useTranslations("Header");
+
+  const router = useRouter();
+
   return (
     <header className="w-full py-2 border-b-1 ">
       <Flex justify="center" gap="9" align="center">
@@ -16,9 +22,9 @@ export default function Header() {
 
         <Flex gap={"4"} justify={"center"} align={"center"} className="w-1/2">
           <Link
-            href="/editor"
+            onClick={() => { router.push("/editor") }}
           >
-            Editor
+            {t("editorName")}
           </Link>
         </Flex>
 
