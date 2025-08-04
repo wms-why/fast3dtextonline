@@ -1,15 +1,12 @@
-'use client'
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { ModeToggle } from "./ModeToggle";
 import { Box, Flex, Link, Strong, Text } from "@radix-ui/themes";
-import { useRouter } from "@/i18n/navigation";
 
 export default function Header() {
 
   const t = useTranslations("Header");
-
-  const router = useRouter();
+  const locale = useLocale();
 
   return (
     <header className="w-full py-2 border-b-1 ">
@@ -22,9 +19,18 @@ export default function Header() {
 
         <Flex gap={"4"} justify={"center"} align={"center"} className="w-1/2">
           <Link
-            onClick={() => { router.push("/editor") }}
+            href={`/${locale}/editor`}
+            className="text-sm text-muted-foreground hover:text-primary"
           >
             {t("editorName")}
+          </Link>
+
+          <Link
+            href="https://forms.gle/MHCFY5DxND7VEjQ87"
+            className="text-sm text-muted-foreground hover:text-primary"
+            target="_blank"
+          >
+            Features Wanted
           </Link>
         </Flex>
 

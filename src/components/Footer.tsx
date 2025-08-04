@@ -1,8 +1,11 @@
-import { Box, Container, Flex, Heading, Link, Section } from "@radix-ui/themes";
-import { useTranslations } from "next-intl";
+import { Box, Flex, Heading, Link } from "@radix-ui/themes";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function Footer() {
   const f = useTranslations("Footer");
+  const t = useTranslations("Header");
+
+  const locale = useLocale();
 
   return (
     <footer className="w-full border-t backdrop-blur-sm bg-background/95 ">
@@ -12,11 +15,20 @@ export default function Footer() {
           <Flex gap={"2"} direction={"column"}>
             <Heading as="h2" size="4">Tools</Heading>
             <Link
-              href="/editor"
+              href={`/${locale}/editor`}
               className="text-sm text-muted-foreground hover:text-primary"
             >
-              Editor
+              {t("editorName")}
             </Link>
+
+            <Link
+              href="https://forms.gle/MHCFY5DxND7VEjQ87"
+              className="text-sm text-muted-foreground hover:text-primary"
+              target="_blank"
+            >
+              Features Wanted
+            </Link>
+
           </Flex>
 
           <Flex gap={"2"} direction={"column"}>
