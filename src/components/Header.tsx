@@ -16,7 +16,6 @@ export default function Header() {
             <Text size="6" color="iris"><Strong>{t("appName")}</Strong></Text>
           </a>
         </Box >
-
         <Flex gap={"4"} justify={"center"} align={"center"} className="w-1/2">
           <Link
             href={`/${locale}/editor`}
@@ -26,9 +25,14 @@ export default function Header() {
           </Link>
 
           <Link
-            href="https://forms.gle/MHCFY5DxND7VEjQ87"
+            href={`/${locale}/blogs`}
             className="text-sm text-muted-foreground hover:text-primary"
-            target="_blank"
+          >
+            {t("blogName")}
+          </Link>
+          <Link
+            href="/features-form"
+            className="text-sm text-muted-foreground hover:text-primary"
           >
             Features Wanted
           </Link>

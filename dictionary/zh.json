@@ -1,7 +1,8 @@
 {
   "Header": {
     "appName": "Fast3DText",
-    "editorName": "编辑器"
+    "editorName": "编辑器",
+    "blogName": "博文记录"
   },
   "ErrorPage": {
     "title": " 错误页面",
@@ -37,6 +38,11 @@
     "faqAnswer2": "可以调整深度、光照和透视效果，打造完美的3D文字",
     "faqQuestion3": "这个3D文字生成器是免费的吗？",
     "faqAnswer3": "是的，可以免费创建无限量的3D文字设计"
+  },
+  "BlogPage": {
+    "title": "博客列表",
+    "seoTitle": "3D文字设计博客 - 教程与技巧",
+    "seoDescription": "探索我们的3D文字设计教程、技巧和灵感集合。学习如何为您的项目创建惊艳的3D文字效果。"
   },
   "BackgoundSetting": {
     "title": "背景设置",

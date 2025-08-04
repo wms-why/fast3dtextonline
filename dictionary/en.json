@@ -1,7 +1,8 @@
 {
   "Header": {
     "appName": "Fast3DText",
-    "editorName": "Editor"
+    "editorName": "Editor",
+    "blogName": "Blog"
   },
   "ErrorPage": {
     "title": "Some thing went wrong",
@@ -37,6 +38,11 @@
     "faqAnswer2": "Yes, adjust depth, lighting and perspective for perfect 3D text",
     "faqQuestion3": "Is this 3D text generator free?",
     "faqAnswer3": "Yes, create unlimited 3D text designs with no cost"
+  },
+  "BlogPage": {
+    "title": "Blog List",
+    "seoTitle": "3D Text Design Blog - Tips & Tutorials",
+    "seoDescription": "Explore our collection of 3D text design tutorials, tips and inspiration. Learn how to create stunning 3D text effects for your projects."
   },
   "BackgoundSetting": {
     "title": "Background Setting",

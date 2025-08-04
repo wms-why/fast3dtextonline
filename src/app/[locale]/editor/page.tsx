@@ -26,6 +26,7 @@ export function OnlyPage({ textProp, backgroundProp }: { textProp: TextProp | un
     <Footer />
   </Flex>;
 }
+
 const locales = Locales;
 
 export function generateStaticParams() {
@@ -43,7 +44,7 @@ export async function generateMetadata({
   const name = "editor";
 
   return {
-    title: t("seoTitle"),
+    title: t("How to Create 3D Text with the Barbie Font (Free & Online Method)"),
     description: t("seoDescription"),
     openGraph: {
       title: t("seoTitle"),

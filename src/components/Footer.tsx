@@ -20,11 +20,15 @@ export default function Footer() {
             >
               {t("editorName")}
             </Link>
-
             <Link
-              href="https://forms.gle/MHCFY5DxND7VEjQ87"
+              href={`/${locale}/blogs`}
               className="text-sm text-muted-foreground hover:text-primary"
-              target="_blank"
+            >
+              {t("blogName")}
+            </Link>
+            <Link
+              href="/features-form"
+              className="text-sm text-muted-foreground hover:text-primary"
             >
               Features Wanted
             </Link>
@@ -33,6 +37,12 @@ export default function Footer() {
 
           <Flex gap={"2"} direction={"column"}>
             <Heading as="h2" size="4">Resources</Heading>
+            <Link
+              href="https://gero3.github.io/facetype.js/"
+              className="text-sm text-muted-foreground hover:text-primary"
+            >
+              Converter From .ttf to .json
+            </Link>
             <Link
               href="/do-not-write-on-this-page"
               className="text-sm text-muted-foreground hover:text-primary"
