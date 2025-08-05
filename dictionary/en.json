@@ -72,7 +72,10 @@
     "defaultText": "please input your text",
     "textColor": "Text Color",
     "fontFamily": "Font Family",
-    "fontWeight": "Font Weight"
+    "how2UploadFont": "How to Upload Font?",
+    "fontWeight": "Font Weight",
+    "uploadFontButton": "Upload Font | Files with the same name will replace the fonts uploaded previously",
+    "uploadedFonts": "Uploaded Fonts"
   },
   "Metadata": {
     "title": "Screen Designer",

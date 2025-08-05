@@ -1,11 +1,11 @@
 import * as THREE from "three";
 import { BackgroundProp } from "./BackgroundSelector";
-import { Font, FontLoader } from "three/addons/loaders/FontLoader.js";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 
 THREE.Cache.enabled = true;
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { TextProp, getFontPath } from "./TextSetting";
+import { TextProp } from "./TextSetting";
 
 let camera: THREE.PerspectiveCamera,
   scene: THREE.Scene,
@@ -212,9 +212,7 @@ async function getTextGeometry(textProps: TextProp) {
 
 async function loadFont(textProps: TextProp) {
   const loader = new FontLoader();
-  let font = await loader.loadAsync(
-    getFontPath(textProps.font, textProps.weight)
-  );
+  let font = await loader.loadAsync(textProps.fontUrl);
   return font;
 }
 

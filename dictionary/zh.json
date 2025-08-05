@@ -72,7 +72,10 @@
     "defaultText": "输入您的文字",
     "textColor": "文字颜色",
     "fontFamily": "选择字体",
-    "fontWeight": "字体粗细"
+    "how2UploadFont": "如何上传字体？",
+    "fontWeight": "字体粗细",
+    "uploadFontButton": "上传字体 | 相同名字的文件会替换前面上传的字体",
+    "uploadedFonts": "已上传字体"
   },
   "Metadata": {
     "title": "屏幕背景设计工具",

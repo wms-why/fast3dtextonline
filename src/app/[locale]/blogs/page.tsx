@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Locales } from '@/i18n/config';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import Image from 'next/image';
 
 export default function BlogListPage() {
   const locale = useLocale() as "zh" | "en";
@@ -22,13 +23,13 @@ export default function BlogListPage() {
             <Card key={blog.id} size="2" style={{ maxWidth: 300, boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }} mx="4" my="4">
               <Link href={`/${locale}/blogs/${blog.id}`} color='iris'>
                 <Flex direction="column" gap="4">
-                  <Box style={{ width: '100%', height: 200, overflow: 'hidden' }}>
-                    <img src={blog.cover} alt={blog[locale].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <Box style={{ overflow: 'hidden' }}>
+                    <Image src={blog.cover} alt={blog[locale].title} width={512} height={288} />
                   </Box>
                   <Flex direction={"column"} gap={"1"}>
                     <Heading as='h2' size="5" weight="bold" className='text-black dark:text-white'>{blog[locale].title}</Heading>
                     <Text color="gray" >{blog.date}</Text>
-                    <Text >{blog[locale].summary}</Text>
+                    <Text truncate={true} >{blog[locale].summary}</Text>
                   </Flex>
                 </Flex>
               </Link>

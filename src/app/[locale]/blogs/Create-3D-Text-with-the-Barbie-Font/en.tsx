@@ -1,9 +1,15 @@
 import { Box, Heading, Text, Link, Flex } from '@radix-ui/themes';
+import Image from 'next/image';
 
+import img from "./1024_576.png";
 export default function Page() {
   return (
-    <Flex p="4" direction={"column"} justify={"start"} className='text-left'>
-      <Heading as="h1" size="7" mb="4">How to Create 3D Text with the Barbie Font (Free & Online Method)</Heading>
+    <Flex gap={"4"} direction={"column"} justify={"start"} className='text-left'>
+      <Heading as="h1" size="7" mb="4" className='text-center'>How to Create 3D Text with the Barbie Font (Free & Online Method)</Heading>
+
+      <Flex justify={"center"}>
+        <Image src={img} alt="Barbie Font Sample" width={1024} height={576} />
+      </Flex>
 
       <Text as="p" mb="4">
         Want to create stylish 3D text using the iconic Barbie font? In this tutorial, you'll learn how to generate 3D Barbie-style text using free online tools — no design experience needed.

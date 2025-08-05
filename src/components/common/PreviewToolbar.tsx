@@ -3,7 +3,7 @@ import { useState, useRef, useEffect, } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Eye, Download, Share } from "lucide-react";
 import { BackgroundProp } from "./BackgroundSelector";
-import { Text, Flex, Button, Select, AlertDialog, Code, Blockquote, Box } from "@radix-ui/themes";
+import { Text, Flex, Button, Select, AlertDialog, Code, AspectRatio } from "@radix-ui/themes";
 import { getPicture, resize, init as threeInit, updateBackground, updateTextProps } from "./ThreeTools";
 import { TextProp } from "./TextSetting";
 import { encodeText, getShareLink } from "@/lib/utils";
@@ -13,15 +13,15 @@ const Sizes = [
   "1024x768",
   "800x600",
 ]
-
-function gcd(a: number, b: number): number {
-  return b === 0 ? a : gcd(b, a % b);
+interface Size {
+  width: number;
+  height: number;
 }
 
-const AspectRatio = Sizes.map(o => {
+const AspectRatios = Sizes.map(o => {
   const [w, h] = o.split("x").map(Number);
-  const a = gcd(w, h);
-  return `${w / a}/${h / a}`;
+  // const a = gcd(w, h);
+  return w / h;
 })
 export default function PreviewToolbar({
   background,
@@ -33,6 +33,8 @@ export default function PreviewToolbar({
   let host = process.env.NEXT_PUBLIC_HOST?.substring("https://".length);
   const t = useTranslations("PreviewBar");
   const [aspectRadio, setAspectRadio] = useState<number>(0);
+  const split = Sizes[0].split("x").map(Number);
+  const [size, setSize] = useState<Size>({ width: split[0], height: split[1] });
   const container = useRef<HTMLCanvasElement>(null);
   const fullscreenElement = useRef<HTMLImageElement>(null);
   const [picture, setPicture] = useState<string | null>(null);
@@ -42,6 +44,8 @@ export default function PreviewToolbar({
 
   const updateSize = () => {
     const split = Sizes[aspectRadio].split("x").map(Number);
+
+    setSize({ width: split[0], height: split[1] });
     resize(split[0], split[1], container.current!.clientWidth, container.current!.clientHeight);
   }
   useEffect(() => {
@@ -51,8 +55,7 @@ export default function PreviewToolbar({
       } else {
         const box = container.current;
         const split = Sizes[aspectRadio].split("x").map(Number);
-        const initSuccess = threeInit(box, split[0], split[1]);
-        console.log("three init ", initSuccess);
+        threeInit(box, split[0], split[1]);
       }
     }
 
@@ -64,25 +67,17 @@ export default function PreviewToolbar({
 
   useEffect(() => {
 
-    const timeoutId = setTimeout(() => {
-      updateBackground(background);
-
-      console.log("background change", background);
-    }, 200);
-
-    return () => clearTimeout(timeoutId);
+    updateBackground(background);
 
   }, [background]);
 
   useEffect(() => {
 
-    const timeoutId = setTimeout(() => {
-      updateTextProps(text);
+    updateTextProps(text);
 
-      console.log("text change", text);
-    }, 200);
+    console.log("text change", text);
 
-    return () => clearTimeout(timeoutId);
+
   }, [text]);
 
   const handleDownload = () => {
@@ -179,14 +174,17 @@ export default function PreviewToolbar({
         <Text>{t("mouseMiddle")}</Text>
         <Text>{t("mouseRight")}</Text>
       </Flex>
-      <canvas ref={container} className="w-full border border-gray-300" style={{
-        aspectRatio: AspectRatio[aspectRadio],
-        // backgroundColor: background.type === "color" ? background.color : "none",
-        backgroundImage: (background.type === "image" && background.image) ? `url(${background.image})` : "none",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "contain",
-        backgroundPosition: "center",
-      }} />
+
+      <AspectRatio ratio={AspectRatios[aspectRadio]}>
+        <canvas ref={container} className="w-full border border-gray-300" style={{
+          // backgroundColor: background.type === "color" ? background.color : "none",
+          backgroundImage: (background.type === "image" && background.image) ? `url(${background.image})` : "none",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "contain",
+          backgroundPosition: "center",
+          maxWidth: size.width, maxHeight: size.height
+        }} />
+      </AspectRatio>
 
       {picture && (
         <img ref={fullscreenElement} src={picture} className="w-screen h-screen" />
@@ -253,7 +251,7 @@ export default function PreviewToolbar({
             <Select.Root defaultValue={`${aspectRadio}`} onValueChange={(e) => setAspectRadio(parseInt(e))}>
               <Select.Trigger />
               <Select.Content>
-                {AspectRatio.map((_, i) => <Select.Item key={i} value={i + ""}>{Sizes[i]}</Select.Item>)}
+                {AspectRatios.map((_, i) => <Select.Item key={i} value={i + ""}>{Sizes[i]}</Select.Item>)}
               </Select.Content>
             </Select.Root>
           </div>

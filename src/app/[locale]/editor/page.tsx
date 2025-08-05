@@ -44,7 +44,7 @@ export async function generateMetadata({
   const name = "editor";
 
   return {
-    title: t("How to Create 3D Text with the Barbie Font (Free & Online Method)"),
+    title: t("seoTitle"),
     description: t("seoDescription"),
     openGraph: {
       title: t("seoTitle"),

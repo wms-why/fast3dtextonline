@@ -1,7 +1,7 @@
 export interface BlogItem {
   id: string;
   date: string;
-  cover: string;
+  cover: StaticImageData;
   en: {
     title: string;
     summary: string;
@@ -11,11 +11,14 @@ export interface BlogItem {
     summary: string;
   };
 }
+
+import { StaticImageData } from "next/image";
+import Cover1 from "./Create-3D-Text-with-the-Barbie-Font/512_288.png";
 export const blogs = [
   {
     id: "Create-3D-Text-with-the-Barbie-Font",
     date: "2024-01-01",
-    cover: "/next.svg",
+    cover: Cover1,
     en: {
       title: "How to Create 3D Text with the Barbie Font",
       summary:

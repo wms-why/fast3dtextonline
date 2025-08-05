@@ -1,9 +1,15 @@
 import { Box, Heading, Text, Link, Flex } from '@radix-ui/themes';
+import Image from 'next/image';
 
+import img from "./1024_576.png";
 export default function Page() {
   return (
-    <Flex p="4" direction={"column"} justify={"start"} className='text-left'>
-      <Heading as="h1" size="7" mb="4">如何使用芭比字体创建3D文字(免费在线方法)</Heading>
+    <Flex gap={"4"} direction={"column"} justify={"start"} className='text-left'>
+      <Heading as="h1" size="7" mb="4" className='text-center'>如何使用芭比字体创建3D文字(免费在线方法)</Heading>
+
+      <Flex justify={"center"}>
+        <Image src={img} alt="Barbie Font Sample" width={1024} height={576} />
+      </Flex>
 
       <Text as="p" mb="4">
         想要使用标志性的芭比字体创建时尚的3D文字吗？本教程将教你如何使用免费在线工具生成3D芭比风格文字——无需设计经验。
