@@ -2,7 +2,6 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Box, Flex, } from "@radix-ui/themes";
 import { useLocale } from "next-intl";
-import { blogs } from "../list";
 import En from "./en";
 import Zh from "./zh";
 import { Locales } from "@/i18n/config";
@@ -11,9 +10,6 @@ import { Metadata } from "next";
 export default function Page() {
 
   const locale = useLocale() as "en" | "zh";
-
-  const blog = blogs.find(e => e.id == "Create-3D-Text-with-the-Barbie-Font")!;
-
 
   return (
     <Flex direction={"column"} gap={"4"}>

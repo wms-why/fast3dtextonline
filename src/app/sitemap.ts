@@ -43,5 +43,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
+
+    {
+      url: baseUrl + "/blogs",
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 1,
+    },
+    ...locales.map((locale) => ({
+      url: `${baseUrl}/${locale}/blogs`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+
+    {
+      url: baseUrl + "/blogs/Create-3D-Text-with-the-Barbie-Font",
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 1,
+    },
+    ...locales.map((locale) => ({
+      url: `${baseUrl}/${locale}/blogs/Create-3D-Text-with-the-Barbie-Font`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
   ];
 }

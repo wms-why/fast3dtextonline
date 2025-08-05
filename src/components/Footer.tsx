@@ -10,9 +10,9 @@ export default function Footer() {
   return (
     <footer className="w-full border-t backdrop-blur-sm bg-background/95 ">
       <Flex justify={"between"} align={"center"} direction={"column"} gap={"2"} p="2">
-        <Flex justify={"center"} gap={"8"} className="w-full">
+        <Flex justify={"center"} gap={"8"} className="w-full align-top" >
 
-          <Flex gap={"2"} direction={"column"}>
+          <Flex gap={"2"} direction={"column"} >
             <Heading as="h2" size="4">Tools</Heading>
             <Link
               href={`/${locale}/editor`}
@@ -35,13 +35,13 @@ export default function Footer() {
 
           </Flex>
 
-          <Flex gap={"2"} direction={"column"}>
+          <Flex gap={"2"} direction={"column"} >
             <Heading as="h2" size="4">Resources</Heading>
             <Link
               href="https://gero3.github.io/facetype.js/"
               className="text-sm text-muted-foreground hover:text-primary"
             >
-              Converter From .ttf to .json
+              Converter: From .ttf To .json
             </Link>
             <Link
               href="/do-not-write-on-this-page"
