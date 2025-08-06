@@ -1,21 +1,22 @@
 'use client'
-import { Flex, Heading, Select, Tooltip, IconButton, Link } from "@radix-ui/themes";
-import { PlusIcon, MessageCircleQuestionIcon, CircleQuestionMark, CircleQuestionMarkIcon } from "lucide-react";
+import { Flex, Heading, Select, Tooltip, IconButton, Link, Box, Tabs, RadioGroup } from "@radix-ui/themes";
+import { PlusIcon, CircleQuestionMarkIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const FontWeights = ["Regular", "Bold"];
 export const FontNames = ["Gentilis", "Helvetiker", "Optimer", "Noto_Sans_SC_zh", "Alibaba_PuHuiTi_3.0_zh"];
 
-type FontFrom = "online" | "upload";
+export type ColorGradientDir = "l2r" | "t2b";
+export type FontFrom = "online" | "upload";
 export class TextProp {
   text: string
-  color: string
+  color: string | string[]
+  colorGradientDir: ColorGradientDir
   fontFrom: FontFrom
   font: string
   fontUrl: string
   weight: string
-
   constructor(
     text: string,
     color: string,
@@ -25,6 +26,7 @@ export class TextProp {
 
     this.text = text;
     this.color = color;
+    this.colorGradientDir = "l2r";
     this.fontFrom = fontFrom;
     this.font = font;
     this.fontUrl = getOnlineFontPath(font, weight);
@@ -41,6 +43,7 @@ export class TextProp {
     return {
       text,
       color: "#8e86fe",
+      colorGradientDir: "l2r",
       font,
       fontUrl: getOnlineFontPath(font, FontWeights[0]),
       weight: FontWeights[0],
@@ -67,6 +70,7 @@ export interface UploadFont {
   url: string;
 }
 
+type TextMode = "color" | "gradient";
 
 export default function TextSetting({
   text,
@@ -77,23 +81,73 @@ export default function TextSetting({
 }) {
   const locale = useLocale();
 
-  let inited = false;
   const t = useTranslations("TextEditor");
 
   const [uploadFonts, setUploadFonts] = useState<UploadFont[]>([]);
+  const isPureColor = !Array.isArray(text.color);
+  const [textColorMode, setTextColorMode] = useState<TextMode>(isPureColor ? "color" : "gradient");
+  const [textColor, setTextColor] = useState<string>(isPureColor ? text.color as string : "#000000");
+  const [textGradientColor, setTextGradientColor] = useState<string[]>(!isPureColor ? text.color as string[] : ["#ce6464", "#63635a"]);
+  const [colorGradientDir, setColorGradientDir] = useState<ColorGradientDir>(text.colorGradientDir as ColorGradientDir);
 
+
+  let inited = useRef(false);
   useEffect(() => {
+
+    if (!inited.current) {
+      inited.current = true;
+      return;
+    }
+
     if (uploadFonts.length > 0) {
       handleSelectFont(uploadFonts[uploadFonts.length - 1].name)
     } else {
+      handleSelectFont(FontNames[0])
+    }
+  }, [uploadFonts]);
 
-      if (inited) {
-        handleSelectFont(FontNames[0])
-      }
+  let initTextColorMode = useRef(false);
+  useEffect(() => {
+
+    if (!initTextColorMode.current) {
+      initTextColorMode.current = true;
+      return;
     }
 
-    inited = true;
-  }, [uploadFonts]);
+    if (textColorMode === "gradient") {
+      setText({ ...text, color: textGradientColor })
+    } else {
+      setText({ ...text, color: textColor })
+    }
+  }, [textColorMode]);
+
+  let initTextColor = useRef(false);
+  useEffect(() => {
+    if (!initTextColor.current) {
+      initTextColor.current = true;
+      return;
+    }
+
+    setText({ ...text, color: textColor })
+  }, [textColor]);
+
+  let initTextGradientColor = useRef(false);
+  useEffect(() => {
+    if (!initTextGradientColor.current) {
+      initTextGradientColor.current = true;
+      return;
+    }
+    setText({ ...text, color: textGradientColor })
+  }, [textGradientColor]);
+
+  let initTextGradientColorDir = useRef(false);
+  useEffect(() => {
+    if (!initTextGradientColorDir.current) {
+      initTextGradientColorDir.current = true;
+      return;
+    }
+    setText({ ...text, colorGradientDir: colorGradientDir })
+  }, [colorGradientDir]);
 
   const handleSelectFont = (font: string) => {
     if (FontNames.indexOf(font) !== -1) {
@@ -106,7 +160,7 @@ export default function TextSetting({
 
   return (
     <Flex className="p-4 border rounded-lg " gap={"3"} direction={"column"}>
-      <Heading size={"3"} className="font-medium text-lg" >{t("title")}</Heading>
+      <Heading as="h2" size="4" className="font-medium text-lg" >{t("title")}</Heading>
       <textarea
         value={text.text}
         onChange={e => setText({ ...text, text: e.target.value })}
@@ -114,22 +168,85 @@ export default function TextSetting({
         rows={4}
       />
       <div className="space-y-1">
-        <label className="block text-sm text-muted-foreground">
-          {t("textColor")}
-        </label>
-        <input
-          type="color"
-          value={text.color}
-          onChange={e => setText({ ...text, color: e.target.value })}
-          className="w-full h-10 rounded-md cursor-pointer"
-        />
+        <Heading as="h3" size={"3"} >{t("textColor")}</Heading>
+        <Tabs.Root value={textColorMode} onValueChange={(e) => setTextColorMode(e as "color" | "gradient")}>
+          <Tabs.List>
+            <Tabs.Trigger value="color">{t("color")}</Tabs.Trigger>
+            <Tabs.Trigger value="gradient">{t("textGradientColor")}</Tabs.Trigger>
+          </Tabs.List>
+          <Box >
+            <Tabs.Content value="color">
+              <Flex gap={"6"} p="2">
+                <input
+                  type="color"
+                  value={textColor}
+                  onChange={e => setTextColor(e.target.value)}
+                  className="w-1/3 h-10 rounded-md cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={textColor}
+                  onChange={e => setTextColor(e.target.value)}
+                  className="w-1/3 h-10 rounded-md cursor-pointer pl-4"
+                />
+              </Flex>
+
+            </Tabs.Content>
+
+            <Tabs.Content value="gradient">
+              <Flex gap={"2"} p="2" direction="column">
+                <Box>
+                  <RadioGroup.Root value={text.colorGradientDir} orientation={"vertical"} name="colorGradientDir" onValueChange={(value) =>
+                    setColorGradientDir(value as ColorGradientDir)
+                  }>
+                    <RadioGroup.Item value="l2r">{t("l2r")}</RadioGroup.Item>
+                    <RadioGroup.Item value="t2b">{t("t2b")}</RadioGroup.Item>
+                  </RadioGroup.Root>
+                </Box>
+                <Box>
+                  <Flex gap={"4"}>
+                    <input
+                      type="color"
+                      value={textGradientColor[0]}
+                      onChange={e => setTextGradientColor([e.target.value, text.color[1]])}
+                      className="w-1/2 h-10 rounded-md cursor-pointer"
+                    />
+                    <input
+                      type="text"
+                      value={textGradientColor[0]}
+                      onChange={e => setTextGradientColor([e.target.value, text.color[1]])}
+                      className="w-1/2 h-10 rounded-md cursor-pointer pl-4"
+                    />
+                  </Flex>
+                  <Flex gap={"4"}>
+                    <input
+                      type="color"
+                      value={textGradientColor[1]}
+                      onChange={e => setTextGradientColor([text.color[0], e.target.value])}
+
+                      className="w-1/2 h-10 rounded-md cursor-pointer"
+                    />
+                    <input
+                      type="text"
+                      value={textGradientColor[1]}
+                      onChange={e => setTextGradientColor([text.color[0], e.target.value])}
+                      className="w-1/2 h-10 rounded-md cursor-pointer pl-4"
+                    />
+                  </Flex>
+                </Box>
+
+              </Flex>
+            </Tabs.Content>
+
+          </Box>
+        </Tabs.Root>
+
       </div>
       <div className="space-y-1">
-
         <Flex gap={"2"}>
-          <label className="block text-sm text-muted-foreground">
+          <Heading as="h3" size={"3"} >
             {t("fontFamily")}
-          </label>
+          </Heading>
           <Tooltip content={t("how2UploadFont")} >
             <Link href={`/${locale}/blogs/Create-3D-Text-with-the-Barbie-Font`}>
               <IconButton radius="full" variant="ghost" >
@@ -190,9 +307,9 @@ export default function TextSetting({
         </Tooltip>
       </div>
       <div className="space-y-2">
-        <label className="block text-sm text-muted-foreground">
+        <Heading as="h3" size={"3"} >
           {t("fontWeight")}
-        </label>
+        </Heading>
 
         <Select.Root defaultValue={`${text.weight}`} onValueChange={(e) => setText({ ...text, weight: e })}>
           <Select.Trigger />

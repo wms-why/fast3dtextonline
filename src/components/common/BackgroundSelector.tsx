@@ -41,7 +41,7 @@ export default function BackgroundSelector({
 
   return (
     <Box className="space-y-4 p-4 border rounded-lg min-w-64">
-      <Heading size={"3"} className="font-medium text-lg">{t("title")}</Heading>
+      <Heading as="h2" size="4" className="font-medium text-lg">{t("title")}</Heading>
       <Flex gap={"2"} p="2">
         <Flex gap={"1"} align={"center"}>
           <Radio name="background-type" value="1" checked={background.type === "color"} onChange={() =>
@@ -68,55 +68,28 @@ export default function BackgroundSelector({
 
       <Box className="w-full">
         {background.type === "color" && (
-          <Text as="label" size="2">
-            <input
-              type="color"
-              id="color-picker"
-              value={background.color}
-              onChange={handleColorChange}
-              className="w-full h-10 rounded-md cursor-pointer"
-            />
-            {t("selectColor")}
-          </Text>
-
-          // <div className="flex flex-col gap-2">
-          //   <label
-          //     htmlFor="color-picker"
-          //     className="text-sm text-muted-foreground"
-          //   >
-          //     {t("selectColor")}
-          //   </label>
-          //   <input
-          //     type="color"
-          //     id="color-picker"
-          //     value={background.color}
-          //     onChange={handleColorChange}
-          //     className="w-full h-10 rounded-md cursor-pointer"
-          //   />
-          // </div>
+          <input
+            type="color"
+            id="color-picker"
+            value={background.color}
+            onChange={handleColorChange}
+            className="w-full h-10 rounded-md cursor-pointer"
+          />
         )}
 
         {background.type === "image" && (
-          <div className="flex flex-col gap-2">
-            <label
-              htmlFor="file-upload"
-              className="text-sm text-muted-foreground"
-            >
-              {t("uploadImage")}
-            </label>
-            <input
-              type="file"
-              id="file-upload"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="block w-full text-sm text-muted-foreground
+          <input
+            type="file"
+            id="file-upload"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="block w-full text-sm text-muted-foreground
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-md file:border-0
                   file:text-sm file:font-semibold
                   file:bg-primary file:text-primary-foreground
                   hover:file:bg-primary/90"
-            />
-          </div>
+          />
         )}
       </Box>
     </Box>

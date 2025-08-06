@@ -1,4 +1,8 @@
 {
+  "Metadata": {
+    "title": "3D Text Generator",
+    "description": "Tool for create 3d text, with customizable fonts, colors, background and effects"
+  },
   "Header": {
     "appName": "Fast3DText",
     "editorName": "Editor",
@@ -69,35 +73,35 @@
     "seoTitle": "3D Text Generator - More Options",
     "seoDescription": "Fast Create professional 3D text with more options. control the color, font, and effect",
     "title": "Text Editor",
-    "defaultText": "please input your text",
+    "defaultText": "Welcome",
     "textColor": "Text Color",
+    "color": "Color",
+    "textGradientColor": "Gradient Color",
+    "l2r": "From Left to Right",
+    "t2b": "From Top to Bottom",
     "fontFamily": "Font Family",
     "how2UploadFont": "How to Upload Font?",
     "fontWeight": "Font Weight",
     "uploadFontButton": "Upload Font | Files with the same name will replace the fonts uploaded previously",
     "uploadedFonts": "Uploaded Fonts"
   },
-  "Metadata": {
-    "title": "Screen Designer",
-    "description": "Tool for designing custom screen backgrounds"
-  },
   "Footer": {
     "copyright": "© {year} Screen Designer. All rights reserved."
   },
   "DoNotWriteOnThisPage": {
-    "seoTitle": "Do Not Write On This Page - 3D Text Generator",
-    "seoDescription": "Free online tool to generate 'Do Not Write On This Page' 3D Text. Customize text, colors and download high-resolution images for notebooks, whiteboards and screens.",
-    "toolTitle": "'Do Not Write On This Page' Generator",
-    "heroTitle": "'Do Not Write On This Page' 3D Text Generator",
-    "heroSubtitle": "Generate and customize perfect backgrounds for notebooks, whiteboards and digital screens",
-    "feature1Title": "Text Customization",
-    "feature1Desc": "Fully customize text content, fonts and colors to create your perfect design",
-    "feature2Title": "Multiple Background Options",
-    "feature2Desc": "Choose from color presets or upload your own images as backgrounds",
-    "feature3Title": "High-Resolution Export",
-    "feature3Desc": "Download print-ready high-quality images in multiple formats",
-    "ctaTitle": "Create Your Custom Background Now",
-    "ctaSubtitle": "Start generating professional 'Do Not Write On This Page' designs",
+    "seoTitle": "3D Text Generator - Professional 'Do Not Write On This Page' Creator",
+    "seoDescription": "Free online 3D text generator for creating stunning 'Do Not Write On This Page' designs. Customize 3D depth, lighting effects, colors and download high-resolution images for notebooks, whiteboards and screens.",
+    "toolTitle": "3D 'Do Not Write On This Page' Generator",
+    "heroTitle": "Professional 3D 'Do Not Write On This Page' Creator",
+    "heroSubtitle": "Generate and customize perfect 3D text backgrounds for notebooks, whiteboards and digital screens",
+    "feature1Title": "3D Text Customization",
+    "feature1Desc": "Fully customize 3D text content, fonts, colors and depth effects to create your perfect design",
+    "feature2Title": "Advanced 3D Effects",
+    "feature2Desc": "Adjust 3D perspective, lighting and choose from multiple background options",
+    "feature3Title": "High-Quality 3D Export",
+    "feature3Desc": "Download print-ready high-quality 3D text images in PNG, SVG and more formats",
+    "ctaTitle": "Create Your 3D Background Now",
+    "ctaSubtitle": "Start generating professional 3D 'Do Not Write On This Page' designs",
     "ctaButton": "Generate 3D Text"
   }
 }

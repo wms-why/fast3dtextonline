@@ -49,18 +49,12 @@ export default function PreviewToolbar({
     resize(split[0], split[1], container.current!.clientWidth, container.current!.clientHeight);
   }
   useEffect(() => {
-    function init() {
-      if (!container.current) {
-        setTimeout(init, 100);
-      } else {
-        const box = container.current;
-        const split = Sizes[aspectRadio].split("x").map(Number);
-        threeInit(box, split[0], split[1]);
-      }
+    if (container.current) {
+      const box = container.current!;
+      const split = Sizes[aspectRadio].split("x").map(Number);
+      threeInit(box, split[0], split[1]);
+      console.log("init three");
     }
-
-    init();
-
   }, []);
 
   useEffect(updateSize, [aspectRadio]);
@@ -68,6 +62,7 @@ export default function PreviewToolbar({
   useEffect(() => {
 
     updateBackground(background);
+    console.log("background change", background);
 
   }, [background]);
 
@@ -76,7 +71,6 @@ export default function PreviewToolbar({
     updateTextProps(text);
 
     console.log("text change", text);
-
 
   }, [text]);
 

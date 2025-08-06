@@ -5,28 +5,18 @@ import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 
 THREE.Cache.enabled = true;
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { TextProp } from "./TextSetting";
+import { ColorGradientDir, TextProp } from "./TextSetting";
 
 let camera: THREE.PerspectiveCamera,
   scene: THREE.Scene,
   renderer: THREE.WebGLRenderer,
   controls: OrbitControls,
   container: HTMLCanvasElement;
-
-console.log("three tool loaded");
-
-let inited = false;
-
 export function init(
   _container: HTMLCanvasElement,
   width: number,
   height: number
 ) {
-  // if (inited) {
-  //   renderer.dispose();
-  // }
-
-  inited = true;
   container = _container;
   scene = new THREE.Scene();
 
@@ -135,11 +125,18 @@ export async function updateTextProps(textProps: TextProp) {
   // scene.add(plane);
 
   if (lastTextProps == null) {
-    let mat = new THREE.MeshLambertMaterial({
-      color: textProps.color,
+    const geo = await getTextGeometry(textProps);
+    const mat = new THREE.MeshLambertMaterial({
       side: THREE.DoubleSide,
     });
-    let geo = await getTextGeometry(textProps);
+
+    if (Array.isArray(textProps.color)) {
+      // 渐变颜色处理
+      setGradient(textProps.color, textProps.colorGradientDir, geo, mat);
+    } else {
+      // 单色处理
+      setColor(textProps.color, mat);
+    }
     let size = new THREE.Vector3();
     geo.boundingBox?.getSize(size);
     let textMesh1 = new THREE.Mesh(geo, mat);
@@ -155,18 +152,84 @@ export async function updateTextProps(textProps: TextProp) {
     return;
   }
 
-  const colorSame = textProps.color == lastTextProps.color;
-
-  if (colorSame) {
+  if (needUpdateGeo(textProps)) {
     let geo = await getTextGeometry(textProps);
     textMesh.geometry.dispose();
     textMesh.geometry = geo;
   } else {
-    (textMesh.material as THREE.MeshLambertMaterial).color.set(textProps.color);
+    if (Array.isArray(textProps.color)) {
+      setGradient(
+        textProps.color,
+        textProps.colorGradientDir,
+        textMesh.geometry,
+        textMesh.material as THREE.MeshLambertMaterial
+      );
+    } else {
+      // 单色处理
+      setColor(textProps.color, textMesh.material as THREE.MeshLambertMaterial);
+    }
   }
 
   scene.add(textMesh);
   lastTextProps = textProps;
+}
+
+function needUpdateGeo(textProps: TextProp) {
+  return (
+    lastTextProps?.text != textProps.text ||
+    lastTextProps?.font != textProps.font ||
+    lastTextProps?.weight != textProps.weight
+  );
+}
+
+function setGradient(
+  colors: string[],
+  dir: ColorGradientDir,
+  geo: THREE.BufferGeometry,
+  mat: THREE.MeshLambertMaterial
+) {
+  // 渐变颜色处理
+  mat.vertexColors = true;
+  mat.needsUpdate = true;
+  mat.color.set(1, 1, 1);
+  const startColor = new THREE.Color(colors[0]);
+  const endColor = new THREE.Color(colors[1]);
+
+  const colorss = [];
+  const position = geo.attributes.position;
+
+  if (dir == "l2r") {
+    const maxX = geo.boundingBox!.max.x;
+    const minX = geo.boundingBox!.min.x;
+    for (let i = 0; i < position.count; i++) {
+      const x = position.getX(i);
+      const t = (x - minX) / (maxX - minX); // 归一化
+      const color = new THREE.Color().lerpColors(startColor, endColor, t);
+      colorss.push(color.r, color.g, color.b);
+    }
+  } else if (dir == "t2b") {
+    const maxY = geo.boundingBox!.max.y;
+    const minY = geo.boundingBox!.min.y;
+    for (let i = 0; i < position.count; i++) {
+      const y = position.getY(i);
+      const t = (y - minY) / (maxY - minY); // 归一化
+      const color = new THREE.Color().lerpColors(startColor, endColor, 1.0 - t);
+      colorss.push(color.r, color.g, color.b);
+    }
+  }
+
+  geo.setAttribute(
+    "color",
+    new THREE.Float32BufferAttribute(new Float32Array(colorss), 3)
+  );
+  geo.attributes.color.needsUpdate = true;
+}
+
+function setColor(color: string, mat: THREE.MeshLambertMaterial) {
+  // 渐变颜色处理
+  mat.vertexColors = false;
+  mat.color.set(color);
+  mat.needsUpdate = true;
 }
 
 async function getTextGeometry(textProps: TextProp) {
@@ -193,7 +256,7 @@ async function getTextGeometry(textProps: TextProp) {
 
   textGeo.computeBoundingBox();
   textGeo.center();
-
+  textGeo.computeVertexNormals();
   return textGeo;
 
   // if (mirror) {
@@ -223,6 +286,24 @@ export function updateBackground(bg: BackgroundProp) {
     scene.background = null;
   }
 }
+
+// function createGradientTexture(colors: string[]) {
+//   const canvas = document.createElement("canvas");
+//   canvas.width = 256;
+//   canvas.height = 1;
+//   const ctx = canvas.getContext("2d")!;
+
+//   const gradient = ctx.createGradientGradient(0, 0, 256, 0);
+//   const step = 1 / (colors.length - 1);
+//   colors.forEach((color, i) => {
+//     gradient.addColorStop(i * step, color);
+//   });
+
+//   ctx.fillStyle = gradient;
+//   ctx.fillRect(0, 0, 256, 1);
+
+//   return canvas.toDataURL();
+// }
 
 export function getPicture(width: number, height: number) {
   if (width == 0 || height == 0) {

@@ -1,4 +1,8 @@
 {
+  "Metadata": {
+    "title": "3D文字生成器",
+    "description": "专业的3D文字生成工具，可自定义字体、颜色、背景和特效，轻松创建惊艳的3D文字效果"
+  },
   "Header": {
     "appName": "Fast3DText",
     "editorName": "编辑器",
@@ -69,35 +73,35 @@
     "seoTitle": "3D 文字生成器 - 更多的选项",
     "seoDescription": "快速创建具有更多选项的专业 3D 文本。控制颜色、字体和效果",
     "title": "文字编辑",
-    "defaultText": "输入您的文字",
+    "defaultText": "欢迎",
     "textColor": "文字颜色",
+    "color": "纯色",
+    "textGradientColor": "渐变色",
+    "l2r": "从左到右",
+    "t2b": "从上到下",
     "fontFamily": "选择字体",
     "how2UploadFont": "如何上传字体？",
     "fontWeight": "字体粗细",
     "uploadFontButton": "上传字体 | 相同名字的文件会替换前面上传的字体",
     "uploadedFonts": "已上传字体"
   },
-  "Metadata": {
-    "title": "屏幕背景设计工具",
-    "description": "用于设计自定义屏幕背景的工具"
-  },
   "Footer": {
-    "copyright": "© {year} 屏幕背景设计工具 版权所有"
+    "copyright": "© {year} 3D文字设计工具 版权所有"
   },
   "DoNotWriteOnThisPage": {
-    "seoTitle": "请勿在此页书写生成器 - 专业背景制作工具",
-    "seoDescription": "免费在线生成专业的'请勿在此页书写'背景。自定义文字、颜色，下载高分辨率图片，适用于笔记本、白板和屏幕。",
-    "toolTitle": "请勿在此页书写生成器",
-    "heroTitle": "专业'请勿在此页书写'背景制作工具",
-    "heroSubtitle": "为笔记本、白板和数字屏幕生成并定制完美背景",
-    "feature1Title": "文字定制",
-    "feature1Desc": "完全自定义文字内容、字体和颜色，打造完美设计",
-    "feature2Title": "多种背景选项",
-    "feature2Desc": "可选择预设颜色或上传自定义图片作为背景",
-    "feature3Title": "高清导出",
-    "feature3Desc": "下载印刷级高质量图片，支持多种格式",
-    "ctaTitle": "立即创建您的自定义背景",
-    "ctaSubtitle": "开始生成专业的'请勿在此页书写'设计",
-    "ctaButton": "生成背景"
+    "seoTitle": "3D文字生成器 - 专业'请勿在此页书写'背景制作",
+    "seoDescription": "免费在线生成3D效果的'请勿在此页书写'背景。自定义3D文字深度、颜色和特效，下载高分辨率图片，适用于笔记本、白板和屏幕。",
+    "toolTitle": "3D'请勿在此页书写'生成器",
+    "heroTitle": "专业3D'请勿在此页书写'背景制作工具",
+    "heroSubtitle": "使用3D文字技术为笔记本、白板和数字屏幕生成惊艳背景",
+    "feature1Title": "3D文字定制",
+    "feature1Desc": "完全自定义3D文字内容、字体、颜色和深度效果，打造专业设计",
+    "feature2Title": "3D特效选项",
+    "feature2Desc": "调整3D深度、光照和透视效果，可选择颜色或图片背景",
+    "feature3Title": "高清3D导出",
+    "feature3Desc": "下载印刷级高质量3D文字图片，支持PNG/SVG等多种格式",
+    "ctaTitle": "立即创建3D'请勿在此页书写'背景",
+    "ctaSubtitle": "开始生成专业的3D文字设计",
+    "ctaButton": "生成3D文字"
   }
 }
