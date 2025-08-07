@@ -6,24 +6,23 @@ import En from "./en";
 import Zh from "./zh";
 import { Locales } from "@/i18n/config";
 import { Metadata } from "next";
+import Cover2 from "./512_288.png";
 
-import Cover1 from "./512_288.png";
 export const Blog = {
-  id: "Create-3D-Text-with-the-Barbie-Font",
-  date: "2025-08-01",
-  cover: Cover1,
+  id: "Create-3D-Letters",
+  date: "2025-08-07",
+  cover: Cover2,
   en: {
-    title: "How to Create 3D Text with the Barbie Font",
+    title: "How to Create Stunning 3D Letters Online for Free",
     summary:
-      "Learn how to create 3D text with the Barbie font using free online tools. Step-by-step guide to download, convert, and render Barbie-style 3D text — no coding required!",
+      "Learn how to create stunning 3D letters online using Fast3DText — a free 3D text generator. This step-by-step guide walks you through customizing fonts, colors, background, and 3D angles, then exporting high-quality 3D text images. No design skills required.",
   },
   zh: {
-    title: "如何使用Barbie字体创建3D文本",
+    title: "如何快速创建炫酷的 3D 字母图像（免安装）",
     summary:
-      "学习如何使用免费在线工具，以芭比字体创建 3D 文本。下载、转换和渲染芭比风格 3D 文本的分步指南 —— 无需编码！",
+      "本文教你如何使用 Fast3DText 在线生成个性化的 3D 字母 图像。通过输入文字、调整字体和颜色、操控三维视角，你可以一键导出高清立体文字图片，无需任何设计基础，适用于封面、海报和社交媒体内容。",
   },
 };
-
 export default function Page() {
 
   const locale = useLocale() as "en" | "zh";
@@ -43,8 +42,6 @@ export default function Page() {
     </Flex>
   )
 }
-
-
 
 const host = process.env.NEXT_PUBLIC_HOST;
 

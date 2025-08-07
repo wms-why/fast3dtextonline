@@ -1,0 +1,5 @@
+我要写一篇博文，介绍如何使用 Barbie font 来创建3d text。你是一个专业的SEO优化师，从seo的角度来帮我组织这个blog。
+1 从 https://www.fontbolt.com/font/barbie-font/ 下载字体文件。
+2 将ttf文件通过 https://gero3.github.io/facetype.js/ 转化成json文件
+3 在 https://fast3dtext.com/editor 中，上传json文件，并选中该文件
+至此，即可 创建 barbie font 的 3d text。

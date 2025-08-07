@@ -1,0 +1,7 @@
+我要写一篇博文，介绍如何创建3d letters。你是一个专业的SEO优化师，从seo的角度来帮我组织这个blog。
+1 打开 https://fast3dtext.com/editor
+2 输入想要的letters, 中间用空格隔开
+3 调整背景、字体、颜色
+4 操控三维视角
+5 生成图片并下载
+至此，即可 创建 想要的 3d letters。

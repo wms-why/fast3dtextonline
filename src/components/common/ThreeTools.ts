@@ -156,6 +156,15 @@ export async function updateTextProps(textProps: TextProp) {
     let geo = await getTextGeometry(textProps);
     textMesh.geometry.dispose();
     textMesh.geometry = geo;
+
+    if (Array.isArray(textProps.color)) {
+      setGradient(
+        textProps.color,
+        textProps.colorGradientDir,
+        textMesh.geometry,
+        textMesh.material as THREE.MeshLambertMaterial
+      );
+    }
   } else {
     if (Array.isArray(textProps.color)) {
       setGradient(

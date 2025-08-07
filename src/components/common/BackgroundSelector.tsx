@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Heading, Section, Radio } from "@radix-ui/themes";
+import { Box, Text, Flex, Heading, Section, Radio, RadioGroup } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
 export type BackgroundType = "color" | "image";
 export interface BackgroundProp {
@@ -43,27 +43,12 @@ export default function BackgroundSelector({
     <Box className="space-y-4 p-4 border rounded-lg min-w-64">
       <Heading as="h2" size="4" className="font-medium text-lg">{t("title")}</Heading>
       <Flex gap={"2"} p="2">
-        <Flex gap={"1"} align={"center"}>
-          <Radio name="background-type" value="1" checked={background.type === "color"} onChange={() =>
-            setBackground({
-              type: "color",
-              color: background.color,
-              image: background.image,
-            })
-          } />
-          <Text size="2">{t("colorOption")}</Text>
-        </Flex>
 
-        <Flex gap={"1"} align={"center"}>
-          <Radio name="background-type" value="1" checked={background.type === "image"} onChange={() =>
-            setBackground({
-              type: "image",
-              color: background.color,
-              image: background.image,
-            })
-          } />
-          <Text size="2">{t("imageOption")}</Text>
-        </Flex>
+        <RadioGroup.Root value={background.type} name="backgroundType" orientation="horizontal" onValueChange={(value) => setBackground({ ...background, type: value as BackgroundType })}>
+          <RadioGroup.Item value="color">{t("colorOption")}</RadioGroup.Item>
+          <RadioGroup.Item value="image">{t("imageOption")}</RadioGroup.Item>
+        </RadioGroup.Root>
+
       </Flex>
 
       <Box className="w-full">
