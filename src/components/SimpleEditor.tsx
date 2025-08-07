@@ -6,7 +6,7 @@ import BackgroundSelector, {
 import PreviewToolbar from "./common/PreviewToolbar";
 import SimpleTextSetting from "./common/SimpleTextSetting";
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { TextProp } from "./common/TextSetting";
 import { useRouter } from "@/i18n/navigation";
 
@@ -60,6 +60,7 @@ export default function SimpleEditor({ textProp, backgroundProp }: { textProp: T
     sessionStorage.setItem("text", JSON.stringify(text));
 
   }, [text]);
+  const locale = useLocale();
 
   return (
     <Flex gap={"2"}>
@@ -69,7 +70,7 @@ export default function SimpleEditor({ textProp, backgroundProp }: { textProp: T
           setBackground={setBackground}
         />
         <SimpleTextSetting text={text} setText={setText} />
-        <Box className="text-center"> <Link className="cursor-pointer" underline="always" onClick={() => { router.push("/editor") }}>{tIndex("toolMore")} ?</Link> </Box>
+        <Box className="text-center"> <Link href={`/${locale}/editor`} >{tIndex("toolMore")} ?</Link> </Box>
       </Flex>
 
       <Flex className="w-2/3" direction={"column"} justify={"between"}>

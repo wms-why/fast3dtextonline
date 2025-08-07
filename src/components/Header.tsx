@@ -12,7 +12,7 @@ export default function Header() {
     <header className="w-full py-2 border-b-1 ">
       <Flex justify="center" gap="9" align="center">
         <Box className="w-1/4 text-center" >
-          <a href="/" >
+          <a href={`/${locale}`} >
             <Text size="6" color="iris"><Strong>{t("appName")}</Strong></Text>
           </a>
         </Box >

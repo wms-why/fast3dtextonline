@@ -83,7 +83,10 @@
     "how2UploadFont": "如何上传字体？",
     "fontWeight": "字体粗细",
     "uploadFontButton": "上传字体 | 相同名字的文件会替换前面上传的字体",
-    "uploadedFonts": "已上传字体"
+    "uploadedFonts": "已上传字体",
+    "faqTitle": "常见问题",
+    "faqQuestion1": "为什么预览框内的文字内容会显示问号？",
+    "faqAnswer1": "因为该内容的语言没有被选中字体支持，建议更换字体或者上传自定义字体"
   },
   "Footer": {
     "copyright": "© {year} 3D文字设计工具 版权所有"

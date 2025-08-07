@@ -83,7 +83,10 @@
     "how2UploadFont": "How to Upload Font?",
     "fontWeight": "Font Weight",
     "uploadFontButton": "Upload Font | Files with the same name will replace the fonts uploaded previously",
-    "uploadedFonts": "Uploaded Fonts"
+    "uploadedFonts": "Uploaded Fonts",
+    "faqTitle": "FAQ",
+    "faqQuestion1": "Why do text characters sometimes appear as question marks in the preview?",
+    "faqAnswer1": "Because the selected font doesn't support the language of the text. Try changing the font or uploading a custom font that supports the language."
   },
   "Footer": {
     "copyright": "© {year} Screen Designer. All rights reserved."
