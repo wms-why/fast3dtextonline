@@ -10,6 +10,7 @@ import { encodeText, getShareLink } from "@/lib/utils";
 
 const Sizes = [
   "1920x1080",
+  "1024x576",
   "1024x768",
   "800x600",
 ]

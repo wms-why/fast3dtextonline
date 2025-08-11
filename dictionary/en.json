@@ -120,11 +120,12 @@
   "StyleBarbie": {
     "title": "Create Stunning Barbie-Pink 3D Text",
     "summary": "Use our online 3D text editor to craft eye-catching Barbie-inspired designs.",
+    "examplesTitle": "Examples",
     "cta": "Start Designing Now",
     "simpleTitle": "Barbie Pink 3D Text Generator Online",
     "description": "Looking for a way to create Barbie-style 3D text? Our editor lets you apply pink gradients, custom fonts, and high-quality 3D effects all from your browser.",
     "templateTitle": "Template Style",
-    "templateFont": "Bartex",
+    "templateFont": "Bartex | Barbie Doll | Barbie Princess",
     "templateBgColor": "#ffe3f0 (soft pink)",
     "templateTextGradient": "#ff5ac7 → #ff94da",
     "tipsTitle": "Tips",

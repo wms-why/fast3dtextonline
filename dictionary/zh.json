@@ -120,11 +120,12 @@
   "StyleBarbie": {
     "title": "创建梦幻芭比粉3D文字",
     "summary": "使用我们的在线3D文字编辑器，轻松打造吸睛的3D芭比风格设计。",
+    "examplesTitle": "示例",
     "cta": "立即开始设计",
     "simpleTitle": "在线芭比粉3D文字生成器",
     "description": "想要制作芭比风格的3D文字？我们的编辑器支持粉色渐变、自定义字体与高质量的三维效果，全部在浏览器中完成。",
     "templateTitle": "模板风格",
-    "templateFont": "Bartex",
+    "templateFont": "Bartex | Barbie Doll | Barbie Princess",
     "templateBgColor": "#ffe3f0（柔和粉色）",
     "templateTextGradient": "#ff5ac7 → #ff94da",
     "tipsTitle": "提示",

@@ -3,7 +3,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { StyleItem } from '../list';
 import { Locales } from '@/i18n/config';
 import { Metadata } from 'next';
-import { Box, Flex, Container, Heading, Text, Button, Strong } from '@radix-ui/themes';
+import { Flex, Container, Heading, Text, Button, Strong, Grid, Card, AspectRatio, Link } from '@radix-ui/themes';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import highCover from "./1024_576.png";
@@ -24,30 +24,83 @@ export const styleContent = {
   },
 } satisfies StyleItem;
 
+import barbieDollCover from "./doll_1024_576.png";
+import barbiePrincessCover from "./princess_1024_576.png";
+
 export default function BarbiePinkLandingPage() {
   const t = useTranslations('StyleBarbie');
   const common = useTranslations('StylePage');
   const locale = useLocale();
 
+  const bartexUrl = `/${locale}/editor/U2FsdGVkX19rP8xCyBPFUL%2FO0fDre3wZBjUP%2FxsyN60rkJvZFHgAhV1OIq3LX7XhLRacG0NzByrl7Xt1t9tAt2PO8UkFCRk7fABsu7HlfxSyIYeE%2Bp6ikdiqfIO%2BNEzNxx3GzasHxdw1FxEaOtZcspT8hIWpxb59WXsJ%2BvheZpiZV8N%2FqYZTUMSWD0GYX1AOi6bWV%2BmTHp8hRJzko1SfrWWX5%2F9NxCrxYeAhFpXxH%2FFKtt3EAlg4XDrvjsqIvX%2FDbESOv7reY3HYydZnBFKbGdALPqNiIuHxcMpChrIqxSebNhKbBVDOy24yAR7aYBNuZYN1BHZCV9tpa3tfzy2B6dVaW80zNBSBpypi7foPYVQDJ8K9QggnWHXqED4V65LSApKoCcm56W1A%2BP%2BMWKmMJw%3D%3D`;
+
+  const barbieDollUrl = `/${locale}/editor/U2FsdGVkX1%2BitOSouauvY7pzI7LQf%2BxXMLoslpg1yqvA1SCE53KtvcsLe5lHk9HUQ7TDbae9MMFc%2F%2FiNYT7sUyftCN2UgjelVSqfUYI9gk%2FlFCnTkuzd4iPPWqaOR5fwoxHkebMnqBTOfi%2F6vJBc2i0ujKQDgGB%2Byny1ygk60%2F0P65eR6wTMPWCU5mTVa7ZDGYKl7uFUMipmu3c2nirDn%2BWzHQBQoGH9xvxWNhqlbM0oZLY8fMSJT%2FpZ1RjVZ785pAUP5wFMUc5yJhvBLs6C8uLYaGjilqTfJn5NflecZZ3vgG%2FZv0TWgrRoScM1OmvQhIDiAnXCGjFQ3Ek2s6otpXf%2FG0OPTPMqx964F4iqgvfrOuZGY5q4DwWr48tVKjrORmgOPqC846MvaQxWCvpnVQ%3D%3D`;
+
+  const barbiePrincessUrl = `/${locale}/editor/U2FsdGVkX19rP8xCyBPFUL%2FO0fDre3wZBjUP%2FxsyN60rkJvZFHgAhV1OIq3LX7XhLRacG0NzByrl7Xt1t9tAt2PO8UkFCRk7fABsu7HlfxSyIYeE%2Bp6ikdiqfIO%2BNEzNxx3GzasHxdw1FxEaOtZcspT8hIWpxb59WXsJ%2BvheZpiZV8N%2FqYZTUMSWD0GYX1AOi6bWV%2BmTHp8hRJzko1SfrWWX5%2F9NxCrxYeAhFpXxH%2FFKtt3EAlg4XDrvjsqIvX%2FDbESOv7reY3HYydZnBFKbGdALPqNiIuHxcMpChrIqxSebNhKbBVDOy24yAR7aYBNuZYN1BHZCV9tpa3tfzy2B6dVaW80zNBSBpypi7foPYVQDJ8K9QggnWHXqED4V65LSApKoCcm56W1A%2BP%2BMWKmMJw%3D%3D`;
+
   return (
     <Flex direction={"column"} >
       <Header />
       <Flex justify={"center"} width={"full"} p={"4"} style={{ backgroundColor: 'var(--pink-3)' }}>
-        <Flex className="min-h-screen" direction={"column"} gap={"3"}>
-          <Flex justify="center" p="4">
-            <Image
-              src={highCover}
-              alt="3D Barbie Text Example"
-              width={300}
-              height={169}
-              style={{ borderRadius: 'var(--radius-3)', boxShadow: 'var(--shadow-4)' }}
-            />
-          </Flex>
+        <Flex className="min-h-screen" direction={"column"} gap={"3"} width="100%" maxWidth="1200px">
           <Container>
             <Flex direction="column" align="center" gap="4">
               <Heading as='h1' size="8" align="center">{t('title')}</Heading>
               <Text size="5" align="center">{t('description')}</Text>
             </Flex>
+          </Container>
+
+          {/* 新增示例展示区 */}
+          <Container>
+            <Heading as='h2' size="6" mb="4" align="center">{t('examplesTitle')}</Heading>
+            <Grid columns="3" gap="4">
+              <Card variant="classic">
+                <Flex direction={"column"} justify={"center"} gap={"2"}>
+                  <AspectRatio ratio={16 / 9}>
+                    <Image
+                      src={highCover}
+                      alt={`Bartex Example`}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                    />
+                  </AspectRatio>
+
+                  <Link href={bartexUrl} className='text-center'>  <Text size="3" >Bartex</Text></Link>
+                </Flex>
+
+              </Card>
+
+              <Card variant="classic">
+                <Flex direction={"column"} justify={"center"} gap={"2"}>
+                  <AspectRatio ratio={16 / 9}>
+                    <Image
+                      src={barbieDollCover}
+                      alt={`Barbie Doll Example`}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                    />
+                  </AspectRatio>
+
+                  <Link href={barbieDollUrl} className='text-center'>  <Text size="3" >Barbie Doll</Text></Link>
+                </Flex>
+
+              </Card>
+
+              <Card variant="classic">
+                <Flex direction={"column"} justify={"center"} gap={"2"}>
+                  <AspectRatio ratio={16 / 9}>
+                    <Image
+                      src={barbiePrincessCover}
+                      alt={`Barbie Princess Example`}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                    />
+                  </AspectRatio>
+                  <Link href={barbiePrincessUrl} className='text-center'>  <Text size="3" >Barbie Princess</Text></Link>
+                </Flex>
+
+              </Card>
+            </Grid>
           </Container>
 
           <Container className='text-center'>
@@ -74,18 +127,18 @@ export default function BarbiePinkLandingPage() {
             <Text as="p" mb="4">{t('content2')}</Text>
           </Container>
 
-          <Flex direction={"column"} gap={"2"} justify={"center"} align={"center"}>
+          <Flex direction={"column"} gap={"4"} justify={"center"} align={"center"} p="4">
 
             <Button size="3" asChild >
-              <a href={`/${locale}/editor/U2FsdGVkX19rP8xCyBPFUL%2FO0fDre3wZBjUP%2FxsyN60rkJvZFHgAhV1OIq3LX7XhLRacG0NzByrl7Xt1t9tAt2PO8UkFCRk7fABsu7HlfxSyIYeE%2Bp6ikdiqfIO%2BNEzNxx3GzasHxdw1FxEaOtZcspT8hIWpxb59WXsJ%2BvheZpiZV8N%2FqYZTUMSWD0GYX1AOi6bWV%2BmTHp8hRJzko1SfrWWX5%2F9NxCrxYeAhFpXxH%2FFKtt3EAlg4XDrvjsqIvX%2FDbESOv7reY3HYydZnBFKbGdALPqNiIuHxcMpChrIqxSebNhKbBVDOy24yAR7aYBNuZYN1BHZCV9tpa3tfzy2B6dVaW80zNBSBpypi7foPYVQDJ8K9QggnWHXqED4V65LSApKoCcm56W1A%2BP%2BMWKmMJw%3D%3D`}>{t('cta')}</a>
+              <a href={bartexUrl}>{t('cta')}</a>
             </Button>
 
             <Button size="3" variant="soft" asChild>
-              <a href={`/${locale}/editor/U2FsdGVkX1%2BitOSouauvY7pzI7LQf%2BxXMLoslpg1yqvA1SCE53KtvcsLe5lHk9HUQ7TDbae9MMFc%2F%2FiNYT7sUyftCN2UgjelVSqfUYI9gk%2FlFCnTkuzd4iPPWqaOR5fwoxHkebMnqBTOfi%2F6vJBc2i0ujKQDgGB%2Byny1ygk60%2F0P65eR6wTMPWCU5mTVa7ZDGYKl7uFUMipmu3c2nirDn%2BWzHQBQoGH9xvxWNhqlbM0oZLY8fMSJT%2FpZ1RjVZ785pAUP5wFMUc5yJhvBLs6C8uLYaGjilqTfJn5NflecZZ3vgG%2FZv0TWgrRoScM1OmvQhIDiAnXCGjFQ3Ek2s6otpXf%2FG0OPTPMqx964F4iqgvfrOuZGY5q4DwWr48tVKjrORmgOPqC846MvaQxWCvpnVQ%3D%3D`}>you can also try <Strong>Barbie_Doll</Strong></a>
+              <a href={barbieDollUrl}>you can also try <Strong>Barbie_Doll</Strong></a>
             </Button>
 
             <Button size="3" variant="soft" asChild>
-              <a href={`/${locale}/editor/U2FsdGVkX1%2FIkxznkprehHz%2FtkJbwnqS3IzlVZhN9HOq%2Fv2IB9gBj2ZPWnR1879R1bYzi5iy77X%2B9tGWnZO0p%2BxtjCwQcYLij%2BFc8VcJafJLvErwByaUlZCKqEjnZ1rKqxO1EsiJdBKJFjRE0PsgUqk5E2kM6LaO03jpXk7D1zey3pYfWsj5%2FjZxLdtD5w146bmMwI7ygRik9wFxlizZV%2BrYlzCoB7lqSDb9%2FkvH2ZqAV72TFCwSLqLGm%2B%2FnGs7VlOro%2FPU99jgxVKnNQpZz7lIaCt30qgZC3i6UCftQt00TrxzlGwSIA0iG8w2GnV2%2BAzrjje1JOgp%2Bg8onEuuMzMIxpxjzjrdhDSHzxyErt3Ag2Sk2jKvkFy0R%2FDT2H5GHitpPSTBWJVFi0lc5zAdoaDfeIKX%2BULZUXYzErDuOB3U%3D`}>you can also try <Strong>Barbie_Princess</Strong></a>
+              <a href={barbiePrincessUrl}>you can also try <Strong>Barbie_Princess</Strong></a>
             </Button>
 
           </Flex>
