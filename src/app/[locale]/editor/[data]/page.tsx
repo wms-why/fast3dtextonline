@@ -1,5 +1,5 @@
+import { OnlyPage } from "@/components/editor/OnlyPage";
 import { decodeText } from "@/lib/utils";
-import { OnlyPage } from "../page";
 
 export default async function Page({ params }: { params: Promise<{ data: string }> }) {
 

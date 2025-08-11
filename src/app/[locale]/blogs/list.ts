@@ -13,8 +13,8 @@ export interface BlogItem {
 }
 
 import { StaticImageData } from "next/image";
-import { Blog as Create3DTextBlog } from "./Create-3D-Text-with-the-Barbie-Font/page";
-import { Blog as Create3DLetterBlog } from "./Create-3D-Letters/page";
+import { Blog as Create3DTextBlog } from "./Create-3D-Text-with-the-Barbie-Font/data";
+import { Blog as Create3DLetterBlog } from "./Create-3D-Letters/data";
 
 export const blogs = [
   Create3DLetterBlog,
