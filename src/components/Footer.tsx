@@ -21,11 +21,18 @@ export default function Footer() {
               {t("editorName")}
             </Link>
             <Link
+              href={`/${locale}/styles`}
+              className="text-sm text-muted-foreground hover:text-primary"
+            >
+              {t("styleName")}
+            </Link>
+            <Link
               href={`/${locale}/blogs`}
               className="text-sm text-muted-foreground hover:text-primary"
             >
               {t("blogName")}
             </Link>
+
             <Link
               href="/features-form"
               className="text-sm text-muted-foreground hover:text-primary"

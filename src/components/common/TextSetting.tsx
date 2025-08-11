@@ -1,14 +1,15 @@
 'use client'
+import { containsChinese, DefaultFontChinese, FontLang, Fonts, FontWeight, getFontWeight, getOnlineFontPath } from "@/lib/fonts";
 import { Flex, Heading, Select, Tooltip, IconButton, Link, Box, Tabs, RadioGroup } from "@radix-ui/themes";
 import { PlusIcon, CircleQuestionMarkIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
-export const FontWeights = ["Regular", "Bold"];
-export const FontNames = ["Gentilis", "Helvetiker", "Optimer", "Noto_Sans_SC_zh", "Alibaba_PuHuiTi_3.0_zh"];
-
 export type ColorGradientDir = "l2r" | "t2b";
-export type FontFrom = "online" | "upload";
+export enum FontFrom {
+  online,
+  upload,
+}
 export class TextProp {
   text: string
   color: string | string[]
@@ -16,13 +17,13 @@ export class TextProp {
   fontFrom: FontFrom
   font: string
   fontUrl: string
-  weight: string
+  weight: FontWeight
   constructor(
     text: string,
     color: string,
     fontFrom: FontFrom,
     font: string,
-    weight: string) {
+    weight: FontWeight) {
 
     this.text = text;
     this.color = color;
@@ -35,34 +36,21 @@ export class TextProp {
 
   static default(text: string): TextProp {
 
-    let font = FontNames[0];
+    let font = Fonts[0].name;
 
     if (containsChinese(text)) {
-      font = "Alibaba_PuHuiTi_3.0_zh";
+      font = DefaultFontChinese;
     }
     return {
       text,
       color: "#8e86fe",
       colorGradientDir: "l2r",
       font,
-      fontUrl: getOnlineFontPath(font, FontWeights[0]),
-      weight: FontWeights[0],
-      fontFrom: "online",
+      fontUrl: getOnlineFontPath(font, FontWeight.Regular),
+      weight: FontWeight.Regular,
+      fontFrom: FontFrom.online,
     }
   }
-}
-function getOnlineFontPath(fontName: string, fontWeight: String) {
-
-  let font = fontName;
-  if (fontName.endsWith("zh")) {
-    font = fontName.slice(0, -3);
-  }
-  return `https://fast3dtest.mysoul.fun/${font}_${fontWeight}.json`;
-
-}
-
-function containsChinese(str: string) {
-  return /[\u4e00-\u9fa5]/.test(str);
 }
 
 export interface UploadFont {
@@ -72,6 +60,17 @@ export interface UploadFont {
 
 type TextMode = "color" | "gradient";
 
+const getFontWeightEnabled = (font: string) => {
+
+  let f = Fonts.find(item => item.name == font);
+
+  const map = new Map<string, boolean>()
+
+  if (f) {
+    f.weight.forEach(w => map.set(w, true))
+  }
+  return map;
+};
 export default function TextSetting({
   text,
   setText,
@@ -81,15 +80,16 @@ export default function TextSetting({
 }) {
   const locale = useLocale();
 
-  const t = useTranslations("TextEditor");
 
+
+  const t = useTranslations("TextEditor");
   const [uploadFonts, setUploadFonts] = useState<UploadFont[]>([]);
   const isPureColor = !Array.isArray(text.color);
   const [textColorMode, setTextColorMode] = useState<TextMode>(isPureColor ? "color" : "gradient");
   const [textColor, setTextColor] = useState<string>(isPureColor ? text.color as string : "#000000");
   const [textGradientColor, setTextGradientColor] = useState<string[]>(!isPureColor ? text.color as string[] : ["#ce6464", "#63635a"]);
   const [colorGradientDir, setColorGradientDir] = useState<ColorGradientDir>(text.colorGradientDir as ColorGradientDir);
-
+  const [fontWeightEnbled, setFontWeightEnabled] = useState<Map<string, boolean>>(getFontWeightEnabled(text.font));
 
   let inited = useRef(false);
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function TextSetting({
     if (uploadFonts.length > 0) {
       handleSelectFont(uploadFonts[uploadFonts.length - 1].name)
     } else {
-      handleSelectFont(FontNames[0])
+      handleSelectFont(Fonts[0].name);
     }
   }, [uploadFonts]);
 
@@ -150,13 +150,24 @@ export default function TextSetting({
   }, [colorGradientDir]);
 
   const handleSelectFont = (font: string) => {
-    if (FontNames.indexOf(font) !== -1) {
-      setText({ ...text, font: font, fontFrom: "online", fontUrl: getOnlineFontPath(font, text.weight) });
+    const f = Fonts.find(item => item.name == font);
+    if (f) {
+      if (f.weight.includes(text.weight)) {
+        setText({ ...text, font: font, fontFrom: FontFrom.online, fontUrl: getOnlineFontPath(font, text.weight) });
+      } else {
+        const w = f.weight[0];
+        setText({ ...text, font: font, fontFrom: FontFrom.online, fontUrl: getOnlineFontPath(font, w), weight: w });
+      }
     } else {
       let f = uploadFonts.find((item) => item.name === font)!;
-      setText({ ...text, font: font, fontFrom: "upload", fontUrl: f.url });
+      setText({ ...text, font: font, fontFrom: FontFrom.upload, fontUrl: f.url });
     }
+
+    const map = getFontWeightEnabled(font);
+    setFontWeightEnabled(map);
   };
+
+
 
   return (
     <Flex className="p-4 border rounded-lg " gap={"3"} direction={"column"}>
@@ -271,7 +282,7 @@ export default function TextSetting({
 
             <Select.Group>
               <Select.Label>Online</Select.Label>
-              {FontNames.map((name) => <Select.Item key={name} value={name}>{name}</Select.Item>)}
+              {Fonts.map(({ name }) => <Select.Item key={name} value={name}>{name}</Select.Item>)}
             </Select.Group>
 
           </Select.Content>
@@ -311,13 +322,13 @@ export default function TextSetting({
           {t("fontWeight")}
         </Heading>
 
-        <Select.Root defaultValue={`${text.weight}`} onValueChange={(e) => setText({ ...text, weight: e })}>
+        <Select.Root value={text.weight} onValueChange={(e) => setText({ ...text, weight: getFontWeight(e) })}>
           <Select.Trigger />
           <Select.Content>
-            {FontWeights.map((name) => <Select.Item disabled={text.fontFrom == "upload"} key={name} value={name}>{name}</Select.Item>)}
+            {Object.entries(FontWeight).map(([name, value]) =>
+              <Select.Item disabled={!fontWeightEnbled.get(name)} key={name} value={name}>{value}</Select.Item>)}
           </Select.Content>
         </Select.Root>
-
       </div>
     </Flex>
   );

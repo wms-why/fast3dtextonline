@@ -40,7 +40,7 @@ export default function BackgroundSelector({
   };
 
   return (
-    <Box className="space-y-4 p-4 border rounded-lg min-w-64">
+    <Box className="p-4 border rounded-lg min-w-64">
       <Heading as="h2" size="4" className="font-medium text-lg">{t("title")}</Heading>
       <Flex gap={"2"} p="2">
 
@@ -53,13 +53,24 @@ export default function BackgroundSelector({
 
       <Box className="w-full">
         {background.type === "color" && (
-          <input
-            type="color"
-            id="color-picker"
-            value={background.color}
-            onChange={handleColorChange}
-            className="w-full h-10 rounded-md cursor-pointer"
-          />
+          <Flex gap={"6"} p="2">
+            <input
+              type="color"
+              id="color-picker"
+              value={background.color}
+              onChange={handleColorChange}
+              className="w-1/3 h-10 rounded-md cursor-pointer"
+            />
+
+            <input
+              type="text"
+              value={background.color}
+              onChange={handleColorChange}
+              className="w-1/3 h-10 rounded-md cursor-pointer pl-4"
+            />
+
+          </Flex>
+
         )}
 
         {background.type === "image" && (

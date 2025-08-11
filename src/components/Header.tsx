@@ -25,17 +25,19 @@ export default function Header() {
           </Link>
 
           <Link
+            href={`/${locale}/styles`}
+            className="text-sm text-muted-foreground hover:text-primary"
+          >
+            {t("styleName")}
+          </Link>
+          <Link
             href={`/${locale}/blogs`}
             className="text-sm text-muted-foreground hover:text-primary"
           >
             {t("blogName")}
           </Link>
-          <Link
-            href="/features-form"
-            className="text-sm text-muted-foreground hover:text-primary"
-          >
-            Features Wanted
-          </Link>
+
+
         </Flex>
 
         <Flex align="center" gap="4" className="w-1/4">

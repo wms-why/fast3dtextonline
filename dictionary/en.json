@@ -6,7 +6,8 @@
   "Header": {
     "appName": "Fast3DText",
     "editorName": "Editor",
-    "blogName": "Blog"
+    "blogName": "Blog",
+    "styleName": "Style Library"
   },
   "ErrorPage": {
     "title": "Some thing went wrong",
@@ -106,5 +107,28 @@
     "ctaTitle": "Create Your 3D Background Now",
     "ctaSubtitle": "Start generating professional 3D 'Do Not Write On This Page' designs",
     "ctaButton": "Generate 3D Text"
+  },
+  "StylePage": {
+    "title": "3D Text Styles Library",
+    "seoTitle": "3D Text Styles Library",
+    "seoDescription": "Explore our collection of 3D text styles tutorials, tips and inspiration. Learn how to create stunning 3D text effects for your projects.",
+    "templateFontLabel": "Font",
+    "templateBgColorLabel": "Background Color",
+    "templateTextColorLabel": "Text Color",
+    "templateTextGradientColorLabel": "Text Gradient Color"
+  },
+  "StyleBarbie": {
+    "title": "Create Stunning Barbie-Pink 3D Text",
+    "summary": "Use our online 3D text editor to craft eye-catching Barbie-inspired designs.",
+    "cta": "Start Designing Now",
+    "simpleTitle": "Barbie Pink 3D Text Generator Online",
+    "description": "Looking for a way to create Barbie-style 3D text? Our editor lets you apply pink gradients, custom fonts, and high-quality 3D effects all from your browser.",
+    "templateTitle": "Template Style",
+    "templateFont": "Bartex",
+    "templateBgColor": "#ffe3f0 (soft pink)",
+    "templateTextGradient": "#ff5ac7 → #ff94da",
+    "tipsTitle": "Tips",
+    "content1": "The Barbie-pink style is perfect for playful logos, birthday cards, social media graphics, and more. With our easy-to-use editor, you can adjust shadows, lighting, and font styles effortlessly.",
+    "content2": "Get started in seconds—no downloads required. Just enter your text, choose a style, and export beautiful 3D visuals instantly."
   }
 }

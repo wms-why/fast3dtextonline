@@ -1,5 +1,5 @@
 "use client";
-import { Flex, Box, Link } from "@radix-ui/themes";
+import { Flex } from "@radix-ui/themes";
 import BackgroundSelector, {
   BackgroundProp,
 } from "./common/BackgroundSelector";
@@ -7,8 +7,6 @@ import PreviewToolbar from "./common/PreviewToolbar";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import TextSetting, { TextProp } from "./common/TextSetting";
-import { useSearchParams } from "next/navigation";
-import { decodeText } from "@/lib/utils";
 
 /**
  * 全特性工具栏

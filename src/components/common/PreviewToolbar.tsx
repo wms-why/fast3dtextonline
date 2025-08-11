@@ -32,8 +32,9 @@ export default function PreviewToolbar({
 }) {
   let host = process.env.NEXT_PUBLIC_HOST?.substring("https://".length);
   const t = useTranslations("PreviewBar");
-  const [aspectRadio, setAspectRadio] = useState<number>(0);
-  const split = Sizes[0].split("x").map(Number);
+  const initAspectRadio = 0;
+  const [aspectRadio, setAspectRadio] = useState<number>(initAspectRadio);
+  const split = Sizes[initAspectRadio].split("x").map(Number);
   const [size, setSize] = useState<Size>({ width: split[0], height: split[1] });
   const container = useRef<HTMLCanvasElement>(null);
   const fullscreenElement = useRef<HTMLImageElement>(null);

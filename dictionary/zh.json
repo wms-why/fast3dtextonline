@@ -6,7 +6,8 @@
   "Header": {
     "appName": "Fast3DText",
     "editorName": "编辑器",
-    "blogName": "博文记录"
+    "blogName": "博文记录",
+    "styleName": "模板库"
   },
   "ErrorPage": {
     "title": " 错误页面",
@@ -106,5 +107,28 @@
     "ctaTitle": "立即创建3D'请勿在此页书写'背景",
     "ctaSubtitle": "开始生成专业的3D文字设计",
     "ctaButton": "生成3D文字"
+  },
+  "StylePage": {
+    "title": "模板库",
+    "seoTitle": "3D文字模板库",
+    "seoDescription": "探索我们的3D文字设计不同风格集合。学习如何为您的项目创建惊艳的3D文字效果。",
+    "templateFontLabel": "字体",
+    "templateBgColorLabel": "背景颜色",
+    "templateTextColorLabel": "文字颜色",
+    "templateTextGradientColorLabel": "文字渐变色"
+  },
+  "StyleBarbie": {
+    "title": "创建梦幻芭比粉3D文字",
+    "summary": "使用我们的在线3D文字编辑器，轻松打造吸睛的3D芭比风格设计。",
+    "cta": "立即开始设计",
+    "simpleTitle": "在线芭比粉3D文字生成器",
+    "description": "想要制作芭比风格的3D文字？我们的编辑器支持粉色渐变、自定义字体与高质量的三维效果，全部在浏览器中完成。",
+    "templateTitle": "模板风格",
+    "templateFont": "Bartex",
+    "templateBgColor": "#ffe3f0（柔和粉色）",
+    "templateTextGradient": "#ff5ac7 → #ff94da",
+    "tipsTitle": "提示",
+    "content1": "芭比粉风格非常适合用于可爱风格的Logo、生日卡片、社交媒体图像等。只需几步操作，即可轻松调整阴影、光照和字体样式。",
+    "content2": "无需下载，几秒即可上手。输入文字，选择风格，即刻导出精美的3D视觉效果。"
   }
 }

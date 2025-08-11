@@ -97,6 +97,8 @@ export function resize(
   console.log("resize to width = " + width + " height = " + height);
 
   camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+
   // camera = new THREE.OrthographicCamera(
   //   clientWidth / -2,
   //   clientWidth / 2,
@@ -105,6 +107,7 @@ export function resize(
   //   0.1,
   //   1000
   // );
+
   renderer.setSize(width, height, false);
 }
 

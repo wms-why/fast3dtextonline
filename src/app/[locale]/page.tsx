@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Editor from "@/components/SimpleEditor";
+import Editor from "@/components/FullEditor";
 import { useTranslations } from "next-intl";
 import { Locales } from "@/i18n/config";
 import { Metadata } from "next";
