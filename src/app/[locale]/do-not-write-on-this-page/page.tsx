@@ -1,11 +1,10 @@
-import { use } from "react";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useTranslations } from "next-intl";
 import { Metadata } from "next";
-import Editor from "@/components/SimpleEditor";
-import { FontNames, FontWeights, TextProp } from "@/components/common/TextSetting";
+import Editor from "@/components/FullEditor";
+import { TextProp } from "@/components/common/TextSetting";
 
 export default function Page() {
 
