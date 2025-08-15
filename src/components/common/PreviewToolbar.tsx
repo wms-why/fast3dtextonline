@@ -122,7 +122,7 @@ export default function PreviewToolbar({
   const handleShare = () => {
     setShareError(null);
     setShareLink(null);
-    if (background.type == "image" && background.image) {
+    if (background.image) {
       setShareError(t("shareErrorNotSupportDesc"));
       return;
     }
@@ -173,8 +173,8 @@ export default function PreviewToolbar({
 
       <AspectRatio ratio={AspectRatios[aspectRadio]}>
         <canvas ref={container} className="w-full border border-gray-300" style={{
-          // backgroundColor: background.type === "color" ? background.color : "none",
-          backgroundImage: (background.type === "image" && background.image) ? `url(${background.image})` : "none",
+          backgroundColor: background.color ? `${background.color}` : "rgba(0,0,0,0)",
+          backgroundImage: (background.image) ? `url(${background.image})` : "none",
           backgroundRepeat: "no-repeat",
           backgroundSize: "contain",
           backgroundPosition: "center",
@@ -209,7 +209,6 @@ export default function PreviewToolbar({
           <AlertDialog.Content maxWidth="450px">
             <AlertDialog.Title>{t("share")}</AlertDialog.Title>
             {!shareError ? (<AlertDialog.Description size="2">
-
               {t("shareSuccessDesc")} !
               <br />
               <Code className="mt-2">
