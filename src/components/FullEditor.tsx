@@ -17,7 +17,6 @@ export default function Page({ textProp, backgroundProp }: { textProp: TextProp 
   const t = useTranslations("TextEditor");
 
   backgroundProp = backgroundProp || {
-    type: "color",
     color: "#c4b1b1",
     image: null,
   } satisfies BackgroundProp;

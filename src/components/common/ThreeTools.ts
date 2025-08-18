@@ -213,19 +213,22 @@ function setGradient(
   if (dir == "l2r") {
     const maxX = geo.boundingBox!.max.x;
     const minX = geo.boundingBox!.min.x;
+    const color = new THREE.Color();
     for (let i = 0; i < position.count; i++) {
       const x = position.getX(i);
       const t = (x - minX) / (maxX - minX); // 归一化
-      const color = new THREE.Color().lerpColors(startColor, endColor, t);
+      color.lerpColors(startColor, endColor, t);
       colorss.push(color.r, color.g, color.b);
     }
   } else if (dir == "t2b") {
     const maxY = geo.boundingBox!.max.y;
     const minY = geo.boundingBox!.min.y;
+    const color = new THREE.Color();
+
     for (let i = 0; i < position.count; i++) {
       const y = position.getY(i);
       const t = (y - minY) / (maxY - minY); // 归一化
-      const color = new THREE.Color().lerpColors(startColor, endColor, 1.0 - t);
+      color.lerpColors(startColor, endColor, 1.0 - t);
       colorss.push(color.r, color.g, color.b);
     }
   }
@@ -292,11 +295,11 @@ async function loadFont(textProps: TextProp) {
 }
 
 export function updateBackground(bg: BackgroundProp) {
-  if (bg.type === "color") {
-    scene.background = new THREE.Color(bg.color);
-  } else {
-    scene.background = null;
-  }
+  // if (bg.color) {
+  //   scene.background = new THREE.Color(bg.color);
+  // } else {
+  //   scene.background = null;
+  // }
 }
 
 // function createGradientTexture(colors: string[]) {
