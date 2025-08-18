@@ -171,7 +171,10 @@ export default function PreviewToolbar({
         <Text>{t("mouseRight")}</Text>
       </Flex>
 
-      <AspectRatio ratio={AspectRatios[aspectRadio]}>
+      <AspectRatio ratio={AspectRatios[aspectRadio]} style={{
+        background: "repeating-conic-gradient(#ccc 0% 25%, white 0% 50%)",
+        backgroundSize: "40px 40px"
+      }}>
         <canvas ref={container} className="w-full border border-gray-300" style={{
           backgroundColor: background.color ? `${background.color}` : "rgba(0,0,0,0)",
           backgroundImage: (background.image) ? `url(${background.image})` : "none",
