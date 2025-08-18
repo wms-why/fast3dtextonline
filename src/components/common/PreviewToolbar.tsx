@@ -76,27 +76,87 @@ export default function PreviewToolbar({
 
   }, [text]);
 
-  const handleDownload = () => {
+  const generateImage = async (w: number, h: number): Promise<string> => {
+
+    return new Promise((resolve, reject) => {
+      const threeimage = getPicture(w, h);
+      const canvas = document.createElement("canvas");
+
+      canvas.width = size.width;
+      canvas.height = size.height;
+      const ctx = canvas.getContext("2d")!;
+
+      function drawThreeImage() {
+        const image = new Image();
+        image.onload = () => {
+          ctx.drawImage(image, 0, 0, size.width, size.height);
+          resolve(canvas.toDataURL("image/png"));
+        };
+        image.src = threeimage;
+      }
+      if (background.color) {
+        ctx.fillStyle = background.color;
+        ctx.fillRect(0, 0, size.width, size.height);
+      }
+      if (background.image) {
+        const image = new Image();
+        image.onload = () => {
+
+          const cw = canvas.width;
+          const ch = canvas.height;
+          const iw = image.width;
+          const ih = image.height;
+
+          // 计算缩放比例（取最大值，保证能覆盖整个canvas）
+          const scale = Math.min(cw / iw, ch / ih);
+
+          const sw = iw * scale;
+          const sh = ih * scale;
+
+          // 居中偏移
+          const dx = (cw - sw) / 2;
+          const dy = (ch - sh) / 2;
+
+          ctx.drawImage(image, dx, dy, sw, sh);
+          drawThreeImage();
+        };
+        image.src = background.image;
+      } else {
+        drawThreeImage();
+      }
+
+    });
+
+
+
+  }
+
+  const handleDownload = async () => {
 
     // 创建下载链接
     const link = document.createElement("a");
     link.download = `${host}_${Sizes[aspectRadio]}.png`;
-    link.href = getPicture(0, 0);
+    link.href = await generateImage(0, 0);
     link.click();
-
   };
 
 
-  const handleFullScreen = () => {
+  const handleFullScreen = async () => {
 
     const width = window.screen.width;
     const height = window.screen.height;
 
-    const img = getPicture(width, height);
+    const img = await generateImage(width, height);
     setPicture(img);
 
-    setTimeout(() => {
 
+    const fullScreen = () => {
+      if (!fullscreenElement.current) {
+        setTimeout(() => {
+          fullScreen();
+        }, 100);
+        return;
+      }
       let imgDom = fullscreenElement.current!;
 
       if (imgDom.requestFullscreen) {
@@ -115,7 +175,12 @@ export default function PreviewToolbar({
         }
       };
       document.addEventListener("fullscreenchange", onFullscreenChange);
-    }, 0);
+    }
+    setTimeout(() => {
+
+      fullScreen();
+
+    }, 100);
 
   };
 
@@ -171,7 +236,10 @@ export default function PreviewToolbar({
         <Text>{t("mouseRight")}</Text>
       </Flex>
 
-      <AspectRatio ratio={AspectRatios[aspectRadio]}>
+      <AspectRatio ratio={AspectRatios[aspectRadio]} style={{
+        background: "repeating-conic-gradient(#ccc 0% 25%, white 0% 50%)",
+        backgroundSize: "40px 40px"
+      }}>
         <canvas ref={container} className="w-full border border-gray-300" style={{
           backgroundColor: background.color ? `${background.color}` : "rgba(0,0,0,0)",
           backgroundImage: (background.image) ? `url(${background.image})` : "none",
