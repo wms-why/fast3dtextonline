@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Link } from "@radix-ui/themes";
 import { useLocale, useTranslations } from "next-intl";
-
+import Image from "next/image";
 export default function Footer() {
   const f = useTranslations("Footer");
   const t = useTranslations("Header");
@@ -67,6 +67,14 @@ export default function Footer() {
               target="_blank"
             >
               UIUXDECK
+            </Link>
+
+            <Link
+              href="https://twelve.tools"
+              className="text-sm text-muted-foreground hover:text-primary"
+              target="_blank"
+            >
+              <Image src="https://twelve.tools/badge0-white.svg" alt="Featured on Twelve Tools" width={100} height={28} />
             </Link>
           </Flex>
         </Flex>
