@@ -15,8 +15,10 @@ export interface BlogItem {
 import { StaticImageData } from "next/image";
 import { Blog as Create3DTextBlog } from "./Create-3D-Text-with-the-Barbie-Font/data";
 import { Blog as Create3DLetterBlog } from "./Create-3D-Letters/data";
+import { Blog as AddTextShadowBlog } from "./Add-Text-Shadow/data";
 
 export const blogs = [
   Create3DLetterBlog,
   Create3DTextBlog,
+  AddTextShadowBlog,
 ] satisfies BlogItem[];

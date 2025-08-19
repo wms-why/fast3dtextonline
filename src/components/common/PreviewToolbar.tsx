@@ -14,6 +14,7 @@ const Sizes = [
   "1024x576",
   "1024x768",
   "800x600",
+  "512x288"
 ]
 interface Size {
   width: number;
