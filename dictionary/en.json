@@ -89,6 +89,11 @@
     "faqQuestion1": "Why do text characters sometimes appear as question marks in the preview?",
     "faqAnswer1": "Because the selected font doesn't support the language of the text. Try changing the font or uploading a custom font that supports the language."
   },
+  "Effects": {
+    "title": "Effects",
+    "shadowOption": "Shadow",
+    "shadowOptionHelp": "Shadow works only with Pure Color background"
+  },
   "Footer": {
     "copyright": "© {year} Screen Designer. All rights reserved."
   },

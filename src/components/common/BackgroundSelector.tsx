@@ -83,7 +83,7 @@ export default function BackgroundSelector({
   };
 
   return (
-    <Box className="p-4 border rounded-lg min-w-64">
+    <Box className="p-4 border rounded-lg min-w-64 border-t-2 border-t-purple-500 shadow">
       <Heading as="h2" size="4" className="font-medium text-lg">{t("title")}</Heading>
       <Flex gap={"2"} p="2" direction={"column"}>
         <Flex gap="2" align={"center"}>
@@ -95,14 +95,14 @@ export default function BackgroundSelector({
               id="color-picker"
               value={color || "black"}
               onChange={handleColorChange}
-              className="w-1/3 h-10 rounded-md cursor-pointer"
+              className="w-1/3 h-8 rounded-md cursor-pointer"
             />
 
             {color && (<input
               type="text"
               value={color}
               onChange={handleColorChange}
-              className="w-1/2 h-10 rounded-md cursor-pointer pl-4"
+              className="w-1/2 h-8 rounded-md cursor-pointer pl-4"
             />)}
           </Flex>
         </Flex>
@@ -117,7 +117,7 @@ export default function BackgroundSelector({
               accept="image/*"
               onChange={handleImageUpload}
               className="block w-full text-sm text-muted-foreground
-                  file:mr-4 file:py-2 file:px-4
+                  file:mr-4 file:py-1 file:px-2
                   file:rounded-md file:border-0
                   file:text-sm file:font-semibold
                   file:bg-primary file:text-primary-foreground

@@ -6,10 +6,12 @@ import Header from "@/components/Header";
 import { Box, Container, Flex, Heading, Text, Card } from "@radix-ui/themes";
 import { HelpCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { EffectProp } from "../common/Effects";
 
-export function OnlyPage({ textProp, backgroundProp }: {
+export function OnlyPage({ textProp, backgroundProp, effectProp }: {
   textProp: TextProp | undefined;
-  backgroundProp: BackgroundProp | undefined
+  backgroundProp: BackgroundProp | undefined;
+  effectProp: EffectProp | undefined;
 }) {
   const t = useTranslations('TextEditor');
 
@@ -20,6 +22,7 @@ export function OnlyPage({ textProp, backgroundProp }: {
       <FullEditor
         textProp={textProp}
         backgroundProp={backgroundProp}
+        effectProp={effectProp}
       />
     </Container>
     <Container p="4">

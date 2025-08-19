@@ -2,10 +2,12 @@ import * as THREE from "three";
 import { BackgroundProp } from "./BackgroundSelector";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+import { ShadowMapViewer } from "three/addons/utils/ShadowMapViewer.js";
 
 THREE.Cache.enabled = true;
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { ColorGradientDir, TextProp } from "./TextSetting";
+import { EffectProp } from "./Effects";
 
 let camera: THREE.PerspectiveCamera,
   scene: THREE.Scene,
@@ -28,9 +30,10 @@ export function init(
   renderer.setPixelRatio(1);
   renderer.setSize(width, height, false);
   renderer.setAnimationLoop(animate);
+  renderer.shadowMap.enabled = true;
 
   camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
-  camera.position.set(0, 80, 0);
+  camera.position.set(0, 0, 50);
 
   // const domWidth = container.clientWidth;
   // const domHeight = container.clientHeight;
@@ -49,9 +52,10 @@ export function init(
   // controls
 
   controls = new OrbitControls(camera, renderer.domElement);
-  controls.screenSpacePanning = false;
+  controls.screenSpacePanning = true;
 
   controls.enabled = true;
+  // controls.enablePan = false;
 
   //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
 
@@ -63,8 +67,6 @@ export function init(
   controls.minDistance = 0.1;
   controls.maxDistance = 50000;
 
-  controls.maxPolarAngle = Math.PI / 2;
-
   // lights
 
   const dirLight1 = new THREE.DirectionalLight(0xffffff, 3);
@@ -72,8 +74,24 @@ export function init(
   scene.add(dirLight1);
 
   const dirLight2 = new THREE.DirectionalLight(0x002288, 3);
-  dirLight2.position.set(-1, -1, -1);
+  dirLight2.position.set(-10, 10, 50);
+  dirLight2.castShadow = true;
+  dirLight2.shadow.camera.left = -100;
+  dirLight2.shadow.camera.top = 100;
+  dirLight2.shadow.camera.bottom = -100;
+  dirLight2.shadow.camera.right = 100;
+  dirLight2.shadow.camera.near = 0;
+  dirLight2.shadow.camera.far = 200;
+  dirLight2.shadow.bias = -0.000222;
+  dirLight2.shadow.mapSize.width = 2048;
+  dirLight2.shadow.mapSize.height = 2048;
   scene.add(dirLight2);
+
+  // const helper = new THREE.DirectionalLightHelper(dirLight2, 50);
+  // scene.add(helper);
+
+  // const helper2 = new THREE.CameraHelper(dirLight2.shadow.camera);
+  // scene.add(helper2);
 
   const ambientLight = new THREE.AmbientLight(0x555555);
   scene.add(ambientLight);
@@ -113,7 +131,7 @@ export function resize(
 
 let textMesh: THREE.Mesh;
 let lastTextProps: TextProp | null = null;
-export async function updateTextProps(textProps: TextProp) {
+export async function updateTextProp(textProps: TextProp) {
   // const mirror = true;
   // const plane = new THREE.Mesh(
   //   new THREE.PlaneGeometry(10000, 10000),
@@ -143,8 +161,10 @@ export async function updateTextProps(textProps: TextProp) {
     let size = new THREE.Vector3();
     geo.boundingBox?.getSize(size);
     let textMesh1 = new THREE.Mesh(geo, mat);
-    textMesh1.rotateX(-Math.PI / 2);
-    textMesh1.scale.multiplyScalar(100 / size.x);
+    // textMesh1.rotateX(-Math.PI / 2);
+    textMesh1.scale.multiplyScalar(50).divideScalar(size.x);
+    textMesh1.castShadow = true;
+    textMesh1.receiveShadow = true;
 
     scene.add(textMesh1);
 
@@ -159,6 +179,9 @@ export async function updateTextProps(textProps: TextProp) {
     let geo = await getTextGeometry(textProps);
     textMesh.geometry.dispose();
     textMesh.geometry = geo;
+    let size = new THREE.Vector3();
+    geo.boundingBox?.getSize(size);
+    textMesh.scale.set(1, 1, 1).multiplyScalar(50).divideScalar(size.x);
 
     if (Array.isArray(textProps.color)) {
       setGradient(
@@ -271,6 +294,7 @@ async function getTextGeometry(textProps: TextProp) {
 
   textGeo.computeBoundingBox();
   textGeo.center();
+  textGeo.translate(0, size / 2, depth / 2);
   textGeo.computeVertexNormals();
   return textGeo;
 
@@ -333,4 +357,29 @@ export function getPicture(width: number, height: number) {
   const img = container.toDataURL("image/png");
   renderer.setSize(lastWidth, lastHeight, false);
   return img;
+}
+
+let shadowPlane: THREE.Mesh | null = null;
+export function updateEffectProp(effect: EffectProp) {
+  // && background.color && !background.image
+  if (effect.enableShadow) {
+    if (!shadowPlane) {
+      shadowPlane = new THREE.Mesh(
+        new THREE.PlaneGeometry(100, 100, 10, 10),
+        new THREE.ShadowMaterial({
+          color: new THREE.Color(effect.shadowColor),
+          opacity: 0.3,
+        })
+      );
+      shadowPlane.receiveShadow = true;
+    }
+    scene.add(shadowPlane);
+
+    (shadowPlane.material as THREE.ShadowMaterial).color.set(
+      effect.shadowColor
+    );
+    shadowPlane.visible = true;
+  } else {
+    shadowPlane && (shadowPlane.visible = false);
+  }
 }

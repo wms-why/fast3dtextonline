@@ -167,16 +167,14 @@ export default function TextSetting({
     setFontWeightEnabled(map);
   };
 
-
-
   return (
-    <Flex className="p-4 border rounded-lg " gap={"3"} direction={"column"}>
+    <Flex className="p-4 border rounded-lg border-t-2 border-t-purple-500 shadow" gap={"3"} direction={"column"}>
       <Heading as="h2" size="4" className="font-medium text-lg" >{t("title")}</Heading>
       <textarea
         value={text.text}
         onChange={e => setText({ ...text, text: e.target.value })}
         className="w-full p-3 border rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        rows={4}
+        rows={2}
       />
       <div className="space-y-1">
         <Heading as="h3" size={"3"} >{t("textColor")}</Heading>
@@ -220,13 +218,13 @@ export default function TextSetting({
                       type="color"
                       value={textGradientColor[0]}
                       onChange={e => setTextGradientColor([e.target.value, text.color[1]])}
-                      className="w-1/2 h-10 rounded-md cursor-pointer"
+                      className="w-1/2 h-8 rounded-md cursor-pointer"
                     />
                     <input
                       type="text"
                       value={textGradientColor[0]}
                       onChange={e => setTextGradientColor([e.target.value, text.color[1]])}
-                      className="w-1/2 h-10 rounded-md cursor-pointer pl-4"
+                      className="w-1/2 h-8 rounded-md cursor-pointer pl-4"
                     />
                   </Flex>
                   <Flex gap={"4"}>
@@ -235,13 +233,13 @@ export default function TextSetting({
                       value={textGradientColor[1]}
                       onChange={e => setTextGradientColor([text.color[0], e.target.value])}
 
-                      className="w-1/2 h-10 rounded-md cursor-pointer"
+                      className="w-1/2 h-8 rounded-md cursor-pointer"
                     />
                     <input
                       type="text"
                       value={textGradientColor[1]}
                       onChange={e => setTextGradientColor([text.color[0], e.target.value])}
-                      className="w-1/2 h-10 rounded-md cursor-pointer pl-4"
+                      className="w-1/2 h-8 rounded-md cursor-pointer pl-4"
                     />
                   </Flex>
                 </Box>
