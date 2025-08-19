@@ -36,7 +36,7 @@ export default function Page() {
           <h2 className="text-3xl font-bold text-center mb-12">
             {t("toolTitle")}
           </h2>
-          <Editor textProp={text} backgroundProp={undefined}></Editor>
+          <Editor textProp={text} backgroundProp={undefined} effectProp={undefined}></Editor>
         </section>
 
         {/* Features Section */}

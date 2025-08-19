@@ -1,5 +1,5 @@
 import { OnlyPage } from "@/components/editor/OnlyPage";
-import { decodeText } from "@/lib/utils";
+import { decode } from "@/lib/utils";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -7,20 +7,21 @@ export default async function Page({ params }: { params: Promise<{ data: string 
 
   const { data } = await params
 
-  let backgroundProp, textProp
+  let backgroundProp, textProp, effectProp
 
   if (data) {
     try {
-      const { bg, text } = JSON.parse(decodeText(data));
+      const { bg, text, effect } = decode(data);
 
       backgroundProp = bg;
       textProp = text;
+      effectProp = effect;
     } catch (error) {
       console.error("parse data from url error", error)
     }
   }
 
-  return (<OnlyPage textProp={textProp} backgroundProp={backgroundProp}></OnlyPage>)
+  return (<OnlyPage textProp={textProp} backgroundProp={backgroundProp} effectProp={effectProp}></OnlyPage>)
 
 }
 
@@ -39,8 +40,7 @@ export async function generateMetadata({
 
   if (data) {
     try {
-      const { bg, text } = JSON.parse(decodeText(data));
-
+      const { bg, text } = decode(data);
       backgroundProp = bg;
       textProp = text;
     } catch (error) {
