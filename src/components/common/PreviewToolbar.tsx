@@ -4,9 +4,10 @@ import { useLocale, useTranslations } from "next-intl";
 import { Eye, Download, Share } from "lucide-react";
 import { BackgroundProp } from "./BackgroundSelector";
 import { Text, Flex, Button, Select, AlertDialog, Code, AspectRatio } from "@radix-ui/themes";
-import { getPicture, resize, init as threeInit, updateBackground, updateTextProps } from "./ThreeTools";
+import { getPicture, resize, init as threeInit, updateBackground, updateEffectProp, updateTextProp } from "./ThreeTools";
 import { TextProp } from "./TextSetting";
 import { encodeText, getShareLink } from "@/lib/utils";
+import { EffectProp } from "./Effects";
 
 const Sizes = [
   "1920x1080",
@@ -27,9 +28,11 @@ const AspectRatios = Sizes.map(o => {
 export default function PreviewToolbar({
   background,
   text,
+  effect
 }: {
   background: BackgroundProp;
   text: TextProp;
+  effect: EffectProp
 }) {
   let host = process.env.NEXT_PUBLIC_HOST?.substring("https://".length);
   const t = useTranslations("PreviewBar");
@@ -70,11 +73,16 @@ export default function PreviewToolbar({
 
   useEffect(() => {
 
-    updateTextProps(text);
+    updateTextProp(text);
 
     console.log("text change", text);
 
   }, [text]);
+
+  useEffect(() => {
+    updateEffectProp(effect);
+    console.log("effect change", effect);
+  }, [effect]);
 
   const generateImage = async (w: number, h: number): Promise<string> => {
 
@@ -126,9 +134,6 @@ export default function PreviewToolbar({
       }
 
     });
-
-
-
   }
 
   const handleDownload = async () => {
@@ -228,7 +233,7 @@ export default function PreviewToolbar({
   }, [handleFullScreen]);
 
   return (
-    <Flex direction={"column"} justify={"center"} align={"center"} p="2" className="rounded-lg border w-full" gap={"2"}>
+    <Flex direction={"column"} justify={"center"} align={"center"} p="2" className="shadow rounded-lg border w-full border-t-2 border-t-purple-500" gap={"2"}>
       <Flex gap={"4"} >
         {t("tipsTitle")}:
         <Text>{t("mouseLeft")}</Text>
