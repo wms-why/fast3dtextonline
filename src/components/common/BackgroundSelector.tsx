@@ -88,7 +88,7 @@ export default function BackgroundSelector({
       <Flex gap={"2"} p="2" direction={"column"}>
         <Flex gap="2" align={"center"}>
           <Checkbox checked={backgroundType.includes("color")} onClick={(e) => handleBackgroundTypeChange("color")} className="cursor-pointer" />
-          <Heading as="h3" size={"3"}>{t("colorOption")}</Heading>
+          <Heading as="h3" size={"3"} className="w-24">{t("colorOption")}</Heading>
           <Flex gap={"4"} >
             <input
               type="color"
@@ -109,7 +109,7 @@ export default function BackgroundSelector({
 
         <Flex gap="2" align={"center"}>
           <Checkbox checked={backgroundType.includes("image")} onClick={(e) => handleBackgroundTypeChange("image")} className="cursor-pointer" />
-          <Heading as="h3" size={"3"}>{t("imageOption")}</Heading>
+          <Heading as="h3" size={"3"} className="w-24">{t("imageOption")}</Heading>
           <Flex gap={"4"} >
             <input
               type="file"
