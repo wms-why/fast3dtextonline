@@ -6,7 +6,7 @@ import { BackgroundProp } from "./BackgroundSelector";
 import { Text, Flex, Button, Select, AlertDialog, Code, AspectRatio } from "@radix-ui/themes";
 import { getPicture, resize, init as threeInit, updateBackground, updateEffectProp, updateTextProp } from "./ThreeTools";
 import { TextProp } from "./TextSetting";
-import { encodeText, getShareLink } from "@/lib/utils";
+import { getShareLink } from "@/lib/utils";
 import { EffectProp } from "./Effects";
 
 const Sizes = [
@@ -198,11 +198,8 @@ export default function PreviewToolbar({
     }
 
     const bg = { ...background, image: null };
-    let txt = JSON.stringify({ bg, text });
-    txt = encodeText(txt);
 
-
-    const link = getShareLink(txt, locale);
+    const link = getShareLink({ bg, text }, locale);
 
     setShareLink(link);
 

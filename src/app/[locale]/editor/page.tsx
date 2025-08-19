@@ -7,7 +7,7 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 const host = process.env.NEXT_PUBLIC_HOST;
 export default function Page() {
-  return (<OnlyPage textProp={undefined} backgroundProp={undefined}></OnlyPage>)
+  return (<OnlyPage textProp={undefined} backgroundProp={undefined} effectProp={undefined}></OnlyPage>)
 }
 
 const locales = Locales;
