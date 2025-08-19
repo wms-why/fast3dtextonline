@@ -32,14 +32,6 @@ export default function Footer() {
             >
               {t("blogName")}
             </Link>
-
-            <Link
-              href="/features-form"
-              className="text-sm text-muted-foreground hover:text-primary"
-            >
-              Features Wanted
-            </Link>
-
           </Flex>
 
           <Flex gap={"2"} direction={"column"} >

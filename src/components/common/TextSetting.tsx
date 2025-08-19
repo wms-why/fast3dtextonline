@@ -43,7 +43,7 @@ export class TextProp {
     }
     return {
       text,
-      color: "#8e86fe",
+      color: ["#ce6464", "#63635a"],
       colorGradientDir: "l2r",
       font,
       fontUrl: getOnlineFontPath(font, FontWeight.Regular),
@@ -79,9 +79,6 @@ export default function TextSetting({
   setText: (text: TextProp) => void;
 }) {
   const locale = useLocale();
-
-
-
   const t = useTranslations("TextEditor");
   const [uploadFonts, setUploadFonts] = useState<UploadFont[]>([]);
   const isPureColor = !Array.isArray(text.color);

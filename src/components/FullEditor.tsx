@@ -18,7 +18,7 @@ export default function Page({ textProp, backgroundProp, effectProp }: { textPro
   const t = useTranslations("TextEditor");
 
   backgroundProp = backgroundProp || {
-    color: "#c4b1b1",
+    color: "#a49494",
     image: null,
   } satisfies BackgroundProp;
 

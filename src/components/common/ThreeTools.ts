@@ -52,7 +52,7 @@ export function init(
   // controls
 
   controls = new OrbitControls(camera, renderer.domElement);
-  controls.screenSpacePanning = true;
+  // controls.screenSpacePanning = false;
 
   controls.enabled = true;
   // controls.enablePan = false;
