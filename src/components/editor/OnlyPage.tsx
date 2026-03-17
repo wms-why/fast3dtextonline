@@ -3,9 +3,9 @@ import { TextProp } from "@/components/common/TextSetting";
 import Footer from "@/components/Footer";
 import FullEditor from "@/components/FullEditor";
 import Header from "@/components/Header";
-import { Box, Container, Flex, Heading, Text, Card } from "@radix-ui/themes";
+import { Box, Button, Card, Container, Flex, Heading, Text } from "@radix-ui/themes";
 import { HelpCircle } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { EffectProp } from "../common/Effects";
 
 export function OnlyPage({ textProp, backgroundProp, effectProp }: {
@@ -14,10 +14,28 @@ export function OnlyPage({ textProp, backgroundProp, effectProp }: {
   effectProp: EffectProp | undefined;
 }) {
   const t = useTranslations('TextEditor');
+  const locale = useLocale();
 
   return <Flex direction={"column"} gap={"4"}>
     <Header />
-    <Heading as="h1" weight="bold" className="text-center">{t('title')}</Heading>
+    <Container px="4" pt="6">
+      <Flex
+        direction={{ initial: "column", md: "row" }}
+        justify="between"
+        align={{ initial: "start", md: "center" }}
+        gap="4"
+      >
+        <Flex direction="column" gap="2">
+          <Heading as="h1" size="8">
+            {t('title')}
+          </Heading>
+          <Text color="gray">{t("editorIntro")}</Text>
+        </Flex>
+        <Button asChild radius="full" variant="soft">
+          <a href={`/${locale}/styles`}>{t("browseTemplates")}</a>
+        </Button>
+      </Flex>
+    </Container>
     <Container p="4">
       <FullEditor
         textProp={textProp}

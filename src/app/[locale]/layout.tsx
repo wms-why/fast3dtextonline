@@ -7,10 +7,15 @@ import { WebSite } from "schema-dts";
 // import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata } from "next";
 import "../globals.css";
 import { ThemeProvider } from "next-themes";
 import { Theme } from "@radix-ui/themes";
 const host = process.env.NEXT_PUBLIC_HOST;
+
+export const metadata: Metadata = {
+  metadataBase: new URL(host ?? "http://localhost:3000"),
+};
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",

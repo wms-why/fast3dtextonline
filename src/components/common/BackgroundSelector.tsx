@@ -1,12 +1,29 @@
 'use client'
-import { Box, Checkbox, Flex, Heading } from "@radix-ui/themes";
+import { Box, Flex, Heading, Select, Tabs, Text, TextField } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-export type BackgroundType = "color" | "image";
+
+export type GradientDirection = "leftToRight" | "topToBottom" | "topLeftToBottomRight" | "bottomLeftToTopRight";
+export type BackgroundType = "color" | "gradient" | "image";
+
+export interface BackgroundGradient {
+  direction: GradientDirection;
+  startColor: string;
+  endColor: string;
+}
+
 export interface BackgroundProp {
   color: string | null;
+  gradient: BackgroundGradient | null;
   image: string | null;
 }
+
+export const defaultBackgroundGradient = (): BackgroundGradient => ({
+  direction: "leftToRight",
+  startColor: "#7c3aed",
+  endColor: "#22d3ee",
+});
+
 export default function BackgroundSelector({
   background,
   setBackground,
@@ -15,51 +32,48 @@ export default function BackgroundSelector({
   setBackground: (bg: BackgroundProp) => void;
 }) {
   const t = useTranslations("BackgoundSetting");
-  const types: BackgroundType[] = [];
-
-  if (background.color) {
-    types.push("color");
-  }
-
-  if (background.image) {
-    types.push("image");
-  }
-
-  const [backgroundType, setBackgroundType] = useState<BackgroundType[]>(types);
+  const initialBackgroundType: BackgroundType = background.gradient
+    ? "gradient"
+    : background.image
+      ? "image"
+      : "color";
+  const [backgroundType, setBackgroundType] = useState<BackgroundType>(initialBackgroundType);
   const [color, setColor] = useState<string | null>(background.color);
+  const [gradient, setGradient] = useState<BackgroundGradient>(
+    background.gradient ?? defaultBackgroundGradient()
+  );
   const [image, setImage] = useState<string | null>(background.image);
 
-  const handleBackgroundTypeChange = (value: BackgroundType) => {
-    let newTypes: BackgroundType[];
-    if (backgroundType.includes(value)) {
-      backgroundType.splice(backgroundType.indexOf(value), 1);
-      newTypes = backgroundType;
-    } else {
-      newTypes = [...backgroundType, value];
-    }
+  const handleBackgroundTypeChange = (value: string) => {
+    const nextType = value as BackgroundType;
+    setBackgroundType(nextType);
 
-    setBackgroundType(newTypes);
-
-    if (newTypes.includes("color")) {
-      background.color = color;
-    } else {
-      background.color = null;
-    }
-    if (newTypes.includes("image")) {
-      background.image = image;
-    } else {
-      background.image = null;
-    }
-
-    setBackground({ ...background });
-  }
+    setBackground({
+      color: nextType === "color" ? (color ?? "#000000") : null,
+      gradient: nextType === "gradient" ? gradient : null,
+      image: nextType === "image" ? image : null,
+    });
+  };
 
   const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setColor(e.target.value);
-    if (backgroundType.includes("color")) {
+    if (backgroundType === "color") {
       setBackground({
         ...background,
         color: e.target.value,
+        gradient: null,
+        image: null,
+      });
+    }
+  };
+
+  const updateGradient = (nextGradient: BackgroundGradient) => {
+    setGradient(nextGradient);
+    if (backgroundType === "gradient") {
+      setBackground({
+        color: null,
+        gradient: nextGradient,
+        image: null,
       });
     }
   };
@@ -71,9 +85,10 @@ export default function BackgroundSelector({
       reader.onload = (event) => {
         const result = event.target?.result as string;
         setImage(result);
-        if (backgroundType.includes("image")) {
+        if (backgroundType === "image") {
           setBackground({
-            ...background,
+            color: null,
+            gradient: null,
             image: result,
           });
         }
@@ -85,47 +100,123 @@ export default function BackgroundSelector({
   return (
     <Box className="p-4 border rounded-lg min-w-64 border-t-2 border-t-purple-500 shadow">
       <Heading as="h2" size="4" className="font-medium text-lg">{t("title")}</Heading>
-      <Flex gap={"2"} p="2" direction={"column"}>
-        <Flex gap="2" align={"center"}>
-          <Checkbox checked={backgroundType.includes("color")} onClick={(e) => handleBackgroundTypeChange("color")} className="cursor-pointer" />
-          <Heading as="h3" size={"3"} className="w-24">{t("colorOption")}</Heading>
-          <Flex gap={"4"} >
-            <input
-              type="color"
-              id="color-picker"
-              value={color || "black"}
-              onChange={handleColorChange}
-              className="w-1/3 h-8 rounded-md cursor-pointer"
-            />
+      <Tabs.Root value={backgroundType} onValueChange={handleBackgroundTypeChange}>
+        <Tabs.List mt="3">
+          <Tabs.Trigger value="color">{t("colorOption")}</Tabs.Trigger>
+          <Tabs.Trigger value="gradient">{t("gradientOption")}</Tabs.Trigger>
+          <Tabs.Trigger value="image">{t("imageOption")}</Tabs.Trigger>
+        </Tabs.List>
 
-            {color && (<input
-              type="text"
-              value={color}
-              onChange={handleColorChange}
-              className="w-1/2 h-8 rounded-md cursor-pointer pl-4"
-            />)}
-          </Flex>
-        </Flex>
+        <Box pt="3">
+          <Tabs.Content value="color">
+            <Flex gap="3" direction="column">
+              <Heading as="h3" size="3">{t("selectColor")}</Heading>
+              <Flex gap="3" align="center">
+                <input
+                  type="color"
+                  id="color-picker"
+                  value={color || "#000000"}
+                  onChange={handleColorChange}
+                  className="h-10 w-16 rounded-md cursor-pointer"
+                />
+                <TextField.Root
+                  value={color || ""}
+                  onChange={handleColorChange}
+                  placeholder="#000000"
+                />
+              </Flex>
+            </Flex>
+          </Tabs.Content>
 
-        <Flex gap="2" align={"center"}>
-          <Checkbox checked={backgroundType.includes("image")} onClick={(e) => handleBackgroundTypeChange("image")} className="cursor-pointer" />
-          <Heading as="h3" size={"3"} className="w-24">{t("imageOption")}</Heading>
-          <Flex gap={"4"} >
-            <input
-              type="file"
-              id="file-upload"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="block w-full text-sm text-muted-foreground
+          <Tabs.Content value="gradient">
+            <Flex gap="3" direction="column">
+              <Box>
+                <Text as="label" size="2" weight="medium">
+                  {t("gradientDirection")}
+                </Text>
+                <Select.Root
+                  value={gradient.direction}
+                  onValueChange={(value) =>
+                    updateGradient({ ...gradient, direction: value as GradientDirection })
+                  }
+                >
+                  <Select.Trigger mt="2" />
+                  <Select.Content>
+                    <Select.Item value="leftToRight">{t("gradientLeftToRight")}</Select.Item>
+                    <Select.Item value="topToBottom">{t("gradientTopToBottom")}</Select.Item>
+                    <Select.Item value="topLeftToBottomRight">{t("gradientTopLeftToBottomRight")}</Select.Item>
+                    <Select.Item value="bottomLeftToTopRight">{t("gradientBottomLeftToTopRight")}</Select.Item>
+                  </Select.Content>
+                </Select.Root>
+              </Box>
+
+              <Box>
+                <Text as="label" size="2" weight="medium">
+                  {t("gradientStartColor")}
+                </Text>
+                <Flex gap="3" align="center" mt="2">
+                  <input
+                    type="color"
+                    value={gradient.startColor}
+                    onChange={(e) =>
+                      updateGradient({ ...gradient, startColor: e.target.value })
+                    }
+                    className="h-10 w-16 rounded-md cursor-pointer"
+                  />
+                  <TextField.Root
+                    value={gradient.startColor}
+                    onChange={(e) =>
+                      updateGradient({ ...gradient, startColor: e.target.value })
+                    }
+                    placeholder="#7c3aed"
+                  />
+                </Flex>
+              </Box>
+
+              <Box>
+                <Text as="label" size="2" weight="medium">
+                  {t("gradientEndColor")}
+                </Text>
+                <Flex gap="3" align="center" mt="2">
+                  <input
+                    type="color"
+                    value={gradient.endColor}
+                    onChange={(e) =>
+                      updateGradient({ ...gradient, endColor: e.target.value })
+                    }
+                    className="h-10 w-16 rounded-md cursor-pointer"
+                  />
+                  <TextField.Root
+                    value={gradient.endColor}
+                    onChange={(e) =>
+                      updateGradient({ ...gradient, endColor: e.target.value })
+                    }
+                    placeholder="#22d3ee"
+                  />
+                </Flex>
+              </Box>
+            </Flex>
+          </Tabs.Content>
+
+          <Tabs.Content value="image">
+            <Flex gap="3" direction="column">
+              <Heading as="h3" size="3">{t("uploadImage")}</Heading>
+              <input
+                type="file"
+                id="file-upload"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="block w-full text-sm text-muted-foreground
                   file:mr-4 file:py-1 file:px-2
                   file:rounded-md file:border-0
                   file:text-sm file:font-semibold
                   file:bg-primary file:text-primary-foreground
                   hover:file:bg-primary/90"
-            />
-          </Flex>
-        </Flex>
-      </Flex>
+              />
+            </Flex>
+          </Tabs.Content>
+        </Box>
+      </Tabs.Root>
     </Box>
   );
 }

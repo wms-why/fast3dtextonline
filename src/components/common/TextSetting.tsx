@@ -1,5 +1,5 @@
 'use client'
-import { containsChinese, DefaultFontChinese, FontLang, Fonts, FontWeight, getFontWeight, getOnlineFontPath } from "@/lib/fonts";
+import { containsChinese, DefaultFontChinese, FontLang, Fonts, FontWeight, getFontPath, getFontWeight } from "@/lib/fonts";
 import { Flex, Heading, Select, Tooltip, IconButton, Link, Box, Tabs, RadioGroup } from "@radix-ui/themes";
 import { PlusIcon, CircleQuestionMarkIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -31,7 +31,7 @@ export class TextProp {
     this.colorGradientDir = "l2r";
     this.fontFrom = fontFrom;
     this.font = font;
-    this.fontUrl = getOnlineFontPath(font, weight);
+    this.fontUrl = getFontPath(font, weight);
     this.weight = weight;
   }
 
@@ -47,7 +47,7 @@ export class TextProp {
       color: "#8e86fe",
       colorGradientDir: "l2r",
       font,
-      fontUrl: getOnlineFontPath(font, FontWeight.Regular),
+      fontUrl: getFontPath(font, FontWeight.Regular),
       weight: FontWeight.Regular,
       fontFrom: FontFrom.online,
     }
@@ -60,6 +60,17 @@ export interface UploadFont {
 }
 
 type TextMode = "color" | "gradient";
+
+const getFontLangLabel = (langs: FontLang[], locale: string) => {
+  const labels = langs.map((lang) => {
+    if (locale === "zh") {
+      return lang === FontLang.ZH ? "中文" : "英文";
+    }
+    return lang === FontLang.ZH ? "ZH" : "EN";
+  });
+
+  return labels.join(" / ");
+};
 
 const getFontWeightEnabled = (font: string) => {
 
@@ -158,10 +169,10 @@ export default function TextSetting({
     const f = Fonts.find(item => item.name == font);
     if (f) {
       if (f.weight.includes(text.weight)) {
-        setText({ ...text, font: font, fontFrom: FontFrom.online, fontUrl: getOnlineFontPath(font, text.weight) });
+        setText({ ...text, font: font, fontFrom: FontFrom.online, fontUrl: getFontPath(font, text.weight) });
       } else {
         const w = f.weight[0];
-        setText({ ...text, font: font, fontFrom: FontFrom.online, fontUrl: getOnlineFontPath(font, w), weight: w });
+        setText({ ...text, font: font, fontFrom: FontFrom.online, fontUrl: getFontPath(font, w), weight: w });
       }
     } else {
       let f = uploadFonts.find((item) => item.name === font)!;
@@ -309,7 +320,11 @@ export default function TextSetting({
 
             <Select.Group>
               <Select.Label>Online</Select.Label>
-              {Fonts.map(({ name }) => <Select.Item key={name} value={name}>{name}</Select.Item>)}
+              {Fonts.map(({ name, lang }) => (
+                <Select.Item key={name} value={name}>
+                  {`${name} (${getFontLangLabel(lang, locale)})`}
+                </Select.Item>
+              ))}
             </Select.Group>
 
           </Select.Content>

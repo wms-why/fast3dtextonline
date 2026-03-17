@@ -31,7 +31,29 @@ export class FontDefine {
   }
 }
 
-export function getOnlineFontPath(fontName: string, w: FontWeight) {
+const LocalFontPathMap: Partial<Record<string, Partial<Record<FontWeight, string>>>> = {
+  "Public Sans": {
+    [FontWeight.Regular]: "/fonts/public-sans-400.ttf",
+    [FontWeight.Bold]: "/fonts/public-sans-900.ttf",
+  },
+  Archivo: {
+    [FontWeight.Regular]: "/fonts/archivo-400.ttf",
+    [FontWeight.Bold]: "/fonts/archivo-900.ttf",
+  },
+  Anton: {
+    [FontWeight.Regular]: "/fonts/anton-400.ttf",
+  },
+  Merriweather: {
+    [FontWeight.Regular]: "/fonts/merriweather-400.ttf",
+    [FontWeight.Bold]: "/fonts/merriweather-900.ttf",
+  },
+};
+
+export function getFontPath(fontName: string, w: FontWeight) {
+  const localFontPath = LocalFontPathMap[fontName]?.[w];
+  if (localFontPath) {
+    return localFontPath;
+  }
   return `https://fast3dtest.mysoul.fun/${fontName}_${w}.json`;
 }
 
@@ -42,6 +64,26 @@ export function containsChinese(str: string) {
 export const DefaultFontChinese: string = "Alibaba_PuHuiTi_3.0";
 
 export const Fonts: FontDefine[] = [
+  {
+    name: "Public Sans",
+    weight: [FontWeight.Regular, FontWeight.Bold],
+    lang: [FontLang.EN],
+  },
+  {
+    name: "Archivo",
+    weight: [FontWeight.Regular, FontWeight.Bold],
+    lang: [FontLang.EN],
+  },
+  {
+    name: "Anton",
+    weight: [FontWeight.Regular],
+    lang: [FontLang.EN],
+  },
+  {
+    name: "Merriweather",
+    weight: [FontWeight.Regular, FontWeight.Bold],
+    lang: [FontLang.EN],
+  },
   {
     name: "Gentilis",
     weight: [FontWeight.Regular, FontWeight.Bold],

@@ -19,6 +19,7 @@ export default function Page({ textProp, backgroundProp, effectProp }: { textPro
 
   backgroundProp = backgroundProp || {
     color: "#c4b1b1",
+    gradient: null,
     image: null,
   } satisfies BackgroundProp;
 

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { BackgroundProp } from "./BackgroundSelector";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import { TTFLoader } from "three/addons/loaders/TTFLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { ShadowMapViewer } from "three/addons/utils/ShadowMapViewer.js";
 
@@ -313,6 +314,14 @@ async function getTextGeometry(textProps: TextProp) {
 }
 
 async function loadFont(textProps: TextProp) {
+  if (textProps.fontUrl.match(/\.(ttf|otf)$/i)) {
+    const ttfLoader = new TTFLoader();
+    const response = await fetch(textProps.fontUrl);
+    const buffer = await response.arrayBuffer();
+    const fontJson = ttfLoader.parse(buffer);
+    return new FontLoader().parse(fontJson);
+  }
+
   const loader = new FontLoader();
   let font = await loader.loadAsync(textProps.fontUrl);
   return font;

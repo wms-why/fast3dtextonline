@@ -1,47 +1,171 @@
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import { Card, Flex, Text, Heading, Box, Link } from '@radix-ui/themes'
-import { styles } from './list'
-import { useLocale, useTranslations } from 'next-intl';
-import { Locales } from '@/i18n/config';
-import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
-import Image from 'next/image';
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import StylePreviewCard from "@/components/styles/StylePreviewCard";
+import { styleCategories, stylePresets } from "@/lib/style-presets";
+import { Badge, Box, Flex, Heading, Section, Text } from "@radix-ui/themes";
+import { useLocale, useTranslations } from "next-intl";
+import { Locales } from "@/i18n/config";
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 const host = process.env.NEXT_PUBLIC_HOST;
 
 export default function StyleListPage() {
   const locale = useLocale() as "zh" | "en";
   const t = useTranslations("StylePage");
 
+  const grouped = styleCategories.map((group) => ({
+    ...group,
+    items: stylePresets.filter((style) => style.category === group.id),
+  }));
+
   return (
     <Flex direction={"column"} gap={"4"}>
       <Header />
-      <Box p="4" className="text-center">
-        <Heading as='h1' size="7" mb="4">{t("title")}</Heading>
-        <Flex justify={"center"} gap={"4"} wrap={"wrap"}>
-          {styles.map(styleItem => (
-            <Card key={styleItem.id} size="2" style={{ maxWidth: 300, boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }} mx="4" my="4">
-              <Link href={`/${locale}/styles/${styleItem.id}`} color='iris'>
-                <Flex direction="column" gap="4">
-                  <Box style={{ overflow: 'hidden' }}>
-                    <Image src={styleItem.cover} alt={styleItem[locale].title} width={512} height={288} />
+      <Section
+        py="8"
+        style={{
+          background:
+            "radial-gradient(circle at top left, rgba(255, 121, 178, 0.12), transparent 25%), radial-gradient(circle at top right, rgba(98, 212, 255, 0.12), transparent 25%)",
+        }}
+      >
+        <Flex
+          direction="column"
+          gap="8"
+          px="6"
+          mx="auto"
+          style={{ maxWidth: 1240 }}
+        >
+          <Flex
+            direction="column"
+            gap="4"
+            align="center"
+            className="text-center"
+          >
+            <Badge radius="full" size="2" color="gray">
+              {t("heroBadge")}
+            </Badge>
+            <Heading as="h1" size="9" style={{ maxWidth: 980 }}>
+              {t("heroTitle")}
+            </Heading>
+            <Text size="5" color="gray" style={{ maxWidth: 780 }}>
+              {t("heroSubtitle")}
+            </Text>
+          </Flex>
+
+          <Box>
+            <Heading as="h2" size="7" mb="4">
+              {t("featuredTitle")}
+            </Heading>
+            <Flex gap="5" wrap="wrap">
+              {stylePresets
+                .filter((style) => style.spotlight)
+                .map((style) => (
+                  <Box
+                    key={style.slug}
+                    style={{ flex: "1 1 280px", minWidth: 280 }}
+                  >
+                    <StylePreviewCard
+                      style={style}
+                      locale={locale}
+                      mode="feature"
+                      openLabel={t("openTemplate")}
+                      detailLabel={t("seeDetails")}
+                    />
                   </Box>
-                  <Flex direction={"column"} gap={"1"}>
-                    <Heading as='h2' size="5" weight="bold" className='text-black dark:text-white'>{styleItem[locale].title}</Heading>
-                    <Text color="gray" >{styleItem.date}</Text>
-                    <Text truncate={true} >{styleItem[locale].summary}</Text>
+                ))}
+            </Flex>
+          </Box>
+
+          <Flex direction="column" gap="6">
+            <Heading as="h2" size="7">
+              {t("collectionsTitle")}
+            </Heading>
+            {grouped.map((group) => (
+              <Box key={group.id}>
+                <Flex
+                  justify="between"
+                  align="center"
+                  gap="4"
+                  wrap="wrap"
+                  mb="4"
+                >
+                  <Flex direction="column" gap="1">
+                    <Heading as="h3" size="6">
+                      {t(`collection_${group.id}`)}
+                    </Heading>
+                    <Text color="gray">{t(`collection_${group.id}_desc`)}</Text>
                   </Flex>
+                  <Badge
+                    radius="full"
+                    variant="soft"
+                    style={{
+                      backgroundColor: `${group.accent}18`,
+                      color: group.accent,
+                    }}
+                  >
+                    {group.items.length} {t("templatesCount")}
+                  </Badge>
                 </Flex>
-              </Link>
-            </Card>
-          ))}
+                <Flex gap="5" wrap="wrap">
+                  {group.items.map((style) => (
+                    <Box
+                      key={style.slug}
+                      style={{ flex: "1 1 300px", minWidth: 280 }}
+                    >
+                      <StylePreviewCard
+                        style={style}
+                        locale={locale}
+                        openLabel={t("openTemplate")}
+                        detailLabel={t("seeDetails")}
+                      />
+                    </Box>
+                  ))}
+                </Flex>
+              </Box>
+            ))}
+          </Flex>
+        </Flex>
+      </Section>
+      <Box px="6" pb="8" mx="auto" style={{ maxWidth: 1240 }}>
+        <Flex
+          direction={{ initial: "column", md: "row" }}
+          gap="6"
+          style={{
+            padding: "1.5rem",
+            borderRadius: 28,
+            background:
+              "linear-gradient(135deg, rgba(12, 18, 38, 0.96) 0%, rgba(17, 28, 52, 0.96) 100%)",
+            color: "white",
+          }}
+        >
+          <Flex direction="column" gap="3" style={{ flex: 1 }}>
+            <Badge
+              radius="full"
+              style={{
+                width: "fit-content",
+                backgroundColor: "rgba(255,255,255,0.12)",
+              }}
+            >
+              {t("editorCalloutBadge")}
+            </Badge>
+            <Heading as="h2" size="7">
+              {t("editorCalloutTitle")}
+            </Heading>
+            <Text size="4" style={{ color: "rgba(255,255,255,0.76)" }}>
+              {t("editorCalloutSubtitle")}
+            </Text>
+          </Flex>
+          <Flex direction="column" gap="3" style={{ flex: 1 }}>
+            <Text size="3">{t("editorCalloutFeature1")}</Text>
+            <Text size="3">{t("editorCalloutFeature2")}</Text>
+            <Text size="3">{t("editorCalloutFeature3")}</Text>
+          </Flex>
         </Flex>
       </Box>
       <Footer />
     </Flex>
-  )
+  );
 }
-
 
 const locales = Locales;
 

@@ -30,9 +30,16 @@ export interface ShareObj {
   text: TextProp;
   effect?: EffectProp;
 }
+export function encodeShareData(data: ShareObj) {
+  return encodeText(JSON.stringify(data));
+}
+
+export function getEditorPath(data: ShareObj, locale: string) {
+  return `/${locale}/editor/${encodeShareData(data)}`;
+}
+
 export function getShareLink(data: ShareObj, locale: string) {
-  const dataStr = JSON.stringify(data);
-  return `${window.location.origin}/${locale}/editor/${encodeText(dataStr)}`;
+  return `${window.location.origin}${getEditorPath(data, locale)}`;
 }
 export function decode(data: string) {
   const decoded = decodeText(data);

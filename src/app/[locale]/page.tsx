@@ -2,107 +2,158 @@ import { getTranslations } from "next-intl/server";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Editor from "@/components/FullEditor";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Locales } from "@/i18n/config";
 import { Metadata } from "next";
-import { Box, Flex, Heading, Section, Text } from "@radix-ui/themes";
+import { featuredStyleSlugs, getStylePreset } from "@/lib/style-presets";
+import StylePreviewCard from "@/components/styles/StylePreviewCard";
+import { Badge, Box, Button, Flex, Grid, Heading, Section, Text } from "@radix-ui/themes";
 const host = process.env.NEXT_PUBLIC_HOST;
 export default function HomePage() {
 
   const t = useTranslations("HomePage");
+  const locale = useLocale() as "en" | "zh";
+  const featuredStyles = featuredStyleSlugs
+    .map((slug) => getStylePreset(slug))
+    .filter((style): style is NonNullable<ReturnType<typeof getStylePreset>> => Boolean(style));
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
-      {/* Header */}
       <Header />
-      {/* Main Content */}
       <Flex direction={"column"} justify={"center"} align={"center"}>
-        {/* Hero Section */}
-        <Section className="w-full bg-gradient-to-r from-blue-500 to-purple-600">
-          <Flex justify={"center"} align={"center"} direction={"column"}>
-            <Heading as="h1" size={"9"} >
+        <Section
+          className="w-full"
+          style={{
+            background:
+              "radial-gradient(circle at 10% 12%, rgba(255, 118, 181, 0.16), transparent 22%), radial-gradient(circle at 88% 14%, rgba(87, 220, 255, 0.16), transparent 24%), linear-gradient(180deg, rgba(250,250,252,1) 0%, rgba(246,247,251,1) 100%)",
+          }}
+        >
+          <Flex justify={"center"} align={"center"} direction={"column"} gap="6" px="6" py="8">
+            <Badge radius="full" size="2" color="gray">
+              {t("heroBadge")}
+            </Badge>
+            <Heading as="h1" size={"9"} align="center" style={{ maxWidth: 980 }}>
               {t("heroTitle")}
             </Heading>
-            <Box p={"4"} >
-              <Text size={"6"}> {t("heroSubtitle")}</Text>
+            <Box style={{ maxWidth: 760 }}>
+              <Text size={"6"} align="center"> {t("heroSubtitle")}</Text>
             </Box>
-            <a
-              className="bg-white text-blue-600 px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors"
-              href="#designTool"
-            >
-              <Text size={"5"}> {t("getStarted")}</Text>
-            </a>
+            <Flex gap="3" wrap="wrap" justify="center">
+              <Button asChild radius="full" size="4">
+                <a href="#templates">{t("getStarted")}</a>
+              </Button>
+              <Button asChild radius="full" size="4" variant="soft">
+                <a href="#designTool">{t("openEditor")}</a>
+              </Button>
+            </Flex>
+            <Flex gap="3" wrap="wrap" justify="center">
+              <Badge radius="full" variant="soft">{t("heroStat1")}</Badge>
+              <Badge radius="full" variant="soft">{t("heroStat2")}</Badge>
+              <Badge radius="full" variant="soft">{t("heroStat3")}</Badge>
+            </Flex>
           </Flex>
         </Section>
 
-        {/* 工具栏 */}
-        <Section p="4" className="md:w-2/3 w-full">
-          <Flex justify={"between"} align={"center"} direction={"column"} gap={"6"} p={"6"} id="designTool">
-            <Heading as="h2" size={"8"}>
-              {t("toolTitle")}
-            </Heading>
-            <Editor textProp={undefined} backgroundProp={undefined} effectProp={undefined}></Editor>
+        <Section className="w-full" id="templates" py="8">
+          <Flex direction="column" gap="6" px="6" mx="auto" style={{ maxWidth: 1240 }}>
+            <Flex direction="column" gap="2" align="center" className="text-center">
+              <Heading as="h2" size="8">
+                {t("featuredTemplatesTitle")}
+              </Heading>
+              <Text size="5" color="gray" style={{ maxWidth: 760 }}>
+                {t("featuredTemplatesSubtitle")}
+              </Text>
+            </Flex>
+            <Grid columns={{ initial: "1", md: "2" }} gap="5">
+              {featuredStyles.map((style) => (
+                <StylePreviewCard
+                  key={style.slug}
+                  style={style}
+                  locale={locale}
+                  mode="feature"
+                  openLabel={t("openTemplate")}
+                  detailLabel={t("seeDetails")}
+                />
+              ))}
+            </Grid>
+            <Flex justify="center">
+              <Button asChild radius="full" variant="soft" size="3">
+                <a href={`/${locale}/styles`}>{t("browseLibrary")}</a>
+              </Button>
+            </Flex>
           </Flex>
-
         </Section>
 
-        {/* Features Section */}
         <Section className="w-full py-16 bg-accent-3">
           <Flex direction={"column"} justify={"center"} align={"center"} gap={"6"} p={"6"}>
             <Heading as="h2" size={"8"} className="text-3xl font-bold text-center">
               {t("featuresTitle")}
             </Heading>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className=" p-6 rounded-lg shadow-sm border-l-4 border-orange-500">
+            <Grid columns={{ initial: "1", md: "3" }} gap="5" style={{ width: "100%", maxWidth: 1120 }}>
+              <Box className="p-6 rounded-3xl shadow-sm border-l-4 border-orange-500 bg-background">
                 <Heading as="h3" className="text-xl font-bold mb-3">{t("feature1Title")}</Heading>
-                <p >{t("feature1Desc")}</p>
-              </div>
-              <div className="p-6 rounded-lg shadow-sm border-l-4 border-amber-500">
+                <Text>{t("feature1Desc")}</Text>
+              </Box>
+              <Box className="p-6 rounded-3xl shadow-sm border-l-4 border-amber-500 bg-background">
                 <Heading as="h3" className="text-xl font-bold mb-3">{t("feature2Title")}</Heading>
-                <p >{t("feature2Desc")}</p>
-              </div>
-              <div className=" p-6 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                <Text>{t("feature2Desc")}</Text>
+              </Box>
+              <Box className="p-6 rounded-3xl shadow-sm border-l-4 border-yellow-500 bg-background">
                 <Heading as="h3" className="text-xl font-bold mb-3">{t("feature3Title")}</Heading>
-                <p >{t("feature3Desc")}</p>
-              </div>
-            </div>
+                <Text>{t("feature3Desc")}</Text>
+              </Box>
+            </Grid>
           </Flex>
         </Section>
 
-        {/* Testimonials Section */}
+        <Section p="4" className="w-full" id="designTool">
+          <Flex justify={"between"} align={"center"} direction={"column"} gap={"6"} p={"6"} className="mx-auto" style={{ maxWidth: 1240 }}>
+            <Flex direction="column" align="center" gap="2" className="text-center">
+              <Heading as="h2" size={"8"}>
+                {t("toolTitle")}
+              </Heading>
+              <Text size="5" color="gray" style={{ maxWidth: 760 }}>
+                {t("toolSubtitle")}
+              </Text>
+            </Flex>
+            <Editor textProp={undefined} backgroundProp={undefined} effectProp={undefined}></Editor>
+          </Flex>
+        </Section>
+
         <Section className="w-full py-16 bg-gray-2">
           <Flex direction={"column"} justify={"center"} align={"center"} gap={"6"} p={"6"}>
             <Heading as="h2" size={"8"} className="text-3xl font-bold text-center mb-12">
-              {t("testimonialsTitle")}
+              {t("useCasesTitle")}
             </Heading>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className=" p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
-                <p className=" mb-4">"{t("testimonial1Text")}"</p>
-                <p className="font-semibold">- {t("testimonial1Author")}</p>
-              </div>
-              <div className=" p-6 rounded-lg shadow-sm border-l-4 border-purple-500">
-                <p className=" mb-4">"{t("testimonial2Text")}"</p>
-                <p className="font-semibold">- {t("testimonial2Author")}</p>
-              </div>
-            </div>
+            <Grid columns={{ initial: "1", md: "3" }} gap="5" style={{ width: "100%", maxWidth: 1120 }}>
+              <Box className="p-6 rounded-3xl shadow-sm border border-gray-4 bg-background">
+                <Heading as="h3" size="5" mb="2">{t("useCase1Title")}</Heading>
+                <Text color="gray">{t("useCase1Desc")}</Text>
+              </Box>
+              <Box className="p-6 rounded-3xl shadow-sm border border-gray-4 bg-background">
+                <Heading as="h3" size="5" mb="2">{t("useCase2Title")}</Heading>
+                <Text color="gray">{t("useCase2Desc")}</Text>
+              </Box>
+              <Box className="p-6 rounded-3xl shadow-sm border border-gray-4 bg-background">
+                <Heading as="h3" size="5" mb="2">{t("useCase3Title")}</Heading>
+                <Text color="gray">{t("useCase3Desc")}</Text>
+              </Box>
+            </Grid>
           </Flex>
         </Section>
 
-        {/* CTA Section */}
         <Section className="w-full py-16 bg-blue-9 ">
           <Flex direction={"column"} justify={"center"} align={"center"} gap={"6"} p={"6"}>
             <Heading as="h2" size={"8"} className="text-3xl font-bold mb-6">{t("ctaTitle")}</Heading>
-            <p className="text-xl mb-8 max-w-3xl mx-auto">{t("ctaSubtitle")}</p>
-            <a
-              className="  px-8 py-3 rounded-full font-bold text-lg bg-blue-300 hover:bg-blue-500 transition-colors dark:bg-gray-800 dark:hover:bg-gray-600"
-              href="#designTool"
-            >
-              {t("ctaButton")}
-            </a>
+            <Text size="5" className="max-w-3xl mx-auto">{t("ctaSubtitle")}</Text>
+            <Button asChild radius="full" size="4" variant="solid" color="gray">
+              <a href={`/${locale}/styles`}>
+                {t("ctaButton")}
+              </a>
+            </Button>
           </Flex>
         </Section>
 
-        {/* FAQ Section */}
         <section className="w-full py-16 bg-panel">
           <Flex direction={"column"} justify={"center"} align={"center"} gap={"6"} p={"6"}>
             <Heading as="h2" size={"8"} className="text-3xl font-bold text-center mb-12">
@@ -126,7 +177,6 @@ export default function HomePage() {
         </section>
       </Flex>
 
-      {/* Footer */}
       <Footer></Footer>
     </div>
   );

@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect, } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Eye, Download, Share } from "lucide-react";
-import { BackgroundProp } from "./BackgroundSelector";
+import { BackgroundProp, GradientDirection } from "./BackgroundSelector";
 import { Text, Flex, Button, Select, AlertDialog, Code, AspectRatio } from "@radix-ui/themes";
 import { getPicture, resize, init as threeInit, updateBackground, updateEffectProp, updateTextProp } from "./ThreeTools";
 import { TextProp } from "./TextSetting";
@@ -25,6 +25,42 @@ const AspectRatios = Sizes.map(o => {
   // const a = gcd(w, h);
   return w / h;
 })
+
+const getGradientCoordinates = (
+  direction: GradientDirection,
+  width: number,
+  height: number
+) => {
+  switch (direction) {
+    case "topToBottom":
+      return [0, 0, 0, height] as const;
+    case "topLeftToBottomRight":
+      return [0, 0, width, height] as const;
+    case "bottomLeftToTopRight":
+      return [0, height, width, 0] as const;
+    case "leftToRight":
+    default:
+      return [0, 0, width, 0] as const;
+  }
+};
+
+const getGradientBackgroundCss = (background: BackgroundProp) => {
+  if (!background.gradient) {
+    return background.image ? `url(${background.image})` : "none";
+  }
+
+  switch (background.gradient.direction) {
+    case "topToBottom":
+      return `linear-gradient(to bottom, ${background.gradient.startColor}, ${background.gradient.endColor})`;
+    case "topLeftToBottomRight":
+      return `linear-gradient(to bottom right, ${background.gradient.startColor}, ${background.gradient.endColor})`;
+    case "bottomLeftToTopRight":
+      return `linear-gradient(to top right, ${background.gradient.startColor}, ${background.gradient.endColor})`;
+    case "leftToRight":
+    default:
+      return `linear-gradient(to right, ${background.gradient.startColor}, ${background.gradient.endColor})`;
+  }
+};
 export default function PreviewToolbar({
   background,
   text,
@@ -101,6 +137,18 @@ export default function PreviewToolbar({
           resolve(canvas.toDataURL("image/png"));
         };
         image.src = threeimage;
+      }
+      if (background.gradient) {
+        const [x0, y0, x1, y1] = getGradientCoordinates(
+          background.gradient.direction,
+          size.width,
+          size.height
+        );
+        const gradient = ctx.createLinearGradient(x0, y0, x1, y1);
+        gradient.addColorStop(0, background.gradient.startColor);
+        gradient.addColorStop(1, background.gradient.endColor);
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, size.width, size.height);
       }
       if (background.color) {
         ctx.fillStyle = background.color;
@@ -199,7 +247,7 @@ export default function PreviewToolbar({
 
     const bg = { ...background, image: null };
 
-    const link = getShareLink({ bg, text }, locale);
+    const link = getShareLink({ bg, text, effect }, locale);
 
     setShareLink(link);
 
@@ -244,9 +292,9 @@ export default function PreviewToolbar({
       }}>
         <canvas ref={container} className="w-full border border-gray-300" style={{
           backgroundColor: background.color ? `${background.color}` : "rgba(0,0,0,0)",
-          backgroundImage: (background.image) ? `url(${background.image})` : "none",
+          backgroundImage: getGradientBackgroundCss(background),
           backgroundRepeat: "no-repeat",
-          backgroundSize: "contain",
+          backgroundSize: background.image ? "contain" : "cover",
           backgroundPosition: "center",
           maxWidth: size.width, maxHeight: size.height
         }} />
