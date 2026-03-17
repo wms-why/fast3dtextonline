@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-03-17",
+  "sourceFile": "src/lib/style-presets.ts",
+  "originalFonts": [
+    "Trebuchet MS",
+    "Avenir Next",
+    "Arial Black",
+    "Impact",
+    "Georgia",
+    "Palatino Linotype",
+    "Verdana",
+    "Gill Sans",
+    "Tahoma"
+  ],
+  "localOpenSourceFonts": [
+    {
+      "family": "Public Sans",
+      "files": [
+        "public-sans-400.ttf",
+        "public-sans-900.ttf"
+      ],
+      "replaces": [
+        "Trebuchet MS",
+        "Avenir Next",
+        "Verdana",
+        "Gill Sans",
+        "Tahoma"
+      ]
+    },
+    {
+      "family": "Archivo",
+      "files": [
+        "archivo-400.ttf",
+        "archivo-900.ttf"
+      ],
+      "replaces": [
+        "Arial Black"
+      ]
+    },
+    {
+      "family": "Anton",
+      "files": [
+        "anton-400.ttf"
+      ],
+      "replaces": [
+        "Impact"
+      ]
+    },
+    {
+      "family": "Merriweather",
+      "files": [
+        "merriweather-400.ttf",
+        "merriweather-900.ttf"
+      ],
+      "replaces": [
+        "Georgia",
+        "Palatino Linotype"
+      ]
+    }
+  ]
+}
