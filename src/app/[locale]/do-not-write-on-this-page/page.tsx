@@ -7,7 +7,6 @@ import Editor from "@/components/FullEditor";
 import { TextProp } from "@/components/common/TextSetting";
 
 export default function Page() {
-
   const t = useTranslations("DoNotWriteOnThisPage");
   const indexT = useTranslations("HomePage");
 
@@ -21,7 +20,7 @@ export default function Page() {
       {/* Main Content */}
       <main className="flex-1 w-full">
         {/* Hero Section */}
-        <section className=" text-white py-20 bg-gradient-to-r from-blue-500 to-purple-600">
+        <section className=" text-white py-20 bg-linear-to-r from-blue-500 to-purple-600">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl font-bold mb-4">{t("heroTitle")}</h1>
             <p className="text-xl mb-8">{t("heroSubtitle")}</p>
@@ -36,7 +35,11 @@ export default function Page() {
           <h2 className="text-3xl font-bold text-center mb-12">
             {t("toolTitle")}
           </h2>
-          <Editor textProp={text} backgroundProp={undefined} effectProp={undefined}></Editor>
+          <Editor
+            textProp={text}
+            backgroundProp={undefined}
+            effectProp={undefined}
+          ></Editor>
         </section>
 
         {/* Features Section */}

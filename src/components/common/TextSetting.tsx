@@ -4,6 +4,7 @@ import { Flex, Heading, Select, Tooltip, IconButton, Link, Box, Tabs, RadioGroup
 import { PlusIcon, CircleQuestionMarkIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import { TTFLoader } from "three/addons/loaders/TTFLoader.js";
 
 export type ColorGradientDir = "l2r" | "t2b";
 export enum FontFrom {
@@ -71,6 +72,10 @@ const getFontWeightEnabled = (font: string) => {
   }
   return map;
 };
+
+const getUploadedFontName = (fileName: string) =>
+  fileName.replace(/\.(json|ttf|otf)$/i, "");
+
 export default function TextSetting({
   text,
   setText,
@@ -165,6 +170,30 @@ export default function TextSetting({
 
     const map = getFontWeightEnabled(font);
     setFontWeightEnabled(map);
+  };
+
+  const handleUploadFont = async (file: File) => {
+    const fontName = getUploadedFontName(file.name);
+    let url = "";
+
+    if (file.name.match(/\.json$/i)) {
+      url = URL.createObjectURL(file);
+    } else if (file.name.match(/\.(ttf|otf)$/i)) {
+      const buffer = await file.arrayBuffer();
+      const loader = new TTFLoader();
+      const fontJson = loader.parse(buffer);
+      const blob = new Blob([JSON.stringify(fontJson)], {
+        type: "application/json",
+      });
+      url = URL.createObjectURL(blob);
+    } else {
+      return;
+    }
+
+    setUploadFonts((prev) => [
+      ...prev.filter((font) => font.name !== fontName),
+      { name: fontName, url },
+    ]);
   };
 
   return (
@@ -292,22 +321,13 @@ export default function TextSetting({
               <input
                 id="fontUpload"
                 type="file"
-                accept=".json"
+                accept=".json,.ttf,.otf"
                 className="hidden"
-                onChange={(e) => {
+                onChange={async (e) => {
                   const file = e.target.files?.[0];
                   if (!file) return;
-
-                  const reader = new FileReader();
-                  reader.onload = () => {
-                    const fontName = file.name.replace('.json', '');
-                    const newFont = {
-                      name: fontName,
-                      url: URL.createObjectURL(file)
-                    };
-                    setUploadFonts([...uploadFonts.filter(font => font.name !== fontName), newFont]);
-                  };
-                  reader.readAsText(file);
+                  await handleUploadFont(file);
+                  e.target.value = "";
                 }}
               />
               <PlusIcon />
