@@ -79,11 +79,17 @@ function createEditorPreset({
     effect: {
       enableShadow: true,
       shadowColor,
+      shadowBlur: 6,
+      shadowOpacity: 0.3,
+      shadowOffsetX: 0,
+      shadowOffsetY: -6,
+      strokeColor: "#ffffff",
+      strokeWidth: 0,
     },
   };
 }
 
-export const stylePresets: StylePreset[] = [
+const rawStylePresets: StylePreset[] = [
   {
     slug: "barbie-pink",
     category: "playful",
@@ -868,7 +874,113 @@ export const stylePresets: StylePreset[] = [
       useCases: ["精品 logo 标题", "轻奢邀请函", "品牌活动主视觉"],
     },
   },
+  {
+    slug: "rose-gold",
+    category: "metallic",
+    badge: "Rose Gold",
+    previewText: "Rose Luxe",
+    keywords: ["rose gold text", "rose gold logo", "elegant pink gold text"],
+    relatedSlugs: ["luxury-serif", "molten-gold", "barbie-pink"],
+    spotlight: true,
+    visual: {
+      background:
+        "radial-gradient(circle at 18% 16%, rgba(255,255,255,0.74), transparent 16%), linear-gradient(135deg, #fff1ee 0%, #f3d7d2 42%, #d9b0a8 100%)",
+      foreground: "#4f2f2e",
+      mutedForeground: "rgba(79, 47, 46, 0.76)",
+      panelBackground: "rgba(255, 251, 249, 0.76)",
+      panelBorder: "rgba(183, 122, 112, 0.22)",
+      accent: "#c97970",
+      textGradient: "linear-gradient(180deg, #fff5f1 0%, #f1c5bc 40%, #c47a6f 100%)",
+      textShadow: "0 16px 28px rgba(137, 92, 84, 0.22)",
+      textStroke: "1px rgba(255,255,255,0.7)",
+      fontFamily: "\"Merriweather\", \"Georgia\", serif",
+      rotation: "rotate(-2deg)",
+    },
+    editorPreset: createEditorPreset({
+      text: "Rose Luxe",
+      font: "Optimer",
+      weight: FontWeight.Bold,
+      textColor: ["#fde7df", "#c77769"],
+      backgroundGradient: {
+        direction: "topLeftToBottomRight",
+        startColor: "#fff4ef",
+        endColor: "#ddb1a7",
+      },
+      shadowColor: "#9b655e",
+    }),
+    en: {
+      title: "Rose Gold 3D Text Generator",
+      summary: "Soft metallic lettering for beauty brands, feminine packaging, and polished invitations.",
+      description:
+        "Create rose gold text online with warm pink-metal highlights for boutique logos, beauty launches, elegant invites, and premium social graphics.",
+      useCases: ["Beauty brand logo", "Elegant invitation", "Premium social headline"],
+    },
+    zh: {
+      title: "玫瑰金 3D 文字生成器",
+      summary: "偏柔和金属和精致感，适合美妆品牌、邀请函和轻奢宣传图。",
+      description:
+        "在线生成带粉金高光的玫瑰金 3D 文字，适合精品 logo、美妆上新、优雅邀请函和高质感社媒标题。",
+      useCases: ["美妆品牌标题", "优雅邀请函", "轻奢社媒主标题"],
+    },
+  },
+  {
+    slug: "glitter-pop",
+    category: "playful",
+    badge: "Glitter",
+    previewText: "Spark Joy",
+    keywords: ["glitter text generator", "sparkle text effect", "glitter letters"],
+    relatedSlugs: ["barbie-pink", "bubble-letters", "rose-gold"],
+    spotlight: true,
+    visual: {
+      background:
+        "radial-gradient(circle at 20% 18%, rgba(255,255,255,0.8), transparent 14%), radial-gradient(circle at 82% 20%, rgba(255, 239, 156, 0.34), transparent 18%), linear-gradient(135deg, #fff7d5 0%, #ffd7f0 46%, #ffc48f 100%)",
+      foreground: "#5a2b4d",
+      mutedForeground: "rgba(90, 43, 77, 0.76)",
+      panelBackground: "rgba(255, 252, 244, 0.76)",
+      panelBorder: "rgba(214, 137, 170, 0.22)",
+      accent: "#ff84bb",
+      textGradient: "linear-gradient(180deg, #fff7ba 0%, #ff97cb 44%, #ffbd63 100%)",
+      textShadow: "0 16px 26px rgba(177, 108, 145, 0.24)",
+      textStroke: "1px rgba(255,255,255,0.76)",
+      fontFamily: "\"Baloo 2\", \"Public Sans\", \"Trebuchet MS\", sans-serif",
+      rotation: "rotate(-4deg)",
+    },
+    editorPreset: createEditorPreset({
+      text: "Spark Joy",
+      font: "Optimer",
+      weight: FontWeight.Bold,
+      textColor: ["#fff28d", "#ff8ec8"],
+      backgroundGradient: {
+        direction: "topLeftToBottomRight",
+        startColor: "#fff8df",
+        endColor: "#ffc6a3",
+      },
+      shadowColor: "#c6839f",
+    }),
+    en: {
+      title: "Glitter Text 3D Generator",
+      summary: "Sparkly pastel text for birthday graphics, cute promos, and party-ready covers.",
+      description:
+        "Make glitter text online with bright sparkle-inspired gradients for party invites, cute headers, celebratory thumbnails, and playful brand art.",
+      useCases: ["Birthday graphic", "Party invite title", "Cute promo cover"],
+    },
+    zh: {
+      title: "闪粉字 3D 文字生成器",
+      summary: "偏闪亮、偏庆祝，适合生日图、派对邀请和可爱促销封面。",
+      description:
+        "在线生成带闪粉感渐变的 3D 文字，适合派对标题、生日海报、庆祝活动封面和轻松可爱的品牌视觉。",
+      useCases: ["生日图标题", "派对邀请封面", "可爱促销主标题"],
+    },
+  },
 ];
+
+export const stylePresets: StylePreset[] = rawStylePresets.map((style) => ({
+  ...style,
+  editorPreset: {
+    ...style.editorPreset,
+    templateSlug: style.slug,
+  },
+}));
 
 export const featuredStyleSlugs = stylePresets
   .filter((style) => style.spotlight)

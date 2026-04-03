@@ -1,7 +1,8 @@
 {
   "Metadata": {
-    "title": "3D文字生成器",
-    "description": "专业的3D文字生成工具，可自定义字体、颜色、背景和特效，轻松创建惊艳的3D文字效果"
+    "title": "3D文字生成器模板库：Chrome、泡泡字、霓虹、闪粉、玫瑰金等风格",
+    "description": "模板优先的 3D 文字生成器，覆盖 chrome、bubble、neon、rose gold、glitter、ice、sports 等高意图风格词，并可继续进入编辑器微调导出。",
+    "keywords": "3D文字生成器,3D文字模板,chrome文字生成器,泡泡字生成器,霓虹字生成器,玫瑰金文字,闪粉字生成器,冰字生成器,运动logo文字"
   },
   "Header": {
     "appName": "Fast3DText",
@@ -18,17 +19,17 @@
   "HomePage": {
     "heroBadge": "模板优先的 3D 文字生成器",
     "heroTitle": "先选现成 3D 风格模板，再在几秒内改成你的文案",
-    "heroSubtitle": "围绕粉色、金属、霓虹、节日等常见需求整理模板，适合封面图、海报、Logo 和社媒标题。",
+    "heroSubtitle": "围绕 chrome、泡泡字、霓虹、闪粉、玫瑰金、冰字、运动风等高意图需求整理模板，适合封面图、海报、Logo 和社媒标题。",
     "toolTitle": "在编辑器里继续微调任意模板",
-    "toolSubtitle": "你可以继续调整文字、字体、渐变、背景和阴影，并导出 PNG 或分享可复用链接。",
+    "toolSubtitle": "你可以继续调整文字、字体、渐变、背景、阴影和描边，并导出 PNG 或分享可复用链接。",
     "toolMore": "需要更多选项？",
     "getStarted": "浏览模板",
     "openEditor": "打开编辑器",
-    "heroStat1": "首批 16 个模板",
+    "heroStat1": "18 个可搜索模板页",
     "heroStat2": "支持 PNG 导出和分享链接",
     "heroStat3": "兼顾英文和中文使用",
     "featuredTemplatesTitle": "热门模板起点",
-    "featuredTemplatesSubtitle": "先覆盖高意图搜索词：粉色、铬银、霓虹、金色、泡泡字和运动风，再逐步扩展风格库。",
+    "featuredTemplatesSubtitle": "先覆盖高意图搜索词：chrome、霓虹、泡泡字、运动 logo、闪粉字和玫瑰金，再逐步扩展风格库。",
     "openTemplate": "打开模板",
     "seeDetails": "查看详情",
     "browseLibrary": "浏览完整模板库",
@@ -53,7 +54,7 @@
     "faqQuestion1": "如何下载我的3D文字设计？",
     "faqAnswer1": "在预览工具栏中选择尺寸后，点击下载按钮即可导出 PNG 图片。",
     "faqQuestion2": "可以自定义3D效果吗？",
-    "faqAnswer2": "当前可以调整字体、渐变、背景和阴影。更高级的 3D 预设能力会继续补充。",
+    "faqAnswer2": "当前可以调整字体、渐变、背景、阴影和描边。更高级的 3D 预设能力会继续补充。",
     "faqQuestion3": "这个3D文字生成器是免费的吗？",
     "faqAnswer3": "是的，可以免费创建无限量的3D文字设计"
   },
@@ -96,7 +97,10 @@
     "seoDescription": "在模板基础上继续编辑 3D 文字，调整字体、颜色、渐变、背景和阴影，并导出 PNG 或分享链接。",
     "title": "文字编辑",
     "editorIntro": "如果模板已经接近你的目标，可以直接在这里改文案、换字体、调背景后导出。",
+    "fromTemplateBadge": "当前来自模板",
     "browseTemplates": "浏览模板",
+    "viewTemplateDetail": "查看模板详情",
+    "switchTemplateTitle": "切换到相近模板",
     "defaultText": "欢迎",
     "textColor": "文字颜色",
     "color": "纯色",
@@ -115,7 +119,14 @@
   "Effects": {
     "title": "特效",
     "shadowOption": "阴影",
-    "shadowOptionHelp": "阴影只在纯色背景下有效"
+    "shadowOptionHelp": "图片背景下，阴影预览可能没有纯色或渐变背景那么稳定。",
+    "shadowColor": "阴影颜色",
+    "shadowBlur": "阴影模糊",
+    "shadowOpacity": "阴影透明度",
+    "shadowOffsetX": "阴影横向偏移",
+    "shadowOffsetY": "阴影纵向偏移",
+    "strokeColor": "描边颜色",
+    "strokeWidth": "描边宽度"
   },
   "Footer": {
     "featureRequest": "提交功能需求",

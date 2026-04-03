@@ -1,13 +1,13 @@
 import { getTranslations } from "next-intl/server";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Editor from "@/components/FullEditor";
 import { useLocale, useTranslations } from "next-intl";
 import { Locales } from "@/i18n/config";
 import { Metadata } from "next";
 import { featuredStyleSlugs, getStylePreset } from "@/lib/style-presets";
 import StylePreviewCard from "@/components/styles/StylePreviewCard";
 import { Badge, Box, Button, Flex, Grid, Heading, Section, Text } from "@radix-ui/themes";
+import { EditorSurface } from "@/components/editor/EditorSurface";
 const host = process.env.NEXT_PUBLIC_HOST;
 export default function HomePage() {
 
@@ -52,6 +52,15 @@ export default function HomePage() {
               <Badge radius="full" variant="soft">{t("heroStat3")}</Badge>
             </Flex>
           </Flex>
+        </Section>
+
+        <Section p="4" className="w-full" id="designTool">
+          <Box p={{ initial: "4", md: "6" }}>
+            <EditorSurface
+              title={t("toolTitle")}
+              subtitle={t("toolSubtitle")}
+            />
+          </Box>
         </Section>
 
         <Section className="w-full" id="templates" py="8">
@@ -103,20 +112,6 @@ export default function HomePage() {
                 <Text>{t("feature3Desc")}</Text>
               </Box>
             </Grid>
-          </Flex>
-        </Section>
-
-        <Section p="4" className="w-full" id="designTool">
-          <Flex justify={"between"} align={"center"} direction={"column"} gap={"6"} p={"6"} className="mx-auto" style={{ maxWidth: 1240 }}>
-            <Flex direction="column" align="center" gap="2" className="text-center">
-              <Heading as="h2" size={"8"}>
-                {t("toolTitle")}
-              </Heading>
-              <Text size="5" color="gray" style={{ maxWidth: 760 }}>
-                {t("toolSubtitle")}
-              </Text>
-            </Flex>
-            <Editor textProp={undefined} backgroundProp={undefined} effectProp={undefined}></Editor>
           </Flex>
         </Section>
 
@@ -195,18 +190,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
+  const localizedHomeUrl = `${host}/${locale}`;
 
   return {
     title: t("title"),
     description: t("description"),
-    // keywords: t("keywords"),
-    // other: {
-    //   "google-site-verification": "sVYBYfSJfXdBca3QoqsZtD6lsWVH6sk02RCH4YAbcm8",
-    // },
+    keywords: t("keywords").split(",").map((item) => item.trim()),
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: host,
+      url: localizedHomeUrl,
       siteName: "screen customization",
       images: [
         {
@@ -227,7 +220,7 @@ export async function generateMetadata({
       creator: "Yaomker",
     },
     alternates: {
-      canonical: `${host}`,
+      canonical: localizedHomeUrl,
       languages: {
         en: `${host}/en`,
         zh: `${host}/zh`,

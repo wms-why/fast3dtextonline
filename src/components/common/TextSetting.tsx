@@ -90,9 +90,13 @@ const getUploadedFontName = (fileName: string) =>
 export default function TextSetting({
   text,
   setText,
+  showTitle = true,
+  chrome = true,
 }: {
   text: TextProp;
   setText: (text: TextProp) => void;
+  showTitle?: boolean;
+  chrome?: boolean;
 }) {
   const locale = useLocale();
 
@@ -208,8 +212,8 @@ export default function TextSetting({
   };
 
   return (
-    <Flex className="p-4 border rounded-lg border-t-2 border-t-purple-500 shadow" gap={"3"} direction={"column"}>
-      <Heading as="h2" size="4" className="font-medium text-lg" >{t("title")}</Heading>
+    <Flex className={chrome ? "p-4 border rounded-lg shadow" : ""} gap={"3"} direction={"column"}>
+      {showTitle && <Heading as="h2" size="4" className="font-medium text-lg" >{t("title")}</Heading>}
       <textarea
         value={text.text}
         onChange={e => setText({ ...text, text: e.target.value })}
@@ -217,7 +221,6 @@ export default function TextSetting({
         rows={2}
       />
       <div className="space-y-1">
-        <Heading as="h3" size={"3"} >{t("textColor")}</Heading>
         <Tabs.Root value={textColorMode} onValueChange={(e) => setTextColorMode(e as "color" | "gradient")}>
           <Tabs.List>
             <Tabs.Trigger value="color">{t("color")}</Tabs.Trigger>
@@ -293,9 +296,6 @@ export default function TextSetting({
       </div>
       <div className="space-y-1">
         <Flex gap={"2"}>
-          <Heading as="h3" size={"3"} >
-            {t("fontFamily")}
-          </Heading>
           <Tooltip content={t("how2UploadFont")} >
             <Link href={`/${locale}/blogs/Create-3D-Text-with-the-Barbie-Font`}>
               <IconButton radius="full" variant="ghost" >

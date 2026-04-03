@@ -1,5 +1,6 @@
 import { OnlyPage } from "@/components/editor/OnlyPage";
 import { decode } from "@/lib/utils";
+import { getRelatedStyles, getStylePreset } from "@/lib/style-presets";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -7,21 +8,30 @@ export default async function Page({ params }: { params: Promise<{ data: string 
 
   const { data } = await params
 
-  let backgroundProp, textProp, effectProp
+  let backgroundProp, textProp, effectProp, currentStyle
 
   if (data) {
     try {
-      const { bg, text, effect } = decode(data);
+      const { bg, text, effect, templateSlug } = decode(data);
 
       backgroundProp = bg;
       textProp = text;
       effectProp = effect;
+      currentStyle = templateSlug ? getStylePreset(templateSlug) : undefined;
     } catch (error) {
       console.error("parse data from url error", error)
     }
   }
 
-  return (<OnlyPage textProp={textProp} backgroundProp={backgroundProp} effectProp={effectProp}></OnlyPage>)
+  return (
+    <OnlyPage
+      textProp={textProp}
+      backgroundProp={backgroundProp}
+      effectProp={effectProp}
+      currentStyle={currentStyle}
+      relatedStyles={currentStyle ? getRelatedStyles(currentStyle) : []}
+    />
+  )
 
 }
 

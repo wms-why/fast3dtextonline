@@ -1,13 +1,10 @@
-
-import { BackgroundProp } from "@/components/common/BackgroundSelector";
-import { TextProp } from "@/components/common/TextSetting";
 import { OnlyPage } from "@/components/editor/OnlyPage";
 import { Locales } from "@/i18n/config";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 const host = process.env.NEXT_PUBLIC_HOST;
 export default function Page() {
-  return (<OnlyPage textProp={undefined} backgroundProp={undefined} effectProp={undefined}></OnlyPage>)
+  return (<OnlyPage textProp={undefined} backgroundProp={undefined} effectProp={undefined} currentStyle={undefined} relatedStyles={[]}></OnlyPage>)
 }
 
 const locales = Locales;

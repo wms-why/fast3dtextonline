@@ -27,9 +27,13 @@ export const defaultBackgroundGradient = (): BackgroundGradient => ({
 export default function BackgroundSelector({
   background,
   setBackground,
+  showTitle = true,
+  chrome = true,
 }: {
   background: BackgroundProp;
   setBackground: (bg: BackgroundProp) => void;
+  showTitle?: boolean;
+  chrome?: boolean;
 }) {
   const t = useTranslations("BackgoundSetting");
   const initialBackgroundType: BackgroundType = background.gradient
@@ -98,10 +102,10 @@ export default function BackgroundSelector({
   };
 
   return (
-    <Box className="p-4 border rounded-lg min-w-64 border-t-2 border-t-purple-500 shadow">
-      <Heading as="h2" size="4" className="font-medium text-lg">{t("title")}</Heading>
+    <Box className={chrome ? "p-4 border rounded-lg min-w-64 shadow" : "min-w-64"}>
+      {showTitle && <Heading as="h2" size="4" className="font-medium text-lg">{t("title")}</Heading>}
       <Tabs.Root value={backgroundType} onValueChange={handleBackgroundTypeChange}>
-        <Tabs.List mt="3">
+        <Tabs.List mt={showTitle ? "3" : "0"}>
           <Tabs.Trigger value="color">{t("colorOption")}</Tabs.Trigger>
           <Tabs.Trigger value="gradient">{t("gradientOption")}</Tabs.Trigger>
           <Tabs.Trigger value="image">{t("imageOption")}</Tabs.Trigger>
@@ -110,7 +114,6 @@ export default function BackgroundSelector({
         <Box pt="3">
           <Tabs.Content value="color">
             <Flex gap="3" direction="column">
-              <Heading as="h3" size="3">{t("selectColor")}</Heading>
               <Flex gap="3" align="center">
                 <input
                   type="color"
@@ -200,7 +203,6 @@ export default function BackgroundSelector({
 
           <Tabs.Content value="image">
             <Flex gap="3" direction="column">
-              <Heading as="h3" size="3">{t("uploadImage")}</Heading>
               <input
                 type="file"
                 id="file-upload"

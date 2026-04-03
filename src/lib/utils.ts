@@ -29,6 +29,7 @@ export interface ShareObj {
   bg: BackgroundProp;
   text: TextProp;
   effect?: EffectProp;
+  templateSlug?: string;
 }
 export function encodeShareData(data: ShareObj) {
   return encodeText(JSON.stringify(data));

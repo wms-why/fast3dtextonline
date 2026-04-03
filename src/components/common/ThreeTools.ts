@@ -14,11 +14,12 @@ let camera: THREE.PerspectiveCamera,
   scene: THREE.Scene,
   renderer: THREE.WebGLRenderer,
   controls: OrbitControls,
+  shadowLight: THREE.DirectionalLight,
   container: HTMLCanvasElement;
 export function init(
   _container: HTMLCanvasElement,
   width: number,
-  height: number
+  height: number,
 ) {
   container = _container;
   scene = new THREE.Scene();
@@ -32,6 +33,7 @@ export function init(
   renderer.setSize(width, height, false);
   renderer.setAnimationLoop(animate);
   renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
   camera.position.set(0, 0, 50);
@@ -56,7 +58,7 @@ export function init(
   controls.screenSpacePanning = true;
 
   controls.enabled = true;
-  // controls.enablePan = false;
+  controls.enablePan = false;
 
   //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
 
@@ -74,19 +76,19 @@ export function init(
   dirLight1.position.set(1, 1, 1);
   scene.add(dirLight1);
 
-  const dirLight2 = new THREE.DirectionalLight(0x002288, 3);
-  dirLight2.position.set(-10, 10, 50);
-  dirLight2.castShadow = true;
-  dirLight2.shadow.camera.left = -100;
-  dirLight2.shadow.camera.top = 100;
-  dirLight2.shadow.camera.bottom = -100;
-  dirLight2.shadow.camera.right = 100;
-  dirLight2.shadow.camera.near = 0;
-  dirLight2.shadow.camera.far = 200;
-  dirLight2.shadow.bias = -0.000222;
-  dirLight2.shadow.mapSize.width = 2048;
-  dirLight2.shadow.mapSize.height = 2048;
-  scene.add(dirLight2);
+  shadowLight = new THREE.DirectionalLight(0x002288, 3);
+  shadowLight.position.set(-10, 10, 50);
+  shadowLight.castShadow = true;
+  shadowLight.shadow.camera.left = -100;
+  shadowLight.shadow.camera.top = 100;
+  shadowLight.shadow.camera.bottom = -100;
+  shadowLight.shadow.camera.right = 100;
+  shadowLight.shadow.camera.near = 0;
+  shadowLight.shadow.camera.far = 200;
+  shadowLight.shadow.bias = -0.000222;
+  shadowLight.shadow.mapSize.width = 2048;
+  shadowLight.shadow.mapSize.height = 2048;
+  scene.add(shadowLight);
 
   // const helper = new THREE.DirectionalLightHelper(dirLight2, 50);
   // scene.add(helper);
@@ -111,7 +113,7 @@ export function resize(
   width: number,
   height: number,
   clientWidth: number,
-  clientHeight: number
+  clientHeight: number,
 ) {
   console.log("resize to width = " + width + " height = " + height);
 
@@ -131,6 +133,7 @@ export function resize(
 }
 
 let textMesh: THREE.Mesh;
+let outlineMesh: THREE.Mesh | null = null;
 let lastTextProps: TextProp | null = null;
 export async function updateTextProp(textProps: TextProp) {
   // const mirror = true;
@@ -159,17 +162,27 @@ export async function updateTextProp(textProps: TextProp) {
       // 单色处理
       setColor(textProps.color, mat);
     }
-    let size = new THREE.Vector3();
-    geo.boundingBox?.getSize(size);
     let textMesh1 = new THREE.Mesh(geo, mat);
-    // textMesh1.rotateX(-Math.PI / 2);
-    textMesh1.scale.multiplyScalar(50).divideScalar(size.x);
+    applyTextScale(textMesh1, geo);
     textMesh1.castShadow = true;
     textMesh1.receiveShadow = true;
 
     scene.add(textMesh1);
 
     textMesh = textMesh1;
+    if (!outlineMesh) {
+      outlineMesh = new THREE.Mesh(
+        geo,
+        new THREE.MeshBasicMaterial({
+          color: "#ffffff",
+          side: THREE.BackSide,
+        }),
+      );
+      outlineMesh.visible = false;
+      scene.add(outlineMesh);
+    }
+    outlineMesh.geometry = geo;
+    syncOutlineScale(0);
 
     lastTextProps = textProps;
 
@@ -180,16 +193,17 @@ export async function updateTextProp(textProps: TextProp) {
     let geo = await getTextGeometry(textProps);
     textMesh.geometry.dispose();
     textMesh.geometry = geo;
-    let size = new THREE.Vector3();
-    geo.boundingBox?.getSize(size);
-    textMesh.scale.set(1, 1, 1).multiplyScalar(50).divideScalar(size.x);
+    applyTextScale(textMesh, geo);
+    if (outlineMesh) {
+      outlineMesh.geometry = geo;
+    }
 
     if (Array.isArray(textProps.color)) {
       setGradient(
         textProps.color,
         textProps.colorGradientDir,
         textMesh.geometry,
-        textMesh.material as THREE.MeshLambertMaterial
+        textMesh.material as THREE.MeshLambertMaterial,
       );
     }
   } else {
@@ -198,7 +212,7 @@ export async function updateTextProp(textProps: TextProp) {
         textProps.color,
         textProps.colorGradientDir,
         textMesh.geometry,
-        textMesh.material as THREE.MeshLambertMaterial
+        textMesh.material as THREE.MeshLambertMaterial,
       );
     } else {
       // 单色处理
@@ -207,7 +221,27 @@ export async function updateTextProp(textProps: TextProp) {
   }
 
   scene.add(textMesh);
+  outlineMesh && scene.add(outlineMesh);
   lastTextProps = textProps;
+}
+
+function applyTextScale(mesh: THREE.Mesh, geo: THREE.BufferGeometry) {
+  const size = new THREE.Vector3();
+  geo.boundingBox?.getSize(size);
+  mesh.scale
+    .set(1, 1, 1)
+    .multiplyScalar(50)
+    .divideScalar(size.x || 1);
+}
+
+function syncOutlineScale(strokeWidth: number) {
+  if (!outlineMesh) {
+    return;
+  }
+
+  const scaleBoost = 1 + strokeWidth * 0.018;
+  outlineMesh.scale.copy(textMesh.scale).multiplyScalar(scaleBoost);
+  outlineMesh.position.copy(textMesh.position);
 }
 
 function needUpdateGeo(textProps: TextProp) {
@@ -222,7 +256,7 @@ function setGradient(
   colors: string[],
   dir: ColorGradientDir,
   geo: THREE.BufferGeometry,
-  mat: THREE.MeshLambertMaterial
+  mat: THREE.MeshLambertMaterial,
 ) {
   // 渐变颜色处理
   mat.vertexColors = true;
@@ -259,7 +293,7 @@ function setGradient(
 
   geo.setAttribute(
     "color",
-    new THREE.Float32BufferAttribute(new Float32Array(colorss), 3)
+    new THREE.Float32BufferAttribute(new Float32Array(colorss), 3),
   );
   geo.attributes.color.needsUpdate = true;
 }
@@ -370,7 +404,6 @@ export function getPicture(width: number, height: number) {
 
 let shadowPlane: THREE.Mesh | null = null;
 export function updateEffectProp(effect: EffectProp) {
-  // && background.color && !background.image
   if (effect.enableShadow) {
     if (!shadowPlane) {
       shadowPlane = new THREE.Mesh(
@@ -378,17 +411,30 @@ export function updateEffectProp(effect: EffectProp) {
         new THREE.ShadowMaterial({
           color: new THREE.Color(effect.shadowColor),
           opacity: 0.3,
-        })
+        }),
       );
       shadowPlane.receiveShadow = true;
     }
     scene.add(shadowPlane);
 
     (shadowPlane.material as THREE.ShadowMaterial).color.set(
-      effect.shadowColor
+      effect.shadowColor,
     );
+    (shadowPlane.material as THREE.ShadowMaterial).opacity =
+      effect.shadowOpacity;
+    shadowPlane.position.set(effect.shadowOffsetX, effect.shadowOffsetY, 0);
+    shadowLight.shadow.radius = Math.max(effect.shadowBlur, 0);
     shadowPlane.visible = true;
   } else {
     shadowPlane && (shadowPlane.visible = false);
+  }
+
+  if (outlineMesh) {
+    const outlineMaterial = outlineMesh.material as THREE.MeshBasicMaterial;
+    outlineMaterial.color.set(effect.strokeColor);
+    outlineMesh.visible = effect.strokeWidth > 0;
+    syncOutlineScale(effect.strokeWidth);
+    outlineMesh.position.z =
+      textMesh.position.z - Math.max(effect.strokeWidth * 0.1, 0.1);
   }
 }

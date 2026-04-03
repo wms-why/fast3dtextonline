@@ -3,9 +3,9 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useTranslations } from "next-intl";
 import { Metadata } from "next";
-import Editor from "@/components/FullEditor";
 import { TextProp } from "@/components/common/TextSetting";
 import { Locales } from "@/i18n/config";
+import { EditorSurface } from "@/components/editor/EditorSurface";
 
 export default function Page() {
   const t = useTranslations("DoNotWriteOnThisPage");
@@ -36,11 +36,12 @@ export default function Page() {
           <h2 className="text-3xl font-bold text-center mb-12">
             {t("toolTitle")}
           </h2>
-          <Editor
+          <EditorSurface
             textProp={text}
             backgroundProp={undefined}
             effectProp={undefined}
-          ></Editor>
+            compactLayout={false}
+          />
         </section>
 
         {/* Features Section */}

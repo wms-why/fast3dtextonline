@@ -3,7 +3,7 @@ import { useState, useRef, useEffect, } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Eye, Download, Share } from "lucide-react";
 import { BackgroundProp, GradientDirection } from "./BackgroundSelector";
-import { Text, Flex, Button, Select, AlertDialog, Code, AspectRatio } from "@radix-ui/themes";
+import { Flex, Button, Select, AlertDialog, Code, AspectRatio } from "@radix-ui/themes";
 import { getPicture, resize, init as threeInit, updateBackground, updateEffectProp, updateTextProp } from "./ThreeTools";
 import { TextProp } from "./TextSetting";
 import { getShareLink } from "@/lib/utils";
@@ -64,11 +64,13 @@ const getGradientBackgroundCss = (background: BackgroundProp) => {
 export default function PreviewToolbar({
   background,
   text,
-  effect
+  effect,
+  templateSlug,
 }: {
   background: BackgroundProp;
   text: TextProp;
-  effect: EffectProp
+  effect: EffectProp;
+  templateSlug?: string;
 }) {
   let host = process.env.NEXT_PUBLIC_HOST?.substring("https://".length);
   const t = useTranslations("PreviewBar");
@@ -247,7 +249,7 @@ export default function PreviewToolbar({
 
     const bg = { ...background, image: null };
 
-    const link = getShareLink({ bg, text, effect }, locale);
+    const link = getShareLink({ bg, text, effect, templateSlug }, locale);
 
     setShareLink(link);
 
@@ -278,18 +280,24 @@ export default function PreviewToolbar({
   }, [handleFullScreen]);
 
   return (
-    <Flex direction={"column"} justify={"center"} align={"center"} p="2" className="shadow rounded-lg border w-full border-t-2 border-t-purple-500" gap={"2"}>
-      <Flex gap={"4"} >
-        {t("tipsTitle")}:
-        <Text>{t("mouseLeft")}</Text>
-        <Text>{t("mouseMiddle")}</Text>
-        <Text>{t("mouseRight")}</Text>
-      </Flex>
+    <Flex
+      direction={"column"}
+      justify={"center"}
+      align={"center"}
+      p={{ initial: "3", md: "4" }}
+      className="shadow rounded-lg border w-full"
+      gap={"4"}
+    >
 
-      <AspectRatio ratio={AspectRatios[aspectRadio]} style={{
-        background: "repeating-conic-gradient(#ccc 0% 25%, white 0% 50%)",
-        backgroundSize: "40px 40px"
-      }}>
+      <AspectRatio
+        ratio={AspectRatios[aspectRadio]}
+        className="w-full"
+        style={{
+          background: "repeating-conic-gradient(#ccc 0% 25%, white 0% 50%)",
+          backgroundSize: "40px 40px",
+          maxWidth: "100%",
+        }}
+      >
         <canvas ref={container} className="w-full border border-gray-300" style={{
           backgroundColor: background.color ? `${background.color}` : "rgba(0,0,0,0)",
           backgroundImage: getGradientBackgroundCss(background),
@@ -304,7 +312,7 @@ export default function PreviewToolbar({
         <img ref={fullscreenElement} src={picture} className="w-screen h-screen" />
       )}
 
-      <Flex gap={"9"} className="justify-around">
+      <Flex gap={"4"} wrap="wrap" justify="center" align="center" className="w-full">
 
         {/* 全屏预览按钮 */}
         <Button
@@ -356,7 +364,7 @@ export default function PreviewToolbar({
         </AlertDialog.Root>
 
 
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-4">
           <div className="flex items-center gap-2">
             <label className="text-sm font-medium text-muted-foreground">
               {t("downloadSize")}
