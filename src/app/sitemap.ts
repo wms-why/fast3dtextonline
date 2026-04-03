@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = host!;
   const locales = Locales;
 
-  const urls = ["/", "/blogs", "/editor", "/styles", "/features-form", "/do-not-write-on-this-page"];
+  const urls = ["/", "/blogs", "/editor", "/styles"];
   blogs.forEach((blog) => {
     urls.push(`/blogs/${blog.id}`);
   });

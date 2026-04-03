@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Metadata } from "next";
 import Editor from "@/components/FullEditor";
 import { TextProp } from "@/components/common/TextSetting";
+import { Locales } from "@/i18n/config";
 
 export default function Page() {
   const t = useTranslations("DoNotWriteOnThisPage");
@@ -99,6 +100,12 @@ export async function generateMetadata({
   const host = process.env.NEXT_PUBLIC_HOST;
 
   const name = "do-not-write-on-this-page";
+  const languages = Object.fromEntries(
+    Locales.map((supportedLocale) => [
+      supportedLocale,
+      `${host}/${supportedLocale}/${name}`,
+    ]),
+  );
 
   return {
     title: t("seoTitle"),
@@ -126,13 +133,11 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${host}/${name}`,
-      languages: {
-        en: `${host}/en/${name}`,
-        ar: `${host}/ar/${name}`,
-        zh: `${host}/zh/${name}`,
-        es: `${host}/es/${name}`,
-        ja: `${host}/jp/${name}`,
-      },
+      languages,
+    },
+    robots: {
+      index: false,
+      follow: true,
     },
   };
 }
