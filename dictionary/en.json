@@ -9,7 +9,8 @@
     "editorName": "Editor",
     "blogName": "Blog",
     "styleName": "Templates",
-    "navFonts": "Fonts"
+    "navFonts": "Fonts",
+    "navLogo": "Logo"
   },
   "ErrorPage": {
     "title": "Some thing went wrong",
@@ -217,6 +218,23 @@
     "editorCalloutTitle": "Style library is still right next door",
     "editorCalloutSubtitle": "Font themes are a shortcut. The full style library covers gold, neon, chrome, and more — open one and type your word.",
     "editorCalloutButton": "Open Style Library"
+  },
+  "ScenePage": {
+    "title": "3D Logo Scenes",
+    "seoTitle": "3D Logo Text Generator — Gaming, YouTube, Twitch, Esports, Instagram, TikTok",
+    "seoDescription": "Generate 3D logo text for gaming, YouTube, Twitch, esports, Instagram, and TikTok. Type your tag, pick a style, and download a transparent PNG ready for any platform.",
+    "heroBadge": "Scene-driven 3D logo text",
+    "heroTitle": "3D Logo Text Generator — Gaming, YouTube, Twitch & More",
+    "heroSubtitle": "Pick the scene you need (gaming, streaming, social), type your word, and download a transparent 3D logo text PNG. Every scene maps to one of our ready-made style presets so you can fine-tune in the editor.",
+    "featuredTitle": "Popular Scenes",
+    "openTemplate": "Open in Editor",
+    "seeDetails": "See Details",
+    "sampleTextLabel": "Try this text",
+    "backToScenes": "Back to All Scenes",
+    "summary": "Summary",
+    "bestForTitle": "Best For",
+    "keywordsLabel": "Searches this page targets",
+    "relatedScenes": "Related Scenes"
   },
   "StyleBarbie": {
     "title": "Create Stunning Barbie-Pink 3D Text",

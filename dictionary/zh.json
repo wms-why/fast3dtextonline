@@ -9,7 +9,8 @@
     "editorName": "编辑器",
     "blogName": "博文记录",
     "styleName": "模板库",
-    "navFonts": "字体"
+    "navFonts": "字体",
+    "navLogo": "Logo"
   },
   "ErrorPage": {
     "title": " 错误页面",
@@ -217,6 +218,23 @@
     "editorCalloutTitle": "模板库就在隔壁",
     "editorCalloutSubtitle": "字体主题是一条快捷通道，完整模板库覆盖金、霓虹、铬等更多风格——打开一个就能开始打字。",
     "editorCalloutButton": "打开模板库"
+  },
+  "ScenePage": {
+    "title": "3D Logo 场景",
+    "seoTitle": "3D Logo 文字生成器 — 游戏、YouTube、Twitch、电竞、Instagram、TikTok",
+    "seoDescription": "为游戏、YouTube、Twitch、电竞、Instagram、TikTok 生成 3D Logo 文字。输入你的标签，选一个风格，下载带透明背景的 PNG，可直接用于任何平台。",
+    "heroBadge": "场景驱动的 3D Logo 文字",
+    "heroTitle": "3D Logo 文字生成器 — 游戏、YouTube、Twitch 等",
+    "heroSubtitle": "选一个你需要的场景（游戏、直播、社交），输入你的文字，下载带透明背景的 3D Logo 文字 PNG。每个场景都对应一个现成模板预设，可以在编辑器里继续微调。",
+    "featuredTitle": "热门场景",
+    "openTemplate": "打开编辑器",
+    "seeDetails": "查看详情",
+    "sampleTextLabel": "试试这个文字",
+    "backToScenes": "返回所有场景",
+    "summary": "简介",
+    "bestForTitle": "适合场景",
+    "keywordsLabel": "本页针对的搜索词",
+    "relatedScenes": "相关场景"
   },
   "StyleBarbie": {
     "title": "创建梦幻芭比粉3D文字",

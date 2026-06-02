@@ -43,6 +43,12 @@ export default function Header() {
             {t("navFonts")}
           </Link>
           <Link
+            href={`/${locale}/logo`}
+            className="text-sm text-muted-foreground hover:text-primary whitespace-nowrap"
+          >
+            {t("navLogo")}
+          </Link>
+          <Link
             href={`/${locale}/blogs`}
             className="text-sm text-muted-foreground hover:text-primary whitespace-nowrap"
           >
