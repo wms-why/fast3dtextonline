@@ -5,8 +5,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { jsonLdScriptProps } from "react-schemaorg";
 import { WebSite } from "schema-dts";
 // import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import "../globals.css";
 import { ThemeProvider } from "next-themes";
@@ -81,8 +79,11 @@ export default async function RootLayout({
           </Theme>
         </ThemeProvider>
 
-        <Analytics />
-        <SpeedInsights />
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN ?? ""}"}`}
+        />
       </body>
     </html>
   );
