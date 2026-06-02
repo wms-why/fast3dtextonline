@@ -46,3 +46,7 @@ export function decode(data: string) {
   const decoded = decodeText(data);
   return JSON.parse(decoded) as ShareObj;
 }
+
+export function getHost(): string {
+  return process.env.NEXT_PUBLIC_HOST ?? "http://localhost:3000";
+}

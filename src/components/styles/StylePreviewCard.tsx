@@ -14,11 +14,15 @@ export function StylePreview({
   size?: "sm" | "md" | "lg";
 }) {
   const textSize = size === "lg" ? "clamp(2.8rem, 5vw, 4.8rem)" : size === "sm" ? "1.8rem" : "2.3rem";
+  const content = getLocalizedStyle(style, locale);
+  const ariaLabel = `${content.title} 3D text example — ${style.keywords.slice(0, 2).join(", ")}, transparent background PNG`;
 
   return (
     <Flex
       direction="column"
       justify="between"
+      role="img"
+      aria-label={ariaLabel}
       style={{
         minHeight: size === "lg" ? 320 : size === "sm" ? 180 : 220,
         borderRadius: 24,
@@ -112,6 +116,8 @@ export default function StylePreviewCard({
   const content = getLocalizedStyle(style, locale);
   const editorHref = getEditorPath(style.editorPreset, locale);
   const detailHref = `/${locale}/styles/${style.slug}`;
+  const altText = `${content.title} — ${style.keywords.slice(0, 2).join(", ")} 3D text generator, transparent background PNG`;
+  const previewAlt = `${content.title} 3D text example on ${style.visual.background.includes("radial") ? "gradient" : "color"} background — transparent PNG ready`;
 
   return (
     <Card
