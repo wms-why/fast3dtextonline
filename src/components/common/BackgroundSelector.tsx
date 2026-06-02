@@ -1,5 +1,5 @@
 'use client'
-import { Box, Flex, Heading, Select, Tabs, Text, TextField } from "@radix-ui/themes";
+import { Box, Flex, Heading, Select, Switch, Tabs, Text, TextField } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -16,6 +16,7 @@ export interface BackgroundProp {
   color: string | null;
   gradient: BackgroundGradient | null;
   image: string | null;
+  transparent: boolean;
 }
 
 export const defaultBackgroundGradient = (): BackgroundGradient => ({
@@ -56,6 +57,7 @@ export default function BackgroundSelector({
       color: nextType === "color" ? (color ?? "#000000") : null,
       gradient: nextType === "gradient" ? gradient : null,
       image: nextType === "image" ? image : null,
+      transparent: background.transparent,
     });
   };
 
@@ -78,6 +80,7 @@ export default function BackgroundSelector({
         color: null,
         gradient: nextGradient,
         image: null,
+        transparent: background.transparent,
       });
     }
   };
@@ -94,6 +97,7 @@ export default function BackgroundSelector({
             color: null,
             gradient: null,
             image: result,
+            transparent: background.transparent,
           });
         }
       };
@@ -104,8 +108,32 @@ export default function BackgroundSelector({
   return (
     <Box className={chrome ? "p-4 border rounded-lg min-w-64 shadow" : "min-w-64"}>
       {showTitle && <Heading as="h2" size="4" className="font-medium text-lg">{t("title")}</Heading>}
+      <Flex
+        align="center"
+        justify="between"
+        gap="2"
+        mt={showTitle ? "3" : "0"}
+        mb="3"
+        className="rounded-md border border-dashed border-accent-7 bg-accent-2 px-3 py-2"
+      >
+        <Flex direction="column" gap="1">
+          <Text as="label" size="2" weight="medium" htmlFor="transparent-bg-switch">
+            {t("transparentLabel")}
+          </Text>
+          <Text size="1" color="gray">
+            {t("transparentDesc")}
+          </Text>
+        </Flex>
+        <Switch
+          id="transparent-bg-switch"
+          checked={background.transparent}
+          onCheckedChange={(v) =>
+            setBackground({ ...background, transparent: v })
+          }
+        />
+      </Flex>
       <Tabs.Root value={backgroundType} onValueChange={handleBackgroundTypeChange}>
-        <Tabs.List mt={showTitle ? "3" : "0"}>
+        <Tabs.List>
           <Tabs.Trigger value="color">{t("colorOption")}</Tabs.Trigger>
           <Tabs.Trigger value="gradient">{t("gradientOption")}</Tabs.Trigger>
           <Tabs.Trigger value="image">{t("imageOption")}</Tabs.Trigger>

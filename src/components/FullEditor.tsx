@@ -33,6 +33,7 @@ export default function Page({
     color: "#c4b1b1",
     gradient: null,
     image: null,
+    transparent: false,
   } satisfies BackgroundProp;
 
   textProp = textProp || TextProp.default(t("defaultText"));

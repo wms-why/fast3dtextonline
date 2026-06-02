@@ -66,6 +66,7 @@ function createEditorPreset({
       color: backgroundGradient ? null : (backgroundColor ?? "#111111"),
       gradient: backgroundGradient ?? null,
       image: null,
+      transparent: false,
     },
     text: {
       text,

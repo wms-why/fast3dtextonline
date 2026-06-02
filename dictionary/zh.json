@@ -76,7 +76,9 @@
     "gradientTopLeftToBottomRight": "从左上到右下",
     "gradientBottomLeftToTopRight": "从左下到右上",
     "gradientStartColor": "起点颜色",
-    "gradientEndColor": "终点颜色"
+    "gradientEndColor": "终点颜色",
+    "transparentLabel": "透明背景（PNG 透明通道）",
+    "transparentDesc": "把 3D 文字导出为带透明通道的高画质 PNG，适合叠到海报、缩略图或 Logo 之上。"
   },
   "PreviewBar": {
     "tipsTitle": "提示",
@@ -183,7 +185,13 @@
     "templateFontLabel": "字体",
     "templateBgColorLabel": "背景颜色",
     "templateTextColorLabel": "文字颜色",
-    "templateTextGradientColorLabel": "文字渐变色"
+    "templateTextGradientColorLabel": "文字渐变色",
+    "transparentCtaBadge": "免费透明 PNG",
+    "transparentCtaTitle": "把 {style} 3D 文字导出为透明 PNG",
+    "transparentCtaSubtitle": "打开编辑器，输入你的文字，导出带透明通道的高画质 PNG，可直接贴到海报、缩略图、游戏 Logo 或社媒图上。",
+    "createYourOwn": "开始定制 {style} 3D 文字",
+    "worksGreatWithTitle": "最适合 {style} 3D 文字的字体",
+    "worksGreatWithDesc": "把模板和以下字体组合使用，能让设计更贴近品牌调性。"
   },
   "StyleBarbie": {
     "title": "创建梦幻芭比粉3D文字",

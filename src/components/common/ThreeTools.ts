@@ -27,6 +27,7 @@ export function init(
   renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: true,
+    preserveDrawingBuffer: true, // required so toDataURL() can read the WebGL backbuffer after a frame (transparent PNG export)
     canvas: container,
   });
   renderer.setPixelRatio(1);

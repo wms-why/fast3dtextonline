@@ -131,55 +131,67 @@ export default function PreviewToolbar({
       canvas.width = size.width;
       canvas.height = size.height;
       const ctx = canvas.getContext("2d")!;
+      const isTransparent = background.transparent;
 
       function drawThreeImage() {
         const image = new Image();
         image.onload = () => {
-          ctx.drawImage(image, 0, 0, size.width, size.height);
+          if (!isTransparent) {
+            ctx.drawImage(image, 0, 0, size.width, size.height);
+          } else {
+            // For transparent PNGs we want only the WebGL pixels (alpha preserved).
+            ctx.clearRect(0, 0, size.width, size.height);
+            ctx.drawImage(image, 0, 0, size.width, size.height);
+          }
           resolve(canvas.toDataURL("image/png"));
         };
         image.src = threeimage;
       }
-      if (background.gradient) {
-        const [x0, y0, x1, y1] = getGradientCoordinates(
-          background.gradient.direction,
-          size.width,
-          size.height
-        );
-        const gradient = ctx.createLinearGradient(x0, y0, x1, y1);
-        gradient.addColorStop(0, background.gradient.startColor);
-        gradient.addColorStop(1, background.gradient.endColor);
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, size.width, size.height);
-      }
-      if (background.color) {
-        ctx.fillStyle = background.color;
-        ctx.fillRect(0, 0, size.width, size.height);
-      }
-      if (background.image) {
-        const image = new Image();
-        image.onload = () => {
+      if (!isTransparent) {
+        if (background.gradient) {
+          const [x0, y0, x1, y1] = getGradientCoordinates(
+            background.gradient.direction,
+            size.width,
+            size.height
+          );
+          const gradient = ctx.createLinearGradient(x0, y0, x1, y1);
+          gradient.addColorStop(0, background.gradient.startColor);
+          gradient.addColorStop(1, background.gradient.endColor);
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, size.width, size.height);
+        }
+        if (background.color) {
+          ctx.fillStyle = background.color;
+          ctx.fillRect(0, 0, size.width, size.height);
+        }
+        if (background.image) {
+          const image = new Image();
+          image.onload = () => {
 
-          const cw = canvas.width;
-          const ch = canvas.height;
-          const iw = image.width;
-          const ih = image.height;
+            const cw = canvas.width;
+            const ch = canvas.height;
+            const iw = image.width;
+            const ih = image.height;
 
-          // 计算缩放比例（取最大值，保证能覆盖整个canvas）
-          const scale = Math.min(cw / iw, ch / ih);
+            // 计算缩放比例（取最大值，保证能覆盖整个canvas）
+            const scale = Math.min(cw / iw, ch / ih);
 
-          const sw = iw * scale;
-          const sh = ih * scale;
+            const sw = iw * scale;
+            const sh = ih * scale;
 
-          // 居中偏移
-          const dx = (cw - sw) / 2;
-          const dy = (ch - sh) / 2;
+            // 居中偏移
+            const dx = (cw - sw) / 2;
+            const dy = (ch - sh) / 2;
 
-          ctx.drawImage(image, dx, dy, sw, sh);
+            ctx.drawImage(image, dx, dy, sw, sh);
+            drawThreeImage();
+          };
+          image.src = background.image;
+        } else {
           drawThreeImage();
-        };
-        image.src = background.image;
+        }
       } else {
+        // Transparent mode: skip all background fills, just composite the WebGL output.
         drawThreeImage();
       }
 
@@ -190,7 +202,8 @@ export default function PreviewToolbar({
 
     // 创建下载链接
     const link = document.createElement("a");
-    link.download = `${host}_${Sizes[aspectRadio]}.png`;
+    const suffix = background.transparent ? "_transparent" : "";
+    link.download = `${host}_${Sizes[aspectRadio]}${suffix}.png`;
     link.href = await generateImage(0, 0);
     link.click();
   };

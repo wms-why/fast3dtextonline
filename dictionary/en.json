@@ -76,7 +76,9 @@
     "gradientTopLeftToBottomRight": "Top Left to Bottom Right",
     "gradientBottomLeftToTopRight": "Bottom Left to Top Right",
     "gradientStartColor": "Start Color",
-    "gradientEndColor": "End Color"
+    "gradientEndColor": "End Color",
+    "transparentLabel": "Transparent background (PNG with alpha)",
+    "transparentDesc": "Export your 3D text as a high-quality PNG with a transparent background — perfect for layering into posters, thumbnails, and logos."
   },
   "PreviewBar": {
     "tipsTitle": "Tips",
@@ -183,7 +185,13 @@
     "templateFontLabel": "Font",
     "templateBgColorLabel": "Background Color",
     "templateTextColorLabel": "Text Color",
-    "templateTextGradientColorLabel": "Text Gradient Color"
+    "templateTextGradientColorLabel": "Text Gradient Color",
+    "transparentCtaBadge": "Free Transparent PNG",
+    "transparentCtaTitle": "Download {style} 3D Text as Transparent PNG",
+    "transparentCtaSubtitle": "Open the editor, type your text, and export a high-quality PNG with a transparent background — ready to drop into posters, thumbnails, gaming logos, or social media.",
+    "createYourOwn": "Create Your Own {style} 3D Text",
+    "worksGreatWithTitle": "Best fonts for {style} 3D text",
+    "worksGreatWithDesc": "Pair this template with one of these fonts to make your design feel even more on-brand."
   },
   "StyleBarbie": {
     "title": "Create Stunning Barbie-Pink 3D Text",
