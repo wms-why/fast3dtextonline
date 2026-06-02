@@ -26,8 +26,9 @@ const pageRoutes = [
   // Industries
   route("industry", "routes/industry-list.tsx"),
   route("industry/:industry", "routes/industry-id.tsx"),
-  // Editor + blogs (Step 9 will add editor)
+  // Editor + blogs
   route("editor", "routes/editor-index.tsx"),
+  route("editor/:data", "routes/editor-data.tsx"),
   route("blogs", "routes/blogs-list.tsx"),
   route("blogs/:id", "routes/blogs-id.tsx"),
   // Catch-all

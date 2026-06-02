@@ -9,6 +9,7 @@
 
 import CryptoJS from "crypto-js";
 import LZString from "lz-string";
+import { FontWeight } from "./presets/fonts";
 
 export interface BackgroundGradient {
   direction: "leftToRight" | "topToBottom" | "topLeftToBottomRight" | "bottomLeftToTopRight";
@@ -41,7 +42,7 @@ export interface TextProp {
   fontFrom: number;
   font: string;
   fontUrl: string;
-  weight: string;
+  weight: FontWeight;
 }
 
 export interface ShareObj {

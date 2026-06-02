@@ -68,6 +68,11 @@ type Pages = {
   "/editor": {
     params: {};
   };
+  "/editor/:data": {
+    params: {
+      "data": string;
+    };
+  };
   "/blogs": {
     params: {};
   };
@@ -87,7 +92,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/sitemap.xml" | "/robots.txt" | "/styles" | "/styles/:slug" | "/fonts" | "/fonts/:slug" | "/logo" | "/logo/:scene" | "/name/:name" | "/holiday" | "/holiday/:holiday" | "/industry" | "/industry/:industry" | "/editor" | "/blogs" | "/blogs/:id" | "/:rest/*";
+    page: "/" | "/sitemap.xml" | "/robots.txt" | "/styles" | "/styles/:slug" | "/fonts" | "/fonts/:slug" | "/logo" | "/logo/:scene" | "/name/:name" | "/holiday" | "/holiday/:holiday" | "/industry" | "/industry/:industry" | "/editor" | "/editor/:data" | "/blogs" | "/blogs/:id" | "/:rest/*";
   };
   "routes/sitemap-xml.ts": {
     id: "routes/sitemap-xml";
@@ -99,7 +104,7 @@ type RouteFiles = {
   };
   "layouts/locale.tsx": {
     id: "layouts/locale";
-    page: "/" | "/styles" | "/styles/:slug" | "/fonts" | "/fonts/:slug" | "/logo" | "/logo/:scene" | "/name/:name" | "/holiday" | "/holiday/:holiday" | "/industry" | "/industry/:industry" | "/editor" | "/blogs" | "/blogs/:id" | "/:rest/*";
+    page: "/" | "/styles" | "/styles/:slug" | "/fonts" | "/fonts/:slug" | "/logo" | "/logo/:scene" | "/name/:name" | "/holiday" | "/holiday/:holiday" | "/industry" | "/industry/:industry" | "/editor" | "/editor/:data" | "/blogs" | "/blogs/:id" | "/:rest/*";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -153,6 +158,10 @@ type RouteFiles = {
     id: "routes/editor-index";
     page: "/editor";
   };
+  "routes/editor-data.tsx": {
+    id: "routes/editor-data";
+    page: "/editor/:data";
+  };
   "routes/blogs-list.tsx": {
     id: "routes/blogs-list";
     page: "/blogs";
@@ -185,6 +194,7 @@ type RouteModules = {
   "routes/industry-list": typeof import("./app/routes/industry-list.tsx");
   "routes/industry-id": typeof import("./app/routes/industry-id.tsx");
   "routes/editor-index": typeof import("./app/routes/editor-index.tsx");
+  "routes/editor-data": typeof import("./app/routes/editor-data.tsx");
   "routes/blogs-list": typeof import("./app/routes/blogs-list.tsx");
   "routes/blogs-id": typeof import("./app/routes/blogs-id.tsx");
   "routes/not-found": typeof import("./app/routes/not-found.tsx");
