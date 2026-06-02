@@ -26,6 +26,8 @@ const pageRoutes = [
   // Industries
   route("industry", "routes/industry-list.tsx"),
   route("industry/:industry", "routes/industry-id.tsx"),
+  // Niche landing page (noindex, follow)
+  route("do-not-write-on-this-page", "routes/niche.tsx"),
   // Editor + blogs
   route("editor", "routes/editor-index.tsx"),
   route("editor/:data", "routes/editor-data.tsx"),

@@ -26,6 +26,7 @@ const STATIC_PREFIXES = [
   "/industry",
   "/editor",
   "/blogs",
+  "/do-not-write-on-this-page",
 ] as const;
 
 // Blog post slugs (the 5 concrete folders under src/app/[locale]/blogs/).
