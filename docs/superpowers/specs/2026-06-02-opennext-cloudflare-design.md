@@ -69,7 +69,7 @@
 
 | 路径 | 改动 |
 |------|------|
-| `package.json` | 新增 devDeps `@opennextjs/cloudflare`、`wrangler`；改 `dev` / `build` / `start` / `deploy` / `preview` / `typegen` 脚本 |
+| `package.json` | 新增 devDeps `@opennextjs/cloudflare`、`wrangler`；改 `dev` / `build` / `deploy` / `preview` / `typegen` 脚本（删除 `start`，见 §4.3） |
 | `next.config.ts` | 加 `images: { unoptimized: true }`，保留 next-intl plugin |
 | `src/app/[locale]/layout.tsx` | 移除 `<Analytics />` / `<SpeedInsights />`；加 Cloudflare Web Analytics beacon 脚本（token 来自 `NEXT_PUBLIC_CF_ANALYTICS_TOKEN`） |
 | `.gitignore` | 补 `.open-next/`、`.dev.vars`、`worker-configuration.d.ts` |
@@ -87,6 +87,8 @@
 ## 4. 关键配置
 
 ### 4.1 `wrangler.jsonc`
+
+`name` 取自仓库目录名 `fast3dtextonline`，是 Cloudflare 全网唯一子域名 `<name>.<subdomain>.workers.dev` 的依据；如果账号下已存在同名 Worker，需换一个（例如 `fast3dtextonline-app`）。`assets.binding` 是 OpenNext 内部用来读取静态资源的 binding 名称，应用代码不需要直接 import。
 
 ```jsonc
 {
@@ -115,11 +117,12 @@ export default defineCloudflareConfig({});
 
 ### 4.3 `package.json` 脚本
 
+OpenNext + Cloudflare Workers 下 `next start` 没有对应物（`wrangler dev` 已能加载 build 后的产物，并同时支持 development 与 preview），所以删除 `start`。`preview` 等价 `wrangler dev --live-reload`，给手动 QA 阶段用。
+
 ```json
 {
   "dev": "wrangler dev",
   "build": "opennextjs-cloudflare build",
-  "start": "wrangler dev",
   "deploy": "wrangler deploy",
   "preview": "wrangler dev --live-reload",
   "typegen": "wrangler types"
@@ -144,21 +147,21 @@ export default withNextIntl(nextConfig);
 
 - 删除 `import { Analytics } from "@vercel/analytics/react"` 与 `<Analytics />`
 - 删除 `import { SpeedInsights } from "@vercel/speed-insights/next"` 与 `<SpeedInsights />`
-- 在 `</body>` 前插入 Cloudflare Web Analytics beacon：
+- 在 `</body>` 前插入 Cloudflare Web Analytics beacon。`data-cf-beacon` 严格按 Cloudflare 官方模板用反引号字符串（避免 JSX 属性里 `JSON.stringify` 在不同 hydration 阶段产生不同结果）：
 
 ```tsx
 <script
   defer
   src="https://static.cloudflareinsights.com/beacon.min.js"
-  data-cf-beacon={JSON.stringify({
-    token: process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN ?? "",
-  })}
+  data-cf-beacon={`{"token": "${process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN ?? ""}"}`}
 />
 ```
 
 `token` 缺失时退化为空字符串，Cloudflare beacon 不会发送数据，不会引发运行时错误。
 
 ### 4.6 `.gitignore` 增量
+
+`.open-next/` 是 build 产物；`.dev.vars` 包含本地 secrets；`worker-configuration.d.ts` 由 `wrangler types` 自动生成（不同平台 regenerate 即可，不入版本控制）。
 
 ```
 .open-next/
