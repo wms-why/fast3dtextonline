@@ -1,0 +1,20 @@
+// Renders one or more <script type="application/ld+json"> tags. Server-only
+// (it just outputs HTML); safe to render in any layout or route module.
+export function JsonLd({
+  data,
+}: {
+  data: Record<string, unknown> | Record<string, unknown>[];
+}) {
+  const items = Array.isArray(data) ? data : [data];
+  return (
+    <>
+      {items.map((item, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(item) }}
+        />
+      ))}
+    </>
+  );
+}
