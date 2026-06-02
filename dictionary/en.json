@@ -236,6 +236,17 @@
     "keywordsLabel": "Searches this page targets",
     "relatedScenes": "Related Scenes"
   },
+  "NamePage": {
+    "title": "3D Name Generator",
+    "seoTitle": "3D Name Generator — {name} in Gold, Neon, Chrome & More",
+    "seoDescription": "Generate {name} as 3D text in gold, neon, chrome, and other styles. Type your name and download a high-quality PNG with a transparent background — perfect for profile pics, signatures, and gifts.",
+    "heroBadge": "Your name in 3D",
+    "heroTitle": "{name} in 3D Text",
+    "heroSubtitle": "Type {name} into the editor and instantly see it in 3D. Then download a high-quality PNG with a transparent background — perfect for social profiles, signatures, and personalized gifts.",
+    "recommendedTitle": "Recommended styles for {name}",
+    "openTemplate": "Open in Editor",
+    "tryAnother": "Try Another Name"
+  },
   "StyleBarbie": {
     "title": "Create Stunning Barbie-Pink 3D Text",
     "summary": "Use our online 3D text editor to craft eye-catching Barbie-inspired designs.",

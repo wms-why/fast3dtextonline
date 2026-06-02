@@ -236,6 +236,17 @@
     "keywordsLabel": "本页针对的搜索词",
     "relatedScenes": "相关场景"
   },
+  "NamePage": {
+    "title": "3D 名字生成器",
+    "seoTitle": "3D 名字生成器 — {name} 金、霓虹、铬等风格",
+    "seoDescription": "把 {name} 生成金、霓虹、铬等风格的 3D 文字。输入名字，下载带透明背景的高画质 PNG——适合头像、签名、个性化礼物。",
+    "heroBadge": "你的名字 3D 化",
+    "heroTitle": "{name} 3D 立体字",
+    "heroSubtitle": "把 {name} 输入编辑器，立刻看到 3D 效果。再下载带透明背景的高画质 PNG——适合社媒头像、签名、个性化礼物。",
+    "recommendedTitle": "{name} 推荐风格",
+    "openTemplate": "打开编辑器",
+    "tryAnother": "换另一个名字"
+  },
   "StyleBarbie": {
     "title": "创建梦幻芭比粉3D文字",
     "summary": "使用我们的在线3D文字编辑器，轻松打造吸睛的3D芭比风格设计。",
