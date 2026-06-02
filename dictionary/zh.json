@@ -8,7 +8,8 @@
     "appName": "Fast3DText",
     "editorName": "编辑器",
     "blogName": "博文记录",
-    "styleName": "模板库"
+    "styleName": "模板库",
+    "navFonts": "字体"
   },
   "ErrorPage": {
     "title": " 错误页面",
@@ -192,6 +193,30 @@
     "createYourOwn": "开始定制 {style} 3D 文字",
     "worksGreatWithTitle": "最适合 {style} 3D 文字的字体",
     "worksGreatWithDesc": "把模板和以下字体组合使用，能让设计更贴近品牌调性。"
+  },
+  "FontPage": {
+    "title": "3D 字体主题",
+    "seoTitle": "3D 字体生成器 — 泡泡、哥特、复古、未来感等风格",
+    "seoDescription": "浏览 3D 文字字体主题——泡泡、哥特、复古、未来感、漫画、高端——打开编辑器，几秒内生成带透明背景的 PNG 立体字。",
+    "heroBadge": "字体驱动的 3D 文字",
+    "heroTitle": "3D 字体生成器 — 泡泡、哥特、复古、未来感等",
+    "heroSubtitle": "选一个 3D 字体主题，输入你的文字，下载带透明背景的高画质 PNG。每个主题都对应一个编辑器预设，一键就能开始定制。",
+    "featuredTitle": "热门字体主题",
+    "collectionsTitle": "按类别浏览",
+    "templatesCount": "个主题",
+    "openTemplate": "试这个字体",
+    "seeDetails": "查看详情",
+    "backToThemes": "返回字体主题",
+    "primaryFontLabel": "主字体",
+    "summary": "简介",
+    "bestForTitle": "适合场景",
+    "keywordsLabel": "本页针对的搜索词",
+    "relatedThemes": "相关字体主题",
+    "backToStyles": "返回模板库",
+    "editorCalloutBadge": "想换风格？",
+    "editorCalloutTitle": "模板库就在隔壁",
+    "editorCalloutSubtitle": "字体主题是一条快捷通道，完整模板库覆盖金、霓虹、铬等更多风格——打开一个就能开始打字。",
+    "editorCalloutButton": "打开模板库"
   },
   "StyleBarbie": {
     "title": "创建梦幻芭比粉3D文字",

@@ -8,7 +8,8 @@
     "appName": "Fast3DText",
     "editorName": "Editor",
     "blogName": "Blog",
-    "styleName": "Templates"
+    "styleName": "Templates",
+    "navFonts": "Fonts"
   },
   "ErrorPage": {
     "title": "Some thing went wrong",
@@ -192,6 +193,30 @@
     "createYourOwn": "Create Your Own {style} 3D Text",
     "worksGreatWithTitle": "Best fonts for {style} 3D text",
     "worksGreatWithDesc": "Pair this template with one of these fonts to make your design feel even more on-brand."
+  },
+  "FontPage": {
+    "title": "3D Font Themes",
+    "seoTitle": "3D Font Text Generator — Bubble, Gothic, Retro, Futuristic & More",
+    "seoDescription": "Browse 3D text font themes — bubble, gothic, retro, futuristic, comic, luxury — and open the editor to generate transparent PNG typography in seconds.",
+    "heroBadge": "Font-driven 3D text",
+    "heroTitle": "3D Font Text Generator — Bubble, Gothic, Retro & More",
+    "heroSubtitle": "Pick a 3D font theme, type your words, and download a high-quality PNG with a transparent background. Each theme maps to an editor preset so you can start customizing in one click.",
+    "featuredTitle": "Popular Font Themes",
+    "collectionsTitle": "Browse by Category",
+    "templatesCount": "themes",
+    "openTemplate": "Try This Font",
+    "seeDetails": "See Details",
+    "backToThemes": "Back to Font Themes",
+    "primaryFontLabel": "Primary font",
+    "summary": "Summary",
+    "bestForTitle": "Best For",
+    "keywordsLabel": "Searches this page targets",
+    "relatedThemes": "Related Font Themes",
+    "backToStyles": "Back to Style Library",
+    "editorCalloutBadge": "Need a different style?",
+    "editorCalloutTitle": "Style library is still right next door",
+    "editorCalloutSubtitle": "Font themes are a shortcut. The full style library covers gold, neon, chrome, and more — open one and type your word.",
+    "editorCalloutButton": "Open Style Library"
   },
   "StyleBarbie": {
     "title": "Create Stunning Barbie-Pink 3D Text",
