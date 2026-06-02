@@ -8,7 +8,7 @@
 
 ## 1. 背景与目标
 
-当前项目是 Next.js 15.2.8 + React 19 + TypeScript 的 3D 文字生成 SaaS，包含 5 个 SEO 路由群（styles / fonts / logo / holiday / industry）+ name / blogs 落地页 + 客户端 Three.js 编辑器。业务逻辑、i18n、SEO 基础设施、sitemap / robots / JSON-LD 全部按模板化沉淀。
+当前项目是 Next.js 15.5.19 + React 19 + TypeScript 的 3D 文字生成 SaaS，包含 5 个 SEO 路由群（styles / fonts / logo / holiday / industry）+ name / blogs 落地页 + 客户端 Three.js 编辑器。业务逻辑、i18n、SEO 基础设施、sitemap / robots / JSON-LD 全部按模板化沉淀。
 
 **目标**：
 - 引入 `@opennextjs/cloudflare` adapter，把构建产物转换为 Cloudflare Workers 可执行的 `.open-next/worker.js`

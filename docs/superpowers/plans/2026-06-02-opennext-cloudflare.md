@@ -6,7 +6,9 @@
 
 **Architecture:** 用 `@opennextjs/cloudflare` adapter 把 Next.js 构建产物转成 `.open-next/worker.js` + `.open-next/assets/`，然后由 `wrangler dev` / `wrangler deploy` 拉起本地与生产 Worker。Cloudflare 静态资源 binding 替代 Vercel Image Optimization；`images.unoptimized = true` 关闭 `next/image` 优化。删除 `@vercel/analytics` 与 `@vercel/speed-insights`，改用 Cloudflare Web Analytics beacon。
 
-**Tech Stack:** Next.js 15.2.8, React 19, TypeScript, @opennextjs/cloudflare, wrangler 4.x, next-intl 4.x, Cloudflare Workers (workerd), Cloudflare Web Analytics
+**Tech Stack:** Next.js 15.5.19 (was 15.2.8; bumped in Task 1.5 to satisfy @opennextjs/cloudflare 1.19 peer dep), React 19, TypeScript, @opennextjs/cloudflare, wrangler 4.x, next-intl 4.x, Cloudflare Workers (workerd), Cloudflare Web Analytics
+
+> **Note on Task 1.5:** the original Task 1 install (`pnpm add -D @opennextjs/cloudflare wrangler`) hit a peer dep warning — `@opennextjs/cloudflare@1.19.11` requires `next >=15.5.18`, but the project shipped with `next 15.2.8`. The user chose to upgrade `next` to latest 15.5.x and `eslint-config-next` to match. Plan and design spec have been patched to reflect `15.5.19`.
 
 ---
 
