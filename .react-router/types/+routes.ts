@@ -20,6 +20,54 @@ type Pages = {
   "/robots.txt": {
     params: {};
   };
+  "/styles": {
+    params: {};
+  };
+  "/styles/:slug": {
+    params: {
+      "slug": string;
+    };
+  };
+  "/fonts": {
+    params: {};
+  };
+  "/fonts/:slug": {
+    params: {
+      "slug": string;
+    };
+  };
+  "/logo": {
+    params: {};
+  };
+  "/logo/:scene": {
+    params: {
+      "scene": string;
+    };
+  };
+  "/name/:name": {
+    params: {
+      "name": string;
+    };
+  };
+  "/holiday": {
+    params: {};
+  };
+  "/holiday/:holiday": {
+    params: {
+      "holiday": string;
+    };
+  };
+  "/industry": {
+    params: {};
+  };
+  "/industry/:industry": {
+    params: {
+      "industry": string;
+    };
+  };
+  "/editor": {
+    params: {};
+  };
   "/blogs": {
     params: {};
   };
@@ -39,7 +87,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/sitemap.xml" | "/robots.txt" | "/blogs" | "/blogs/:id" | "/:rest/*";
+    page: "/" | "/sitemap.xml" | "/robots.txt" | "/styles" | "/styles/:slug" | "/fonts" | "/fonts/:slug" | "/logo" | "/logo/:scene" | "/name/:name" | "/holiday" | "/holiday/:holiday" | "/industry" | "/industry/:industry" | "/editor" | "/blogs" | "/blogs/:id" | "/:rest/*";
   };
   "routes/sitemap-xml.ts": {
     id: "routes/sitemap-xml";
@@ -51,11 +99,59 @@ type RouteFiles = {
   };
   "layouts/locale.tsx": {
     id: "layouts/locale";
-    page: "/" | "/blogs" | "/blogs/:id" | "/:rest/*";
+    page: "/" | "/styles" | "/styles/:slug" | "/fonts" | "/fonts/:slug" | "/logo" | "/logo/:scene" | "/name/:name" | "/holiday" | "/holiday/:holiday" | "/industry" | "/industry/:industry" | "/editor" | "/blogs" | "/blogs/:id" | "/:rest/*";
   };
   "routes/home.tsx": {
     id: "routes/home";
     page: "/";
+  };
+  "routes/styles-list.tsx": {
+    id: "routes/styles-list";
+    page: "/styles";
+  };
+  "routes/styles-id.tsx": {
+    id: "routes/styles-id";
+    page: "/styles/:slug";
+  };
+  "routes/fonts-list.tsx": {
+    id: "routes/fonts-list";
+    page: "/fonts";
+  };
+  "routes/fonts-id.tsx": {
+    id: "routes/fonts-id";
+    page: "/fonts/:slug";
+  };
+  "routes/logo-list.tsx": {
+    id: "routes/logo-list";
+    page: "/logo";
+  };
+  "routes/logo-id.tsx": {
+    id: "routes/logo-id";
+    page: "/logo/:scene";
+  };
+  "routes/name-id.tsx": {
+    id: "routes/name-id";
+    page: "/name/:name";
+  };
+  "routes/holiday-list.tsx": {
+    id: "routes/holiday-list";
+    page: "/holiday";
+  };
+  "routes/holiday-id.tsx": {
+    id: "routes/holiday-id";
+    page: "/holiday/:holiday";
+  };
+  "routes/industry-list.tsx": {
+    id: "routes/industry-list";
+    page: "/industry";
+  };
+  "routes/industry-id.tsx": {
+    id: "routes/industry-id";
+    page: "/industry/:industry";
+  };
+  "routes/editor-index.tsx": {
+    id: "routes/editor-index";
+    page: "/editor";
   };
   "routes/blogs-list.tsx": {
     id: "routes/blogs-list";
@@ -77,6 +173,18 @@ type RouteModules = {
   "routes/robots-txt": typeof import("./app/routes/robots-txt.ts");
   "layouts/locale": typeof import("./app/layouts/locale.tsx");
   "routes/home": typeof import("./app/routes/home.tsx");
+  "routes/styles-list": typeof import("./app/routes/styles-list.tsx");
+  "routes/styles-id": typeof import("./app/routes/styles-id.tsx");
+  "routes/fonts-list": typeof import("./app/routes/fonts-list.tsx");
+  "routes/fonts-id": typeof import("./app/routes/fonts-id.tsx");
+  "routes/logo-list": typeof import("./app/routes/logo-list.tsx");
+  "routes/logo-id": typeof import("./app/routes/logo-id.tsx");
+  "routes/name-id": typeof import("./app/routes/name-id.tsx");
+  "routes/holiday-list": typeof import("./app/routes/holiday-list.tsx");
+  "routes/holiday-id": typeof import("./app/routes/holiday-id.tsx");
+  "routes/industry-list": typeof import("./app/routes/industry-list.tsx");
+  "routes/industry-id": typeof import("./app/routes/industry-id.tsx");
+  "routes/editor-index": typeof import("./app/routes/editor-index.tsx");
   "routes/blogs-list": typeof import("./app/routes/blogs-list.tsx");
   "routes/blogs-id": typeof import("./app/routes/blogs-id.tsx");
   "routes/not-found": typeof import("./app/routes/not-found.tsx");

@@ -6,16 +6,31 @@ const resourceRoutes = [
   route("robots.txt", "routes/robots-txt.ts"),
 ];
 
-// The locale layout wraps every page route. The full SEO surface
-// (styles/fonts/logo/name/holiday/industry + 6 detail templates) is
-// built up in Step 8.
+// The locale layout wraps every page route.
 const pageRoutes = [
   index("routes/home.tsx"),
+  // Styles
+  route("styles", "routes/styles-list.tsx"),
+  route("styles/:slug", "routes/styles-id.tsx"),
+  // Fonts
+  route("fonts", "routes/fonts-list.tsx"),
+  route("fonts/:slug", "routes/fonts-id.tsx"),
+  // Logo scenes
+  route("logo", "routes/logo-list.tsx"),
+  route("logo/:scene", "routes/logo-id.tsx"),
+  // Names (no list page — per-locale filter in route layer)
+  route("name/:name", "routes/name-id.tsx"),
+  // Holidays
+  route("holiday", "routes/holiday-list.tsx"),
+  route("holiday/:holiday", "routes/holiday-id.tsx"),
+  // Industries
+  route("industry", "routes/industry-list.tsx"),
+  route("industry/:industry", "routes/industry-id.tsx"),
+  // Editor + blogs (Step 9 will add editor)
+  route("editor", "routes/editor-index.tsx"),
   route("blogs", "routes/blogs-list.tsx"),
-  // Single param route covers all 5 concrete blog slugs; the module
-  // resolves the id against `blogs` and renders a not-found stub for
-  // unknown ids.
   route("blogs/:id", "routes/blogs-id.tsx"),
+  // Catch-all
   route(":rest/*", "routes/not-found.tsx"),
 ];
 
