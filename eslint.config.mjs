@@ -15,11 +15,6 @@ export default [
       "node_modules/**",
       "public/**",
       "wrangler.jsonc",
-      // Legacy Next.js code — will be deleted in Step 11. Excluded from lint
-      // until then so the new RR7 app can lint cleanly.
-      "src/**",
-      "next-env.d.ts",
-      ".next/**",
     ],
   },
   js.configs.recommended,

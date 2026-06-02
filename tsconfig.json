@@ -29,11 +29,6 @@
   "exclude": [
     "node_modules",
     "build",
-    ".react-router",
-    "src",
-    "next-env.d.ts",
-    "next.config.ts",
-    "open-next.config.ts",
-    ".next"
+    ".react-router"
   ]
 }
