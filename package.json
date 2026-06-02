@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
+    "dev": "wrangler dev",
+    "build": "opennextjs-cloudflare build",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev --live-reload",
+    "typegen": "wrangler types",
     "lint": "next lint"
   },
   "dependencies": {
