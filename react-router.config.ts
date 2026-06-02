@@ -1,4 +1,6 @@
 import type { Config } from "@react-router/dev/config";
+// Relative import (not `@/lib/...`) because the config file is loaded by
+// jiti/esbuild at build time without TS path-alias resolution.
 import { generateAllPrerenderPaths } from "./app/lib/presets/prerender";
 
 export default {

@@ -1,12 +1,21 @@
 import { type RouteConfig, route, index, layout } from "@react-router/dev/routes";
 
-// Step 1 scaffold: just the root + a placeholder index + a 404 catch-all.
-// The full route table (with 132 SEO detail pages) is built up in Steps 6–9.
+// Resource routes (sitemap, robots) live outside the locale layout — they
+// don't take part in locale-prefixing.
+const resourceRoutes = [
+  route("sitemap.xml", "routes/sitemap-xml.ts"),
+  route("robots.txt", "routes/robots-txt.ts"),
+];
+
+// The locale layout wraps every page route. The full SEO surface
+// (styles/fonts/logo/name/holiday/industry/editor + blogs) is built up in
+// Steps 7–9.
+const pageRoutes = [
+  index("routes/home.tsx"),
+  route(":rest/*", "routes/not-found.tsx"),
+];
 
 export default [
-  layout("layouts/locale.tsx", [
-    index("routes/home.tsx"),
-    route(":rest/*", "routes/not-found.tsx"),
-  ]),
-  // Resource routes will be added in Step 6.
+  ...resourceRoutes,
+  layout("layouts/locale.tsx", pageRoutes),
 ] satisfies RouteConfig;
