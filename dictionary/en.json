@@ -1,8 +1,8 @@
 {
   "Metadata": {
-    "title": "3D Text Generator Templates for Chrome, Bubble, Neon, Glitter, Gold, and More",
-    "description": "Template-first 3D text generator with searchable style pages for chrome, bubble letters, neon, rose gold, glitter, ice, sports, and logo-ready text effects.",
-    "keywords": "3d text generator,3d text templates,chrome text generator,bubble letters generator,neon text generator,rose gold text,glitter text generator,ice text generator,sports logo text"
+    "title": "3D Text Generator — Create 3D Typography Online Free",
+    "description": "Free online 3D text generator with 18+ ready-made styles — gold, neon, chrome, ice, fire, and more. Customize in seconds, then download your 3D typography as a high-quality PNG with a transparent background.",
+    "keywords": "3d text generator,3d typography,gold text generator,neon text,chrome text effect,3d text png,3d name generator,gaming logo text,transparent background,bubble letters,rose gold text,glitter text,ice text,fire text,3d lettering"
   },
   "Header": {
     "appName": "Fast3DText",
@@ -17,16 +17,16 @@
     "backToHome": "Back to Home"
   },
   "HomePage": {
-    "heroBadge": "Template-first 3D text generator",
-    "heroTitle": "Start with ready-made 3D text styles, then customize in seconds",
-    "heroSubtitle": "Browse chrome, bubble, neon, glitter, rose gold, ice, sports, and other ready-made 3D text templates for thumbnails, posters, logos, and social graphics.",
+    "heroBadge": "Free Online 3D Text Generator",
+    "heroTitle": "3D Text Generator — Type, Style, Download in Seconds",
+    "heroSubtitle": "Pick a 3D text style — gold, neon, chrome, ice, fire, bubble letters, glitter, rose gold — type your words, and download a high-quality 3D typography PNG with a transparent background. No signup, no watermark.",
     "toolTitle": "Customize Any Template in the Editor",
-    "toolSubtitle": "Adjust text, font, gradient, background, shadow, stroke, and export-ready layout. Export PNG or share a reusable editor link.",
+    "toolSubtitle": "Adjust text, font, gradient, background, shadow, stroke, and export-ready layout. Export PNG with a transparent background or share a reusable editor link.",
     "toolMore": "Need more options?",
-    "getStarted": "Browse Templates",
+    "getStarted": "Browse 3D Text Styles",
     "openEditor": "Open Editor",
-    "heroStat1": "18 searchable style templates",
-    "heroStat2": "PNG export and share links",
+    "heroStat1": "18+ searchable 3D text styles",
+    "heroStat2": "PNG export with transparent background",
     "heroStat3": "English and Chinese ready",
     "featuredTemplatesTitle": "Popular Template Starters",
     "featuredTemplatesSubtitle": "These presets cover the highest-intent searches first: chrome, neon, bubble letters, sports logo text, glitter text, and rose gold text.",

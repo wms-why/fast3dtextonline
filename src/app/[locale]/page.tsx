@@ -8,6 +8,9 @@ import { featuredStyleSlugs, getStylePreset } from "@/lib/style-presets";
 import StylePreviewCard from "@/components/styles/StylePreviewCard";
 import { Badge, Box, Button, Flex, Grid, Heading, Section, Text } from "@radix-ui/themes";
 import { EditorSurface } from "@/components/editor/EditorSurface";
+import { JsonLd } from "@/lib/seo/JsonLd";
+import { generateFaqJsonLd } from "@/lib/seo/faq";
+import { generateWebAppJsonLd } from "@/lib/seo/webApp";
 const host = process.env.NEXT_PUBLIC_HOST;
 export default function HomePage() {
 
@@ -173,6 +176,14 @@ export default function HomePage() {
       </Flex>
 
       <Footer></Footer>
+      <JsonLd
+        data={generateFaqJsonLd([
+          { q: t("faqQuestion1"), a: t("faqAnswer1") },
+          { q: t("faqQuestion2"), a: t("faqAnswer2") },
+          { q: t("faqQuestion3"), a: t("faqAnswer3") },
+        ])}
+      />
+      <JsonLd data={generateWebAppJsonLd(host ?? "http://localhost:3000")} />
     </div>
   );
 }
@@ -200,7 +211,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       url: localizedHomeUrl,
-      siteName: "screen customization",
+      siteName: "3D Text Generator",
       images: [
         {
           url: `${host}/og-image.png`,
@@ -217,13 +228,14 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       images: [`${host}/og-image.png`],
-      creator: "Yaomker",
+      creator: "@3DTextGenerator",
     },
     alternates: {
       canonical: localizedHomeUrl,
       languages: {
         en: `${host}/en`,
-        zh: `${host}/zh`,
+        "zh": `${host}/zh`,
+        "x-default": `${host}/en`,
       },
     },
     robots: {

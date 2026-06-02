@@ -1,8 +1,8 @@
 {
   "Metadata": {
-    "title": "3D文字生成器模板库：Chrome、泡泡字、霓虹、闪粉、玫瑰金等风格",
-    "description": "模板优先的 3D 文字生成器，覆盖 chrome、bubble、neon、rose gold、glitter、ice、sports 等高意图风格词，并可继续进入编辑器微调导出。",
-    "keywords": "3D文字生成器,3D文字模板,chrome文字生成器,泡泡字生成器,霓虹字生成器,玫瑰金文字,闪粉字生成器,冰字生成器,运动logo文字"
+    "title": "3D 文字生成器 — 在线免费生成 3D 立体字",
+    "description": "免费在线 3D 文字生成器，18+ 现成风格可选——金、霓虹、铬、冰、火等。几秒内定制你的 3D 立体字，再下载带透明背景的高画质 PNG。",
+    "keywords": "3D文字生成器,3D立体字,金色文字生成器,霓虹字,铬文字效果,3D文字PNG,3D名字生成器,游戏logo文字,透明背景,泡泡字,玫瑰金字,闪粉字,冰字,火字,3D艺术字"
   },
   "Header": {
     "appName": "Fast3DText",
@@ -17,16 +17,16 @@
     "backToHome": "回到主页"
   },
   "HomePage": {
-    "heroBadge": "模板优先的 3D 文字生成器",
-    "heroTitle": "先选现成 3D 风格模板，再在几秒内改成你的文案",
-    "heroSubtitle": "围绕 chrome、泡泡字、霓虹、闪粉、玫瑰金、冰字、运动风等高意图需求整理模板，适合封面图、海报、Logo 和社媒标题。",
+    "heroBadge": "免费在线 3D 文字生成器",
+    "heroTitle": "3D 文字生成器 — 输入文字、挑风格、立刻下载",
+    "heroSubtitle": "选一个 3D 文字风格——金、霓虹、铬、冰、火、泡泡字、闪粉、玫瑰金——输入你的文案，下载带透明背景的高画质 3D 立体字 PNG。无需注册，无水印。",
     "toolTitle": "在编辑器里继续微调任意模板",
-    "toolSubtitle": "你可以继续调整文字、字体、渐变、背景、阴影和描边，并导出 PNG 或分享可复用链接。",
+    "toolSubtitle": "你可以继续调整文字、字体、渐变、背景、阴影和描边，导出带透明背景的 PNG 或分享可复用链接。",
     "toolMore": "需要更多选项？",
-    "getStarted": "浏览模板",
+    "getStarted": "浏览 3D 文字风格",
     "openEditor": "打开编辑器",
-    "heroStat1": "18 个可搜索模板页",
-    "heroStat2": "支持 PNG 导出和分享链接",
+    "heroStat1": "18+ 可搜索 3D 文字风格",
+    "heroStat2": "导出带透明背景的 PNG",
     "heroStat3": "兼顾英文和中文使用",
     "featuredTemplatesTitle": "热门模板起点",
     "featuredTemplatesSubtitle": "先覆盖高意图搜索词：chrome、霓虹、泡泡字、运动 logo、闪粉字和玫瑰金，再逐步扩展风格库。",
