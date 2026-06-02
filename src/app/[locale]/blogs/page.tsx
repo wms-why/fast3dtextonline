@@ -24,7 +24,7 @@ export default function BlogListPage() {
               <Link href={`/${locale}/blogs/${blog.id}`} color='iris'>
                 <Flex direction="column" gap="4">
                   <Box style={{ overflow: 'hidden' }}>
-                    <Image src={blog.cover} alt={blog[locale].title} width={512} height={288} />
+                    <Image src={blog.cover} alt={`${blog[locale].title} — 3D text tutorial, transparent background PNG`} width={512} height={288} />
                   </Box>
                   <Flex direction={"column"} gap={"1"}>
                     <Heading as='h2' size="5" weight="bold" className='text-black dark:text-white'>{blog[locale].title}</Heading>
