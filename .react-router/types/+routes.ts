@@ -14,6 +14,20 @@ type Pages = {
   "/": {
     params: {};
   };
+  "/sitemap.xml": {
+    params: {};
+  };
+  "/robots.txt": {
+    params: {};
+  };
+  "/blogs": {
+    params: {};
+  };
+  "/blogs/:id": {
+    params: {
+      "id": string;
+    };
+  };
   "/:rest/*": {
     params: {
       "rest": string;
@@ -25,15 +39,31 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/:rest/*";
+    page: "/" | "/sitemap.xml" | "/robots.txt" | "/blogs" | "/blogs/:id" | "/:rest/*";
+  };
+  "routes/sitemap-xml.ts": {
+    id: "routes/sitemap-xml";
+    page: "/sitemap.xml";
+  };
+  "routes/robots-txt.ts": {
+    id: "routes/robots-txt";
+    page: "/robots.txt";
   };
   "layouts/locale.tsx": {
     id: "layouts/locale";
-    page: "/" | "/:rest/*";
+    page: "/" | "/blogs" | "/blogs/:id" | "/:rest/*";
   };
   "routes/home.tsx": {
     id: "routes/home";
     page: "/";
+  };
+  "routes/blogs-list.tsx": {
+    id: "routes/blogs-list";
+    page: "/blogs";
+  };
+  "routes/blogs-id.tsx": {
+    id: "routes/blogs-id";
+    page: "/blogs/:id";
   };
   "routes/not-found.tsx": {
     id: "routes/not-found";
@@ -43,7 +73,11 @@ type RouteFiles = {
 
 type RouteModules = {
   "root": typeof import("./app/root.tsx");
+  "routes/sitemap-xml": typeof import("./app/routes/sitemap-xml.ts");
+  "routes/robots-txt": typeof import("./app/routes/robots-txt.ts");
   "layouts/locale": typeof import("./app/layouts/locale.tsx");
   "routes/home": typeof import("./app/routes/home.tsx");
+  "routes/blogs-list": typeof import("./app/routes/blogs-list.tsx");
+  "routes/blogs-id": typeof import("./app/routes/blogs-id.tsx");
   "routes/not-found": typeof import("./app/routes/not-found.tsx");
 };
