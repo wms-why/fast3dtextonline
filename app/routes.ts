@@ -1,43 +1,43 @@
-import { type RouteConfig, route, index, layout } from "@react-router/dev/routes";
+import { type RouteConfig, route, index, prefix } from "@react-router/dev/routes";
 
-// Resource routes (sitemap, robots) live outside the locale layout.
+// Resource routes (sitemap, robots) live outside any locale tree.
 const resourceRoutes = [
   route("sitemap.xml", "routes/sitemap-xml.ts"),
   route("robots.txt", "routes/robots-txt.ts"),
 ];
 
-// The locale layout wraps every page route.
-const pageRoutes = [
-  index("routes/home.tsx"),
-  // Styles
-  route("styles", "routes/styles-list.tsx"),
-  route("styles/:slug", "routes/styles-id.tsx"),
-  // Fonts
-  route("fonts", "routes/fonts-list.tsx"),
-  route("fonts/:slug", "routes/fonts-id.tsx"),
-  // Logo scenes
-  route("logo", "routes/logo-list.tsx"),
-  route("logo/:scene", "routes/logo-id.tsx"),
-  // Names (no list page — per-locale filter in route layer)
-  route("name/:name", "routes/name-id.tsx"),
-  // Holidays
-  route("holiday", "routes/holiday-list.tsx"),
-  route("holiday/:holiday", "routes/holiday-id.tsx"),
-  // Industries
-  route("industry", "routes/industry-list.tsx"),
-  route("industry/:industry", "routes/industry-id.tsx"),
-  // Niche landing page (noindex, follow)
-  route("do-not-write-on-this-page", "routes/niche.tsx"),
-  // Editor + blogs
-  route("editor", "routes/editor-index.tsx"),
-  route("editor/:data", "routes/editor-data.tsx"),
-  route("blogs", "routes/blogs-list.tsx"),
-  route("blogs/:id", "routes/blogs-id.tsx"),
-  // Catch-all
-  route(":rest/*", "routes/not-found.tsx"),
-];
+// Single page surface, with per-locale IDs so the same module file
+// can be mounted under both /styles/... and /zh/styles/... without
+// RR7 complaining about duplicate route ids.
+//
+// The I18nProvider is mounted in app/root.tsx (which reads the active
+// locale from useLocation), so no per-locale layout wrapper is needed.
+function pageTree(prefixTag: "en" | "zh") {
+  const r = (path: string, file: string) => route(path, file, { id: `${prefixTag}-${path}` });
+  const home = (file: string) => route("", file, { id: `${prefixTag}-home`, index: true });
+  return [
+    home("routes/home.tsx"),
+    r("styles", "routes/styles-list.tsx"),
+    r("styles/:slug", "routes/styles-id.tsx"),
+    r("fonts", "routes/fonts-list.tsx"),
+    r("fonts/:slug", "routes/fonts-id.tsx"),
+    r("logo", "routes/logo-list.tsx"),
+    r("logo/:scene", "routes/logo-id.tsx"),
+    r("name/:name", "routes/name-id.tsx"),
+    r("holiday", "routes/holiday-list.tsx"),
+    r("holiday/:holiday", "routes/holiday-id.tsx"),
+    r("industry", "routes/industry-list.tsx"),
+    r("industry/:industry", "routes/industry-id.tsx"),
+    r("do-not-write-on-this-page", "routes/niche.tsx"),
+    r("editor", "routes/editor-index.tsx"),
+    r("blogs", "routes/blogs-list.tsx"),
+    r("blogs/:id", "routes/blogs-id.tsx"),
+    r(":rest/*", "routes/not-found.tsx"),
+  ];
+}
 
 export default [
   ...resourceRoutes,
-  layout("layouts/locale.tsx", pageRoutes),
+  ...pageTree("en"),
+  ...prefix("zh", pageTree("zh")),
 ] satisfies RouteConfig;

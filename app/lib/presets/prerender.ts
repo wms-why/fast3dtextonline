@@ -16,7 +16,10 @@ import { industries } from "./industry-presets";
 // the `request.url` form that RR7's prerender walker checks.
 export const RESOURCE_PATHS = ["/sitemap.xml", "/robots.txt"] as const;
 
-// Top-level list pages that exist for both locales.
+// Top-level list pages that exist for both locales. `/editor` is
+// intentionally NOT in the prerender list — it's a Three.js client
+// island with no useful server-rendered shell, and falls through
+// to the SPA fallback (index.html) for client hydration.
 const STATIC_PREFIXES = [
   "/",
   "/styles",
@@ -24,7 +27,6 @@ const STATIC_PREFIXES = [
   "/logo",
   "/holiday",
   "/industry",
-  "/editor",
   "/blogs",
   "/do-not-write-on-this-page",
 ] as const;
