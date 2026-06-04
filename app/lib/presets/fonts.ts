@@ -47,14 +47,43 @@ const LocalFontPathMap: Partial<Record<string, Partial<Record<FontWeight, string
     [FontWeight.Regular]: "/fonts/merriweather-400.ttf",
     [FontWeight.Bold]: "/fonts/merriweather-900.ttf",
   },
+  Gentilis: {
+    [FontWeight.Regular]: "/fonts/Gentilis_Regular.json",
+    [FontWeight.Bold]: "/fonts/Gentilis_Bold.json",
+  },
+  Helvetiker: {
+    [FontWeight.Regular]: "/fonts/Helvetiker_Regular.json",
+    [FontWeight.Bold]: "/fonts/Helvetiker_Bold.json",
+  },
+  Optimer: {
+    [FontWeight.Regular]: "/fonts/Optimer_Regular.json",
+    [FontWeight.Bold]: "/fonts/Optimer_Bold.json",
+  },
+  "Alibaba_PuHuiTi_3.0": {
+    [FontWeight.Regular]: "/fonts/Alibaba_PuHuiTi_3.0_Regular.json",
+    [FontWeight.Bold]: "/fonts/Alibaba_PuHuiTi_3.0_Bold.json",
+  },
+  Noto_Sans_SC: {
+    [FontWeight.Regular]: "/fonts/Noto_Sans_SC_Regular.json",
+    [FontWeight.Bold]: "/fonts/Noto_Sans_SC_Bold.json",
+  },
+  Barbie_Doll: {
+    [FontWeight.Regular]: "/fonts/Barbie_Doll_Regular.json",
+  },
+  Barbie_Princess: {
+    [FontWeight.Regular]: "/fonts/Barbie_Princess_Regular.json",
+  },
+  Bartex: {
+    [FontWeight.Regular]: "/fonts/Bartex_Regular.json",
+  },
 };
 
 export function getFontPath(fontName: string, w: FontWeight) {
   const localFontPath = LocalFontPathMap[fontName]?.[w];
-  if (localFontPath) {
-    return localFontPath;
+  if (!localFontPath) {
+    throw new Error(`No local font path for ${fontName} / ${w}`);
   }
-  return `https://fast3dtest.mysoul.fun/${fontName}_${w}.json`;
+  return localFontPath;
 }
 
 export function containsChinese(str: string) {
