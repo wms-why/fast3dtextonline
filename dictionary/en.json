@@ -96,6 +96,10 @@
     "shareDialogClose": "Close",
     "shareDialogCopyLink": "Copy Link"
   },
+  "TemplateEditorSection": {
+    "defaultTitle": "Try it in the editor",
+    "defaultSubtitle": "Customize the text, colors, and effects below, then export your design as a transparent PNG."
+  },
   "TextEditor": {
     "seoTitle": "3D Text Editor - Customize Fonts, Gradients, Backgrounds, and Shadow",
     "seoDescription": "Edit 3D text templates with font, color, gradient, background, and shadow controls. Export PNG or share your editor link.",
