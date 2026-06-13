@@ -1,3 +1,6 @@
+import { getStylePreset, stylePresets } from "./style-presets";
+import type { ShareObj } from "../share-data";
+
 type Locale = "en" | "zh";
 
 export interface NamePreset {
@@ -112,4 +115,26 @@ export function getNamePreset(name: string, locale: Locale): NamePreset | undefi
   return namePresets.find(
     (n) => n.name === lower && n.locale === locale,
   );
+}
+
+// First entry of stylePresets is "barbie-pink" — used only as a last-resort
+// fallback if a name's curated styleSlugs[0] no longer resolves in stylePresets.
+const NAME_FALLBACK_PRESET = stylePresets[0];
+
+/**
+ * Build a ShareObj for the /name/:name detail page. Uses the curated
+ * styleSlugs[0] from NamePreset (e.g. "neon-night" for "john"), with
+ * displayText ("JOHN") as the visible text. Falls back to
+ * stylePresets[0] (barbie-pink) if the curated slug is missing or stale.
+ */
+export function getNamePagePreset(namePreset: NamePreset): ShareObj {
+  const curated = getStylePreset(namePreset.styleSlugs[0] ?? "");
+  const anchor = curated ?? NAME_FALLBACK_PRESET;
+  return {
+    ...anchor.editorPreset,
+    text: {
+      ...anchor.editorPreset.text,
+      text: namePreset.displayText,
+    },
+  };
 }
