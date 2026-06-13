@@ -80,10 +80,13 @@ const LocalFontPathMap: Partial<Record<string, Partial<Record<FontWeight, string
 
 export function getFontPath(fontName: string, w: FontWeight) {
   const localFontPath = LocalFontPathMap[fontName]?.[w];
-  if (!localFontPath) {
-    throw new Error(`No local font path for ${fontName} / ${w}`);
+  if (localFontPath) {
+    return localFontPath;
   }
-  return localFontPath;
+  // Chinese fonts (Alibaba_PuHuiTi_3.0, Noto_Sans_SC) are hosted on
+  // mysoul.fun's R2 bucket — their typeface.json is too large (30-44 MB)
+  // for Cloudflare Workers assets binding's 25 MiB per-file limit.
+  return `https://fast3dtest.mysoul.fun/${fontName}_${w}.json`;
 }
 
 export function containsChinese(str: string) {

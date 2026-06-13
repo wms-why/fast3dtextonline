@@ -1,7 +1,5 @@
 import type { BackgroundProp } from "../common/BackgroundSelector";
 import type { TextProp } from "../common/TextSetting";
-import Footer from "../Footer";
-import Header from "../Header";
 import { StylePreview } from "../styles/StylePreviewCard";
 import { getEditorPath } from "@/lib/share-data";
 import { getLocalizedStyle } from "@/lib/presets/style-presets";
@@ -25,7 +23,6 @@ export function OnlyPage({ textProp, backgroundProp, effectProp, currentStyle, r
   const styleCopy = currentStyle ? getLocalizedStyle(currentStyle, locale as "en" | "zh") : undefined;
 
   return <Flex direction={"column"} gap={"4"}>
-    <Header />
     <Container px="4" pt="6">
       <Flex
         direction={{ initial: "column", md: "row" }}
@@ -118,6 +115,5 @@ export function OnlyPage({ textProp, backgroundProp, effectProp, currentStyle, r
         </Card>
       </Flex>
     </Container>
-    <Footer />
   </Flex>;
 }

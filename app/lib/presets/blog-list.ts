@@ -1,11 +1,12 @@
-// Blog registry. Ported from src/app/[locale]/blogs/list.ts with
-// StaticImageData covers dropped (next/image is gone). When Step 11 finishes
-// the cleanup, the cover images can be re-added as plain <img src="…">
-// references to the existing public/blogs/{id}/* assets.
+// Blog registry. Cover images are plain static SVGs served from
+// `public/blogs/{id}/cover.svg` and referenced via the `coverImage` field
+// on each blog entry. Detail and list pages render them as <img> tags
+// with `transparent background PNG` keywords in the alt text for SEO.
 
 export interface BlogItem {
   id: string;
   date: string;
+  coverImage: string;
   en: { title: string; summary: string };
   zh: { title: string; summary: string };
 }
@@ -14,6 +15,7 @@ export const blogs: BlogItem[] = [
   {
     id: "How-to-Design-a-Sports-Team-Name-in-3D",
     date: "2025-08-07",
+    coverImage: "/blogs/How-to-Design-a-Sports-Team-Name-in-3D/cover.svg",
     en: {
       title: "How to Design a Sports Team Name in 3D",
       summary: "A quick walkthrough on rendering bold, energetic 3D team names for posters, jerseys, and social.",
@@ -26,6 +28,7 @@ export const blogs: BlogItem[] = [
   {
     id: "How-to-Create-Ice-Text-for-Posters-and-Thumbnails",
     date: "2025-08-07",
+    coverImage: "/blogs/How-to-Create-Ice-Text-for-Posters-and-Thumbnails/cover.svg",
     en: {
       title: "How to Create Ice Text for Posters and Thumbnails",
       summary: "Frosted-glass text styles for cold, premium-looking thumbnails and event posters.",
@@ -38,6 +41,7 @@ export const blogs: BlogItem[] = [
   {
     id: "How-to-Make-Bubble-Letters-Online",
     date: "2025-08-07",
+    coverImage: "/blogs/How-to-Make-Bubble-Letters-Online/cover.svg",
     en: {
       title: "How to Make Bubble Letters Online",
       summary: "Step-by-step: chubby, rounded 3D bubble letters for kids' content and playful branding.",
@@ -50,6 +54,7 @@ export const blogs: BlogItem[] = [
   {
     id: "Create-3D-Letters",
     date: "2025-08-07",
+    coverImage: "/blogs/Create-3D-Letters/cover.svg",
     en: {
       title: "How to Create Stunning 3D Letters Online for Free",
       summary: "A simple, free workflow for designing eye-catching 3D letter images in your browser.",
@@ -62,6 +67,7 @@ export const blogs: BlogItem[] = [
   {
     id: "Create-3D-Text-with-the-Barbie-Font",
     date: "2025-08-07",
+    coverImage: "/blogs/Create-3D-Text-with-the-Barbie-Font/cover.svg",
     en: {
       title: "Create 3D Text with the Barbie Font",
       summary: "Pink, glossy, and unmistakably Barbie — a fun 3D text style for fan art and party invites.",

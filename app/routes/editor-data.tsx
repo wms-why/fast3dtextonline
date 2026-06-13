@@ -40,7 +40,6 @@ export default function EditorDataPage({ params }: Route.ComponentProps) {
       });
     } catch {
       // Bad ciphertext — render an empty editor rather than crashing.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setState({
         textProp: undefined,
         backgroundProp: undefined,

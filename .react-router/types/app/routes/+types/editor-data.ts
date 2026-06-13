@@ -13,10 +13,13 @@ type Matches = [{
   id: "root";
   module: typeof import("../../root.js");
 }, {
-  id: "layouts/locale";
-  module: typeof import("../../layouts/locale.js");
+  id: "en-editor/:data";
+  module: typeof import("../editor-data.js");
+}] | [{
+  id: "root";
+  module: typeof import("../../root.js");
 }, {
-  id: "routes/editor-data";
+  id: "zh-editor/:data";
   module: typeof import("../editor-data.js");
 }];
 

@@ -4,7 +4,16 @@
   "compatibility_date": "2026-06-01",
   "assets": {
     "directory": "./build/client",
-    "binding": "ASSETS"
+    // SPA fallback: any path not present in build/client/ (e.g. /editor,
+    // /editor/<base64>, /en/<anything>) is served index.html so the client
+    // router can take over. Cloudflare assets binding default is "none"
+    // (raw 404), which breaks every non-prerendered route. RR7's
+    // __spa-fallback.html is an internal convention that the assets
+    // binding does NOT recognize; the binding only reads index.html.
+    // No `binding` field — this is a static assets-only deploy with no
+    // Worker runtime code, and wrangler 4.96+ rejects `binding` without
+    // a `main` worker script.
+    "not_found_handling": "single-page-application"
   },
   "vars": {
     "HOST": "https://fast3dtextonline.com"

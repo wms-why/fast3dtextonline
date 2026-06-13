@@ -8,6 +8,7 @@ import { Flex, Button, Select, AlertDialog, Code, AspectRatio } from "@radix-ui/
 import { getPicture, resize, init as threeInit, updateBackground, updateEffectProp, updateTextProp } from "./ThreeTools";
 import type { TextProp } from "./TextSetting";
 import { getShareLink } from "@/lib/share-data";
+import { getHost } from "@/lib/host";
 import type { EffectProp } from "./Effects";
 
 const Sizes = [
@@ -73,7 +74,9 @@ export default function PreviewToolbar({
   effect: EffectProp;
   templateSlug?: string;
 }) {
-  const host = process.env.NEXT_PUBLIC_HOST?.substring("https://".length);
+  // Download filename prefix is just the host without the URL scheme.
+  // Use the SEO host helper (it guards `process` for the browser).
+  const host = getHost().replace(/^https?:\/\//, "");
   const t = useTranslations("PreviewBar");
   const initAspectRadio = 0;
   const [aspectRadio, setAspectRadio] = useState<number>(initAspectRadio);

@@ -4,17 +4,45 @@ import { useLocale } from "@/lib/i18n/use-locale";
 import { useTranslations } from "@/lib/i18n/use-translations";
 import { scenes, getLocalizedScene } from "@/lib/presets/scene-presets";
 import { LocaleLink } from "@/lib/i18n/navigation";
+import { buildSeoMeta } from "@/lib/seo/meta";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo/ogImage";
+import type { Locale } from "@/lib/i18n/config";
 import type { Route } from "./+types/logo-list";
 
-export function meta(_: Route.MetaArgs) {
-  return [
-    { title: "3D Logo Scenes — Gaming, YouTube, Twitch & More" },
-    {
-      name: "description",
-      content:
-        "Free 3D logo scenes for gaming, YouTube, Twitch, esports, Instagram, TikTok creators. Each scene opens in the editor with transparent PNG export.",
-    },
-  ];
+export function meta({ location }: Route.MetaArgs) {
+  const locale = (location.pathname.startsWith("/zh") ? "zh" : "en") as Locale;
+  const title =
+    locale === "zh"
+      ? "3D Logo 场景 — 游戏、YouTube、Twitch 等"
+      : "3D Logo Scenes — Gaming, YouTube, Twitch & More";
+  const description =
+    locale === "zh"
+      ? "免费 3D Logo 场景模板:游戏、YouTube、Twitch、电竞、Instagram、TikTok 创作者专用。每个场景都能在编辑器中打开并导出透明 PNG。"
+      : "Free 3D logo scenes for gaming, YouTube, Twitch, esports, Instagram, TikTok creators. Each scene opens in the editor with transparent PNG export.";
+  const keywords =
+    locale === "zh"
+      ? [
+          "3D Logo 生成器",
+          "游戏 Logo",
+          "YouTube Logo",
+          "Twitch Logo",
+          "电竞 Logo",
+        ]
+      : [
+          "3d logo maker",
+          "gaming logo 3d",
+          "youtube logo 3d",
+          "twitch logo 3d",
+          "esports logo 3d",
+        ];
+  return buildSeoMeta({
+    title,
+    description,
+    keywords,
+    ogImage: DEFAULT_OG_IMAGE,
+    locale,
+    pathname: location.pathname,
+  });
 }
 
 export default function LogoListPage() {
@@ -22,14 +50,18 @@ export default function LogoListPage() {
   const locale = useLocale();
 
   return (
-    <div className="mx-auto w-full max-w-[1240px] px-6 py-8">
+    <div className="mx-auto w-full max-w-310 px-6 py-8">
       <Heading as="h1" size="8" mb="2" className="text-center">
-        {t("listTitle")}
+        {t("title")}
       </Heading>
-      <Text size="5" color="gray" className="mx-auto mb-8 block max-w-[760px] text-center">
-        {t("listSubtitle")}
+      <Text size="5" color="gray" className="mx-auto mb-8 block text-center">
+        {t("heroSubtitle")}
       </Text>
-      <Grid columns={{ initial: "1", md: "2", lg: "3" }} gap="5">
+      <Grid
+        columns={{ initial: "1", md: "2", lg: "3" }}
+        gap="5"
+        style={{ width: "100%" }}
+      >
         {scenes.map((scene) => {
           const copy = getLocalizedScene(scene, locale);
           return (

@@ -12,22 +12,40 @@ import { LocaleLink } from "@/lib/i18n/navigation";
 import { JsonLd } from "@/lib/seo/JsonLd";
 import { generateFaqJsonLd } from "@/lib/seo/faq";
 import { generateWebAppJsonLd } from "@/lib/seo/webApp";
+import { buildSeoMeta } from "@/lib/seo/meta";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo/ogImage";
 import { getHost } from "@/lib/host";
 import type { Route } from "./+types/home";
 import type { Locale } from "@/lib/i18n/config";
 
 export function meta({ location }: Route.MetaArgs) {
   const locale = (location.pathname.startsWith("/zh") ? "zh" : "en") as Locale;
-  return [
-    { title: locale === "zh" ? "3D 文字生成器" : "3D Text Generator" },
-    {
-      name: "description",
-      content:
-        locale === "zh"
-          ? "免费在线 3D 文字生成器,支持透明 PNG 导出。"
-          : "Free online 3D text generator with transparent PNG export.",
-    },
-  ];
+  const title =
+    locale === "zh"
+      ? "3D 文字生成器 — 免费在线 3D 文字与透明 PNG 导出"
+      : "3D Text Generator — Free Online 3D Text with Transparent PNG Export";
+  const description =
+    locale === "zh"
+      ? "免费在线 3D 文字生成器:18+ 模板风格,支持透明背景 PNG 导出,涵盖游戏、电商、社交媒体、节日等场景。"
+      : "Free online 3D text generator with 18+ template styles. Export transparent PNG for gaming, ecommerce, social media, holidays, and more.";
+  const keywords =
+    locale === "zh"
+      ? ["3D 文字生成器", "3D 文字在线", "透明 PNG", "立体字生成器", "免费 3D 字体"]
+      : [
+          "3d text generator",
+          "online 3d text",
+          "transparent png 3d text",
+          "free 3d font generator",
+          "3d text maker",
+        ];
+  return buildSeoMeta({
+    title,
+    description,
+    keywords,
+    ogImage: DEFAULT_OG_IMAGE,
+    locale,
+    pathname: location.pathname,
+  });
 }
 
 export default function HomePage() {

@@ -30,6 +30,7 @@ function pageTree(prefixTag: "en" | "zh") {
     r("industry/:industry", "routes/industry-id.tsx"),
     r("do-not-write-on-this-page", "routes/niche.tsx"),
     r("editor", "routes/editor-index.tsx"),
+    r("editor/:data", "routes/editor-data.tsx"),
     r("blogs", "routes/blogs-list.tsx"),
     r("blogs/:id", "routes/blogs-id.tsx"),
     r(":rest/*", "routes/not-found.tsx"),

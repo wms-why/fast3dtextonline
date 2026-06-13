@@ -58,10 +58,10 @@ function localizedPath(locale: Locale, suffix: string): string {
  *  - 6 scenes × 2 locales = 12
  *  - 6 holidays × 2 locales = 12
  *  - 6 industries × 2 locales = 12
- *  - 90 names (60 en + 30 zh, per-locale) = 90
+ *  - 89 names (59 en + 30 zh, per-locale) = 89
  *  - 5 blog posts × 2 locales = 10
  *  - 2 resource routes (sitemap.xml, robots.txt) = 2
- *  Total: 200
+ *  Total: 199
  */
 export function generateAllPrerenderPaths(): string[] {
   const paths: string[] = [];

@@ -90,12 +90,85 @@ type Pages = {
       "*": string;
     };
   };
+  "/zh": {
+    params: {};
+  };
+  "/zh/styles": {
+    params: {};
+  };
+  "/zh/styles/:slug": {
+    params: {
+      "slug": string;
+    };
+  };
+  "/zh/fonts": {
+    params: {};
+  };
+  "/zh/fonts/:slug": {
+    params: {
+      "slug": string;
+    };
+  };
+  "/zh/logo": {
+    params: {};
+  };
+  "/zh/logo/:scene": {
+    params: {
+      "scene": string;
+    };
+  };
+  "/zh/name/:name": {
+    params: {
+      "name": string;
+    };
+  };
+  "/zh/holiday": {
+    params: {};
+  };
+  "/zh/holiday/:holiday": {
+    params: {
+      "holiday": string;
+    };
+  };
+  "/zh/industry": {
+    params: {};
+  };
+  "/zh/industry/:industry": {
+    params: {
+      "industry": string;
+    };
+  };
+  "/zh/do-not-write-on-this-page": {
+    params: {};
+  };
+  "/zh/editor": {
+    params: {};
+  };
+  "/zh/editor/:data": {
+    params: {
+      "data": string;
+    };
+  };
+  "/zh/blogs": {
+    params: {};
+  };
+  "/zh/blogs/:id": {
+    params: {
+      "id": string;
+    };
+  };
+  "/zh/:rest/*": {
+    params: {
+      "rest": string;
+      "*": string;
+    };
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/sitemap.xml" | "/robots.txt" | "/styles" | "/styles/:slug" | "/fonts" | "/fonts/:slug" | "/logo" | "/logo/:scene" | "/name/:name" | "/holiday" | "/holiday/:holiday" | "/industry" | "/industry/:industry" | "/do-not-write-on-this-page" | "/editor" | "/editor/:data" | "/blogs" | "/blogs/:id" | "/:rest/*";
+    page: "/" | "/sitemap.xml" | "/robots.txt" | "/styles" | "/styles/:slug" | "/fonts" | "/fonts/:slug" | "/logo" | "/logo/:scene" | "/name/:name" | "/holiday" | "/holiday/:holiday" | "/industry" | "/industry/:industry" | "/do-not-write-on-this-page" | "/editor" | "/editor/:data" | "/blogs" | "/blogs/:id" | "/:rest/*" | "/zh" | "/zh/styles" | "/zh/styles/:slug" | "/zh/fonts" | "/zh/fonts/:slug" | "/zh/logo" | "/zh/logo/:scene" | "/zh/name/:name" | "/zh/holiday" | "/zh/holiday/:holiday" | "/zh/industry" | "/zh/industry/:industry" | "/zh/do-not-write-on-this-page" | "/zh/editor" | "/zh/editor/:data" | "/zh/blogs" | "/zh/blogs/:id" | "/zh/:rest/*";
   };
   "routes/sitemap-xml.ts": {
     id: "routes/sitemap-xml";
@@ -105,81 +178,131 @@ type RouteFiles = {
     id: "routes/robots-txt";
     page: "/robots.txt";
   };
-  "layouts/locale.tsx": {
-    id: "layouts/locale";
-    page: "/" | "/styles" | "/styles/:slug" | "/fonts" | "/fonts/:slug" | "/logo" | "/logo/:scene" | "/name/:name" | "/holiday" | "/holiday/:holiday" | "/industry" | "/industry/:industry" | "/do-not-write-on-this-page" | "/editor" | "/editor/:data" | "/blogs" | "/blogs/:id" | "/:rest/*";
-  };
   "routes/home.tsx": {
-    id: "routes/home";
+    id: "en-home";
     page: "/";
+  } | {
+    id: "zh-home";
+    page: "/zh";
   };
   "routes/styles-list.tsx": {
-    id: "routes/styles-list";
+    id: "en-styles";
     page: "/styles";
+  } | {
+    id: "zh-styles";
+    page: "/zh/styles";
   };
   "routes/styles-id.tsx": {
-    id: "routes/styles-id";
+    id: "en-styles/:slug";
     page: "/styles/:slug";
+  } | {
+    id: "zh-styles/:slug";
+    page: "/zh/styles/:slug";
   };
   "routes/fonts-list.tsx": {
-    id: "routes/fonts-list";
+    id: "en-fonts";
     page: "/fonts";
+  } | {
+    id: "zh-fonts";
+    page: "/zh/fonts";
   };
   "routes/fonts-id.tsx": {
-    id: "routes/fonts-id";
+    id: "en-fonts/:slug";
     page: "/fonts/:slug";
+  } | {
+    id: "zh-fonts/:slug";
+    page: "/zh/fonts/:slug";
   };
   "routes/logo-list.tsx": {
-    id: "routes/logo-list";
+    id: "en-logo";
     page: "/logo";
+  } | {
+    id: "zh-logo";
+    page: "/zh/logo";
   };
   "routes/logo-id.tsx": {
-    id: "routes/logo-id";
+    id: "en-logo/:scene";
     page: "/logo/:scene";
+  } | {
+    id: "zh-logo/:scene";
+    page: "/zh/logo/:scene";
   };
   "routes/name-id.tsx": {
-    id: "routes/name-id";
+    id: "en-name/:name";
     page: "/name/:name";
+  } | {
+    id: "zh-name/:name";
+    page: "/zh/name/:name";
   };
   "routes/holiday-list.tsx": {
-    id: "routes/holiday-list";
+    id: "en-holiday";
     page: "/holiday";
+  } | {
+    id: "zh-holiday";
+    page: "/zh/holiday";
   };
   "routes/holiday-id.tsx": {
-    id: "routes/holiday-id";
+    id: "en-holiday/:holiday";
     page: "/holiday/:holiday";
+  } | {
+    id: "zh-holiday/:holiday";
+    page: "/zh/holiday/:holiday";
   };
   "routes/industry-list.tsx": {
-    id: "routes/industry-list";
+    id: "en-industry";
     page: "/industry";
+  } | {
+    id: "zh-industry";
+    page: "/zh/industry";
   };
   "routes/industry-id.tsx": {
-    id: "routes/industry-id";
+    id: "en-industry/:industry";
     page: "/industry/:industry";
+  } | {
+    id: "zh-industry/:industry";
+    page: "/zh/industry/:industry";
   };
   "routes/niche.tsx": {
-    id: "routes/niche";
+    id: "en-do-not-write-on-this-page";
     page: "/do-not-write-on-this-page";
+  } | {
+    id: "zh-do-not-write-on-this-page";
+    page: "/zh/do-not-write-on-this-page";
   };
   "routes/editor-index.tsx": {
-    id: "routes/editor-index";
+    id: "en-editor";
     page: "/editor";
+  } | {
+    id: "zh-editor";
+    page: "/zh/editor";
   };
   "routes/editor-data.tsx": {
-    id: "routes/editor-data";
+    id: "en-editor/:data";
     page: "/editor/:data";
+  } | {
+    id: "zh-editor/:data";
+    page: "/zh/editor/:data";
   };
   "routes/blogs-list.tsx": {
-    id: "routes/blogs-list";
+    id: "en-blogs";
     page: "/blogs";
+  } | {
+    id: "zh-blogs";
+    page: "/zh/blogs";
   };
   "routes/blogs-id.tsx": {
-    id: "routes/blogs-id";
+    id: "en-blogs/:id";
     page: "/blogs/:id";
+  } | {
+    id: "zh-blogs/:id";
+    page: "/zh/blogs/:id";
   };
   "routes/not-found.tsx": {
-    id: "routes/not-found";
+    id: "en-:rest/*";
     page: "/:rest/*";
+  } | {
+    id: "zh-:rest/*";
+    page: "/zh/:rest/*";
   };
 };
 
@@ -187,23 +310,40 @@ type RouteModules = {
   "root": typeof import("./app/root.tsx");
   "routes/sitemap-xml": typeof import("./app/routes/sitemap-xml.ts");
   "routes/robots-txt": typeof import("./app/routes/robots-txt.ts");
-  "layouts/locale": typeof import("./app/layouts/locale.tsx");
-  "routes/home": typeof import("./app/routes/home.tsx");
-  "routes/styles-list": typeof import("./app/routes/styles-list.tsx");
-  "routes/styles-id": typeof import("./app/routes/styles-id.tsx");
-  "routes/fonts-list": typeof import("./app/routes/fonts-list.tsx");
-  "routes/fonts-id": typeof import("./app/routes/fonts-id.tsx");
-  "routes/logo-list": typeof import("./app/routes/logo-list.tsx");
-  "routes/logo-id": typeof import("./app/routes/logo-id.tsx");
-  "routes/name-id": typeof import("./app/routes/name-id.tsx");
-  "routes/holiday-list": typeof import("./app/routes/holiday-list.tsx");
-  "routes/holiday-id": typeof import("./app/routes/holiday-id.tsx");
-  "routes/industry-list": typeof import("./app/routes/industry-list.tsx");
-  "routes/industry-id": typeof import("./app/routes/industry-id.tsx");
-  "routes/niche": typeof import("./app/routes/niche.tsx");
-  "routes/editor-index": typeof import("./app/routes/editor-index.tsx");
-  "routes/editor-data": typeof import("./app/routes/editor-data.tsx");
-  "routes/blogs-list": typeof import("./app/routes/blogs-list.tsx");
-  "routes/blogs-id": typeof import("./app/routes/blogs-id.tsx");
-  "routes/not-found": typeof import("./app/routes/not-found.tsx");
+  "en-home": typeof import("./app/routes/home.tsx");
+  "en-styles": typeof import("./app/routes/styles-list.tsx");
+  "en-styles/:slug": typeof import("./app/routes/styles-id.tsx");
+  "en-fonts": typeof import("./app/routes/fonts-list.tsx");
+  "en-fonts/:slug": typeof import("./app/routes/fonts-id.tsx");
+  "en-logo": typeof import("./app/routes/logo-list.tsx");
+  "en-logo/:scene": typeof import("./app/routes/logo-id.tsx");
+  "en-name/:name": typeof import("./app/routes/name-id.tsx");
+  "en-holiday": typeof import("./app/routes/holiday-list.tsx");
+  "en-holiday/:holiday": typeof import("./app/routes/holiday-id.tsx");
+  "en-industry": typeof import("./app/routes/industry-list.tsx");
+  "en-industry/:industry": typeof import("./app/routes/industry-id.tsx");
+  "en-do-not-write-on-this-page": typeof import("./app/routes/niche.tsx");
+  "en-editor": typeof import("./app/routes/editor-index.tsx");
+  "en-editor/:data": typeof import("./app/routes/editor-data.tsx");
+  "en-blogs": typeof import("./app/routes/blogs-list.tsx");
+  "en-blogs/:id": typeof import("./app/routes/blogs-id.tsx");
+  "en-:rest/*": typeof import("./app/routes/not-found.tsx");
+  "zh-home": typeof import("./app/routes/home.tsx");
+  "zh-styles": typeof import("./app/routes/styles-list.tsx");
+  "zh-styles/:slug": typeof import("./app/routes/styles-id.tsx");
+  "zh-fonts": typeof import("./app/routes/fonts-list.tsx");
+  "zh-fonts/:slug": typeof import("./app/routes/fonts-id.tsx");
+  "zh-logo": typeof import("./app/routes/logo-list.tsx");
+  "zh-logo/:scene": typeof import("./app/routes/logo-id.tsx");
+  "zh-name/:name": typeof import("./app/routes/name-id.tsx");
+  "zh-holiday": typeof import("./app/routes/holiday-list.tsx");
+  "zh-holiday/:holiday": typeof import("./app/routes/holiday-id.tsx");
+  "zh-industry": typeof import("./app/routes/industry-list.tsx");
+  "zh-industry/:industry": typeof import("./app/routes/industry-id.tsx");
+  "zh-do-not-write-on-this-page": typeof import("./app/routes/niche.tsx");
+  "zh-editor": typeof import("./app/routes/editor-index.tsx");
+  "zh-editor/:data": typeof import("./app/routes/editor-data.tsx");
+  "zh-blogs": typeof import("./app/routes/blogs-list.tsx");
+  "zh-blogs/:id": typeof import("./app/routes/blogs-id.tsx");
+  "zh-:rest/*": typeof import("./app/routes/not-found.tsx");
 };
