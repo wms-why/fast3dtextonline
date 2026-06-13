@@ -6,6 +6,7 @@ import { getScene, getLocalizedScene } from "@/lib/presets/scene-presets";
 import { getStylePreset, getLocalizedStyle } from "@/lib/presets/style-presets";
 import { getEditorPath } from "@/lib/share-data";
 import { LocaleLink } from "@/lib/i18n/navigation";
+import { TemplateEditorSection } from "@/components/editor/TemplateEditorSection";
 import { JsonLd } from "@/lib/seo/JsonLd";
 import { generateCreativeWorkJsonLd } from "@/lib/seo/product";
 import { buildSeoMeta } from "@/lib/seo/meta";
@@ -76,6 +77,8 @@ export default function LogoSceneDetailPage({ params }: Route.ComponentProps) {
           </Flex>
         </Box>
       </Section>
+
+      <TemplateEditorSection preset={primary?.editorPreset} />
 
       <Section className="w-full py-12">
         <Box className="mx-auto w-full max-w-[1080px] px-6">
