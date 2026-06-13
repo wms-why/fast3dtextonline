@@ -96,6 +96,10 @@
     "shareDialogClose": "关闭",
     "shareDialogCopyLink": "复制链接"
   },
+  "TemplateEditorSection": {
+    "defaultTitle": "在编辑器中试试",
+    "defaultSubtitle": "在下方调整文字、颜色和效果，然后把设计导出为带透明背景的 PNG。"
+  },
   "TextEditor": {
     "seoTitle": "3D 文字编辑器 - 调整字体、渐变、背景和阴影",
     "seoDescription": "在模板基础上继续编辑 3D 文字，调整字体、颜色、渐变、背景和阴影，并导出 PNG 或分享链接。",
