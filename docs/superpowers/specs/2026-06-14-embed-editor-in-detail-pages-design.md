@@ -158,29 +158,34 @@ Each detail page computes its `ShareObj` from existing preset data — no new da
 
 ### `/name/:name` fallback helper
 
+`NamePreset` already carries a `styleSlugs: string[]` field (per-name curated recommendations, e.g. `["neon-night", "luxury-serif"]` for "john"). The helper reuses it — no new data, no new fields.
+
 ```ts
 // app/lib/presets/name-presets.ts (new export)
-import { stylePresets } from "./style-presets";
+import { stylePresets, getStylePreset } from "./style-presets";
 import type { ShareObj } from "../share-data";
 
+// First entry of stylePresets is "barbie-pink" — used only as a last-resort
+// fallback if a name's curated styleSlugs[0] no longer resolves in stylePresets.
+const NAME_FALLBACK_PRESET = stylePresets[0];
+
 export function getNamePagePreset(namePreset: NamePreset): ShareObj {
-  // stylePresets[0] is "chrome" — a neutral, recognizable visual anchor.
-  // The name text is overwritten so the editor opens with the user's name.
-  const anchor = stylePresets[0];
+  const curated = getStylePreset(namePreset.styleSlugs[0] ?? "");
+  const anchor = curated ?? NAME_FALLBACK_PRESET;
   return {
     ...anchor.editorPreset,
     text: {
       ...anchor.editorPreset.text,
-      text: namePreset.name,
+      text: namePreset.displayText, // "JOHN", "EMMA", etc. — not the URL slug
     },
   };
 }
 ```
 
-- Hardcodes `stylePresets[0]` (chrome) as the fallback — no new style data.
-- Spreads `editorPreset` so the bg/effect/templateSlug are inherited as-is.
-- Only `text.text` is overridden to the name itself.
-- If a future name needs a custom style, adding a `styleSlug?: string` field to `NamePreset` is a non-breaking follow-up.
+- **Reuses existing `namePreset.styleSlugs[0]`** — no new data fields.
+- **Falls back to `stylePresets[0]` (barbie-pink) only if the curated slug is missing or stale** (data-drift safety net).
+- **Uses `namePreset.displayText`** ("JOHN", "EMMA") rather than `namePreset.name` ("john", "emma") — the editor should open with the human-readable form, not the lowercase URL slug.
+- Spreads `editorPreset` so `bg`, `effect`, and `templateSlug` are inherited as-is.
 
 ## SSR / hydration safety
 
@@ -243,7 +248,7 @@ Then `pnpm dev` and manually test:
 | `/logo/gaming-logo` | Section shows scene's `styleSlugs[0]` style preset |
 | `/holiday/christmas` | Section shows holiday's `styleSlugs[0]` style preset |
 | `/industry/gaming` | Section shows industry's `styleSlugs[0]` style preset |
-| `/name/Aiden` | Section shows chrome-style preset with text "Aiden" |
+| `/name/emma` | Section shows the preset for `namePresets[emma].styleSlugs[0]` (barbie-pink) with text "EMMA" |
 | `/zh/styles/barbie-pink` | Section title and subtitle in Chinese |
 | Theme toggle (light → dark) | `bg-gray-50` → `bg-gray-900` switches correctly |
 | Edit a parameter in the embedded editor (e.g. text color) | Updates preview live, persists within the section, resets on page reload |
