@@ -17,7 +17,7 @@ export function TemplateEditorSection({
   sectionId,
   size = "regular",
 }: {
-  preset: ShareObj;
+  preset: ShareObj | undefined;
   title?: string;
   sectionId?: string;
   size?: Size;
