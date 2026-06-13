@@ -22,9 +22,10 @@ export function TemplateEditorSection({
   sectionId?: string;
   size?: Size;
 }) {
+  const t = useTranslations("TemplateEditorSection");
+
   if (!preset) return null;
 
-  const t = useTranslations("TemplateEditorSection");
   const heading = title ?? t("defaultTitle");
   const subtitle = t("defaultSubtitle");
   const id = sectionId ?? "try-it-in-the-editor";
