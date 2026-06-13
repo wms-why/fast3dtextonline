@@ -3,10 +3,11 @@
 import { Box, Button, Flex, Heading, Section, Text } from "@radix-ui/themes";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { useTranslations } from "@/lib/i18n/use-translations";
-import { getNamePreset, namePresets } from "@/lib/presets/name-presets";
+import { getNamePreset, getNamePagePreset, namePresets } from "@/lib/presets/name-presets";
 import { getStylePreset, getLocalizedStyle } from "@/lib/presets/style-presets";
 import { getEditorPath } from "@/lib/share-data";
 import { LocaleLink } from "@/lib/i18n/navigation";
+import { TemplateEditorSection } from "@/components/editor/TemplateEditorSection";
 import { JsonLd } from "@/lib/seo/JsonLd";
 import { generateCreativeWorkJsonLd } from "@/lib/seo/product";
 import { buildSeoMeta } from "@/lib/seo/meta";
@@ -56,6 +57,7 @@ export default function NameDetailPage({ params }: Route.ComponentProps) {
   const editorHref = primary
     ? getEditorPath(primary.editorPreset, locale)
     : `/${locale}/editor`;
+  const editorSectionPreset = getNamePagePreset(preset);
 
   return (
     <Flex direction="column">
@@ -82,6 +84,8 @@ export default function NameDetailPage({ params }: Route.ComponentProps) {
           )}
         </Box>
       </Section>
+
+      <TemplateEditorSection preset={editorSectionPreset} />
 
       <JsonLd
         data={generateCreativeWorkJsonLd({
