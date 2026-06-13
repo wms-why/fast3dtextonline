@@ -11,6 +11,7 @@ import {
 import { getEditorPath } from "@/lib/share-data";
 import { LocaleLink } from "@/lib/i18n/navigation";
 import { StylePreview } from "@/components/styles/StylePreviewCard";
+import { TemplateEditorSection } from "@/components/editor/TemplateEditorSection";
 import { JsonLd } from "@/lib/seo/JsonLd";
 import { generateProductJsonLd } from "@/lib/seo/product";
 import { buildSeoMeta } from "@/lib/seo/meta";
@@ -120,6 +121,8 @@ export default function StyleDetailPage({ params }: Route.ComponentProps) {
           </Grid>
         </Box>
       </Section>
+
+      <TemplateEditorSection preset={style.editorPreset} />
 
       <Section className="w-full py-12">
         <Box className="mx-auto w-full max-w-[1080px] px-6">
