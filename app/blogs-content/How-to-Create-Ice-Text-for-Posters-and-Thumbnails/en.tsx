@@ -16,7 +16,7 @@ export default function IceTextEn() {
           </Heading>
           <Text as="p">
             Start with the{" "}
-            <LocaleLink to="/styles/ice-frost" className="text-violet-600 dark:text-violet-400">
+            <LocaleLink to="/styles/ice-frost" className="text-brand-500">
               Ice Text 3D Generator
             </LocaleLink>{" "}
             so the gradient, shadow, and background already match.
@@ -37,7 +37,7 @@ export default function IceTextEn() {
 
       <Text as="p">
         For the fastest starting point, open the{" "}
-        <LocaleLink to="/styles/ice-frost" className="text-violet-600 dark:text-violet-400">
+        <LocaleLink to="/styles/ice-frost" className="text-brand-500">
           ice-frost style page
         </LocaleLink>{" "}
         and edit from there.

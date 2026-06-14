@@ -17,7 +17,7 @@ export default function BubbleLettersEn() {
           </Heading>
           <Text as="p">
             1. Open the{" "}
-            <LocaleLink to="/styles/bubble-letters" className="text-violet-600 dark:text-violet-400">
+            <LocaleLink to="/styles/bubble-letters" className="text-brand-500">
               Bubble Letters 3D Text Generator
             </LocaleLink>
             .
@@ -49,7 +49,7 @@ export default function BubbleLettersEn() {
 
       <Text as="p">
         If you want a faster starting point, open the{" "}
-        <LocaleLink to="/styles/bubble-letters" className="text-violet-600 dark:text-violet-400">
+        <LocaleLink to="/styles/bubble-letters" className="text-brand-500">
           bubble letters template
         </LocaleLink>{" "}
         and customize from there instead of building the style manually.

@@ -2,7 +2,8 @@
 import { useState, useRef, useEffect, } from "react";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { useTranslations } from "@/lib/i18n/use-translations";
-import { Eye, Download, Share } from "lucide-react";
+import { Check, Download, Eye, Share, Sparkles } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import type { BackgroundProp, GradientDirection } from "./BackgroundSelector";
 import { Flex, Button, Select, AlertDialog, Code, AspectRatio } from "@radix-ui/themes";
 import { getPicture, resize, init as threeInit, updateBackground, updateEffectProp, updateTextProp } from "./ThreeTools";
@@ -87,6 +88,7 @@ export default function PreviewToolbar({
   const [picture, setPicture] = useState<string | null>(null);
   const [shareError, setShareError] = useState<string | null>(null);
   const [shareLink, setShareLink] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const locale = useLocale();
 
   const updateSize = () => {
@@ -274,13 +276,14 @@ export default function PreviewToolbar({
   }
 
   const copyLink = () => {
-    if (shareLink) {
-      navigator.clipboard.writeText(shareLink).catch(err => {
-        console.error("copy error:", err);
-        alert("copy error");
-      });
-    }
-
+    if (!shareLink) return;
+    navigator.clipboard.writeText(shareLink).then(() => {
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1200);
+    }).catch(err => {
+      console.error("copy error:", err);
+      setShareError(t("copyFailed"));
+    });
   }
 
   useEffect(() => {
@@ -307,16 +310,60 @@ export default function PreviewToolbar({
       gap={"4"}
     >
 
+      {/* Transparent PNG hint bar (P3-1). Click jumps focus to the
+          Background panel's transparent switch. */}
+      <button
+        type="button"
+        onClick={() => {
+          const sw = document.getElementById("transparent-bg-switch");
+          if (sw) {
+            sw.scrollIntoView({ behavior: "smooth", block: "center" });
+            (sw as HTMLElement).focus();
+          }
+        }}
+        className="group flex w-full items-center justify-center gap-2 rounded-full border border-border-subtle bg-surface-0/80 px-3 py-1.5 text-xs text-text-2 backdrop-blur transition-colors hover:border-brand-300 hover:text-brand-500"
+        aria-label={background.transparent ? t("transparentActive") : t("transparentHint")}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          {background.transparent ? (
+            <motion.span
+              key="active"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.18 }}
+              className="inline-flex items-center gap-2"
+            >
+              <Check className="h-3.5 w-3.5 text-success-500" />
+              <span>{t("transparentActive")}</span>
+            </motion.span>
+          ) : (
+            <motion.span
+              key="hint"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.18 }}
+              className="inline-flex items-center gap-2"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-brand-500" />
+              <span>{t("transparentHint")}</span>
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </button>
+
       <AspectRatio
         ratio={AspectRatios[aspectRadio]}
         className="w-full"
         style={{
-          background: "repeating-conic-gradient(#ccc 0% 25%, white 0% 50%)",
+          background:
+            "repeating-conic-gradient(rgb(var(--surface-2)) 0% 25%, rgb(var(--surface-1)) 0% 50%)",
           backgroundSize: "40px 40px",
           maxWidth: "100%",
         }}
       >
-        <canvas ref={container} className="w-full border border-gray-300" style={{
+        <canvas ref={container} className="w-full border border-border-subtle" style={{
           backgroundColor: background.color ? `${background.color}` : "rgba(0,0,0,0)",
           backgroundImage: getGradientBackgroundCss(background),
           backgroundRepeat: "no-repeat",
@@ -326,9 +373,21 @@ export default function PreviewToolbar({
         }} />
       </AspectRatio>
 
-      {picture && (
-        <img ref={fullscreenElement} src={picture} className="w-screen h-screen" />
-      )}
+      {/* Fullscreen preview with motion fade + scale (P3-3) */}
+      <AnimatePresence>
+        {picture && (
+          <motion.img
+            ref={fullscreenElement}
+            key="fullscreen-preview"
+            src={picture}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
+            className="w-screen h-screen"
+          />
+        )}
+      </AnimatePresence>
 
       <Flex gap={"4"} wrap="wrap" justify="center" align="center" className="w-full">
 
@@ -365,8 +424,36 @@ export default function PreviewToolbar({
 
             <Flex gap="3" mt="4" justify="end">
               {!shareError && <AlertDialog.Action>
-                <Button variant="soft" color="blue" onClick={() => copyLink()}>
-                  {t("shareDialogCopyLink")}
+                <Button
+                  variant="soft"
+                  color={copied ? "green" : "blue"}
+                  onClick={() => copyLink()}
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    {copied ? (
+                      <motion.span
+                        key="copied"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.15 }}
+                        className="inline-flex items-center gap-1.5"
+                      >
+                        <Check className="h-3.5 w-3.5" />
+                        {t("copied")}
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        key="copy"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        {t("shareDialogCopyLink")}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
                 </Button>
               </AlertDialog.Action>
               }

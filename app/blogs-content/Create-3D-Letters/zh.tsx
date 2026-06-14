@@ -5,7 +5,7 @@ export default function Create3DLettersZh() {
     <Flex gap={"4"} direction={"column"} justify={"start"} className="text-left">
       <Text as="p" mb="4">
         如果你想为设计、演示或内容项目生成引人注目的<strong>3D字母</strong>，你来对地方了。以下是使用{" "}
-        <a href="/zh/editor" target="_blank" rel="noopener noreferrer" className="text-violet-600 dark:text-violet-400">
+        <a href="/zh/editor" target="_blank" rel="noopener noreferrer" className="text-brand-500">
           Fast3DText
         </a>
         的简单分步指南，这是一个免费的在线3D文本生成器，可以轻松设计和导出高质量的3D字母图像。
@@ -15,7 +15,7 @@ export default function Create3DLettersZh() {
 
       <Heading as="h3" size="4" mt="4" mb="2">1. 打开编辑器</Heading>
       <Text as="p" mb="4">
-        前往 👉 <a href="/zh/editor" target="_blank" rel="noopener noreferrer" className="text-violet-600 dark:text-violet-400">/zh/editor</a>
+        前往 👉 <a href="/zh/editor" target="_blank" rel="noopener noreferrer" className="text-brand-500">/zh/editor</a>
       </Text>
 
       <Heading as="h3" size="4" mt="4" mb="2">2. 输入你的字母</Heading>

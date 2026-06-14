@@ -3,24 +3,25 @@ import { EditorSurface } from "./EditorSurface";
 import { useTranslations } from "@/lib/i18n/use-translations";
 import type { ShareObj } from "@/lib/share-data";
 
-type Size = "compact" | "regular";
-
 /**
  * Shared wrapper around EditorSurface used by every SEO detail page.
  * Owns the section layout, i18n heading/subtitle, and the silent
  * `if (!preset) return null` short-circuit. Does not touch
  * EditorSurface internals.
+ *
+ * Always renders the tabs-based control panel that matches `/editor` —
+ * `compactLayout` defaults to `true` in `EditorSurface`, so each of
+ * Text / Background / Effects lives behind a tab instead of stacking
+ * vertically next to the preview canvas.
  */
 export function TemplateEditorSection({
   preset,
   title,
   sectionId,
-  size = "regular",
 }: {
   preset: ShareObj | undefined;
   title?: string;
   sectionId?: string;
-  size?: Size;
 }) {
   const t = useTranslations("TemplateEditorSection");
 
@@ -33,7 +34,7 @@ export function TemplateEditorSection({
   return (
     <Section
       id={id}
-      className="w-full bg-gray-50 py-12 dark:bg-gray-900"
+      className="w-full bg-surface-1 py-12"
       aria-labelledby={`${id}-heading`}
     >
       <Container px="4" size="4">
@@ -51,7 +52,6 @@ export function TemplateEditorSection({
             backgroundProp={preset.bg}
             effectProp={preset.effect}
             templateSlug={preset.templateSlug}
-            compactLayout={size === "compact"}
           />
         </Flex>
       </Container>

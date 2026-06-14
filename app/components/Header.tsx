@@ -8,59 +8,64 @@ export default function Header() {
   const t = useTranslations("Header");
 
   return (
-    <header className="w-full border-b border-gray-200 bg-white/85 backdrop-blur dark:border-gray-800 dark:bg-gray-950/85">
-      <div className="mx-auto flex w-full items-center justify-between gap-4 px-4 py-3">
+    <header className="sticky top-0 z-40 w-full border-b border-border-subtle bg-surface-0/80 backdrop-blur-md">
+      <div className="mx-auto flex w-full items-center justify-between gap-4 px-4 py-3 md:px-6">
         {/* Logo / app name */}
         <div className="shrink-0">
-          <LocaleLink to="/" className="text-xl font-semibold text-violet-600 dark:text-violet-400">
+          <LocaleLink
+            to="/"
+            className="text-xl font-semibold text-brand-500 transition-opacity hover:opacity-80"
+          >
             {t("appName")}
           </LocaleLink>
         </div>
 
         {/* Primary nav */}
-        <nav className="flex flex-1 items-center justify-center gap-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+        <nav className="flex flex-1 items-center justify-center gap-4 whitespace-nowrap text-sm text-text-2 md:gap-6">
           <LocaleLink
             to="/editor"
-            className="hover:text-violet-600 dark:hover:text-violet-400"
+            className="transition-colors hover:text-brand-500"
           >
             {t("editorName")}
           </LocaleLink>
           <LocaleLink
             to="/styles"
-            className="hover:text-violet-600 dark:hover:text-violet-400"
+            className="transition-colors hover:text-brand-500"
           >
             {t("styleName")}
           </LocaleLink>
           <LocaleLink
             to="/fonts"
-            className="hover:text-violet-600 dark:hover:text-violet-400"
+            className="transition-colors hover:text-brand-500"
           >
             {t("navFonts")}
           </LocaleLink>
           <LocaleLink
             to="/logo"
-            className="hover:text-violet-600 dark:hover:text-violet-400"
+            className="transition-colors hover:text-brand-500"
           >
             {t("navLogo")}
           </LocaleLink>
           <LocaleLink
             to="/blogs"
-            className="hover:text-violet-600 dark:hover:text-violet-400"
+            className="transition-colors hover:text-brand-500"
           >
             {t("blogName")}
           </LocaleLink>
         </nav>
 
         {/* Right cluster: GitHub, language, theme */}
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2">
           <RadixLink
             href="https://github.com/wms-why/fast3dtextonline"
             target="_blank"
             aria-label="GitHub repository"
+            color="gray"
+            className="rounded-full p-1.5 text-text-2 transition-colors hover:bg-surface-2 hover:text-text-1"
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 15 15"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

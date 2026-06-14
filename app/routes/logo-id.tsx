@@ -43,7 +43,7 @@ export default function LogoSceneDetailPage({ params }: Route.ComponentProps) {
         <Heading as="h1" size="6">
           {t("notFound")}
         </Heading>
-        <LocaleLink to="/logo" className="mt-4 inline-block text-violet-600">
+        <LocaleLink to="/logo" className="mt-4 inline-block text-brand-500">
           ← {t("backToList")}
         </LocaleLink>
       </div>

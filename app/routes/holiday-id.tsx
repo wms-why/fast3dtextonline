@@ -43,7 +43,7 @@ export default function HolidayDetailPage({ params }: Route.ComponentProps) {
         <Heading as="h1" size="6">
           {t("notFound")}
         </Heading>
-        <LocaleLink to="/holiday" className="mt-4 inline-block text-violet-600">
+        <LocaleLink to="/holiday" className="mt-4 inline-block text-brand-500">
           ← {t("backToList")}
         </LocaleLink>
       </div>

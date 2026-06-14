@@ -17,7 +17,7 @@ export default function SportsTeamEn() {
           </Heading>
           <Text as="p">
             Start from the{" "}
-            <LocaleLink to="/styles/sports-flame" className="text-violet-600 dark:text-violet-400">
+            <LocaleLink to="/styles/sports-flame" className="text-brand-500">
               Sports Logo 3D Text Generator
             </LocaleLink>
             .
@@ -38,7 +38,7 @@ export default function SportsTeamEn() {
 
       <Text as="p">
         If you want to skip manual setup, open the{" "}
-        <LocaleLink to="/styles/sports-flame" className="text-violet-600 dark:text-violet-400">
+        <LocaleLink to="/styles/sports-flame" className="text-brand-500">
           sports-flame template
         </LocaleLink>{" "}
         and edit the wording.

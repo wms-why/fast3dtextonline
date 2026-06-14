@@ -15,7 +15,7 @@ export default function IceTextZh() {
           </Heading>
           <Text as="p">
             先从{" "}
-            <LocaleLink to="/styles/ice-frost" className="text-violet-600 dark:text-violet-400">
+            <LocaleLink to="/styles/ice-frost" className="text-brand-500">
               冰霜字 3D 文字生成器
             </LocaleLink>{" "}
             开始，背景、渐变和阴影会更统一。
@@ -35,7 +35,7 @@ export default function IceTextZh() {
 
       <Text as="p">
         如果你想直接开始编辑，可以打开
-        <LocaleLink to="/styles/ice-frost" className="text-violet-600 dark:text-violet-400">
+        <LocaleLink to="/styles/ice-frost" className="text-brand-500">
           冰霜字模板页
         </LocaleLink>
         然后继续修改。

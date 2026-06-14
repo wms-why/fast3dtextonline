@@ -13,7 +13,7 @@ export default function BarbieFontEn() {
         The first step is to get the official Barbie font file. You can download the Barbie Regular TTF from the reliable font repository below:
       </Text>
       <Flex direction="column" gap="2" mb="4">
-        <a href="https://fontbolt.com/barbie-font" target="_blank" rel="noopener noreferrer" className="text-violet-600 dark:text-violet-400">
+        <a href="https://fontbolt.com/font/barbie-2023-font/" target="_blank" rel="noopener noreferrer" className="text-brand-500">
           🔗 Download Barbie Font from FontBolt
         </a>
         <Text as="p" size="2">File format: .ttf (TrueType Font)</Text>
@@ -37,7 +37,7 @@ export default function BarbieFontEn() {
       <Text as="p" mb="2">
         Once the font is uploaded, it's time to create your 3D Barbie text using this free online editor:
       </Text>
-      <a href="/editor" target="_blank" rel="noopener noreferrer" className="text-violet-600 dark:text-violet-400" style={{ marginBottom: "16px", display: "inline-block" }}>
+      <a href="/editor" target="_blank" rel="noopener noreferrer" className="text-brand-500" style={{ marginBottom: "16px", display: "inline-block" }}>
         🔗 Open the 3D Text Editor
       </a>
 

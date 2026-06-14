@@ -25,7 +25,11 @@ export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: "@radix-ui/themes/styles.css" },
   { rel: "icon", href: "/favicon.ico" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+  {
+    rel: "preconnect",
+    href: "https://fonts.gstatic.com",
+    crossOrigin: "anonymous",
+  },
   {
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
@@ -54,7 +58,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   // The `host` is read at build time via process.env.
   const host =
     (typeof process !== "undefined" && process.env?.HOST) ||
-    "https://fast3dtextonline.com";
+    "https://fast3dtext.com";
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -82,8 +86,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
         ) : null}
       </head>
       <body suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <Theme accentColor="iris" grayColor="slate" radius="medium" scaling="100%">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Theme
+            accentColor="iris"
+            grayColor="slate"
+            radius="large"
+            scaling="100%"
+            panelBackground="translucent"
+          >
             <I18nProvider locale={locale}>
               <div className="flex min-h-screen flex-col">
                 <Header />
@@ -107,7 +117,9 @@ export default function Root() {
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const isRouteError = isRouteErrorResponse(error);
   const status = isRouteError ? error.status : 500;
-  const title = isRouteError ? `${error.status} ${error.statusText}` : "Unexpected error";
+  const title = isRouteError
+    ? `${error.status} ${error.statusText}`
+    : "Unexpected error";
   const message = isRouteError
     ? error.data
     : error instanceof Error

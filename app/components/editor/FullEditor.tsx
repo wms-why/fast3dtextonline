@@ -1,5 +1,6 @@
 "use client";
 import { Card, Flex, Tabs } from "@radix-ui/themes";
+import { AnimatePresence, motion } from "motion/react";
 import BackgroundSelector from "../common/BackgroundSelector";
 import type { BackgroundProp } from "../common/BackgroundSelector";
 import PreviewToolbar from "../common/PreviewToolbar";
@@ -46,29 +47,61 @@ export default function Page({
   const [compactPanel, setCompactPanel] = useState("text");
 
   const controls = compactLayout ? (
-    <Card size="3" className="w-full lg:max-w-[360px]" style={{ borderRadius: 28 }}>
+    <Card size="3" className="w-full lg:max-w-[360px]" style={{ borderRadius: "var(--radius-card)" }}>
       <Tabs.Root value={compactPanel} onValueChange={setCompactPanel}>
         <Tabs.List size="2">
           <Tabs.Trigger value="text">Text</Tabs.Trigger>
           <Tabs.Trigger value="background">Background</Tabs.Trigger>
           <Tabs.Trigger value="effects">Effects</Tabs.Trigger>
         </Tabs.List>
-        <Flex direction="column" pt="4">
-          <Tabs.Content value="text">
-            <TextSetting text={text} setText={setText} showTitle={false} chrome={false} />
-          </Tabs.Content>
-          <Tabs.Content value="background">
-            <BackgroundSelector
-              background={background}
-              setBackground={setBackground}
-              showTitle={false}
-              chrome={false}
-            />
-          </Tabs.Content>
-          <Tabs.Content value="effects">
-            <Effects effect={effect} setEffect={setEffect} background={background} showTitle={false} chrome={false} />
-          </Tabs.Content>
-        </Flex>
+        <div className="pt-4">
+          <AnimatePresence mode="wait" initial={false}>
+            {compactPanel === "text" && (
+              <motion.div
+                key="text"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.18, ease: "easeOut" }}
+              >
+                <TextSetting text={text} setText={setText} showTitle={false} chrome={false} />
+              </motion.div>
+            )}
+            {compactPanel === "background" && (
+              <motion.div
+                key="background"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.18, ease: "easeOut" }}
+              >
+                <BackgroundSelector
+                  background={background}
+                  setBackground={setBackground}
+                  showTitle={false}
+                  chrome={false}
+                />
+              </motion.div>
+            )}
+            {compactPanel === "effects" && (
+              <motion.div
+                key="effects"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.18, ease: "easeOut" }}
+              >
+                <Effects
+                  effect={effect}
+                  setEffect={setEffect}
+                  background={background}
+                  showTitle={false}
+                  chrome={false}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </Tabs.Root>
     </Card>
   ) : (

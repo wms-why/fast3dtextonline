@@ -1,4 +1,5 @@
 // /logo — list of 6 logo scenes.
+import { useMemo, useState } from "react";
 import { Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { useTranslations } from "@/lib/i18n/use-translations";
@@ -6,6 +7,7 @@ import { scenes, getLocalizedScene } from "@/lib/presets/scene-presets";
 import { LocaleLink } from "@/lib/i18n/navigation";
 import { buildSeoMeta } from "@/lib/seo/meta";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo/ogImage";
+import { SearchField } from "@/components/common/SearchField";
 import type { Locale } from "@/lib/i18n/config";
 import type { Route } from "./+types/logo-list";
 
@@ -48,21 +50,43 @@ export function meta({ location }: Route.MetaArgs) {
 export default function LogoListPage() {
   const t = useTranslations("ScenePage");
   const locale = useLocale();
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return scenes;
+    return scenes.filter((scene) => {
+      const copy = getLocalizedScene(scene, locale);
+      return (
+        copy.title.toLowerCase().includes(q) ||
+        copy.summary.toLowerCase().includes(q) ||
+        scene.keywords.some((k) => k.toLowerCase().includes(q))
+      );
+    });
+  }, [query, locale]);
 
   return (
     <div className="mx-auto w-full max-w-310 px-6 py-8">
-      <Heading as="h1" size="8" mb="2" className="text-center">
+      <Heading as="h1" size="8" mb="2" className="text-center font-display tracking-[-0.02em]">
         {t("title")}
       </Heading>
-      <Text size="5" color="gray" className="mx-auto mb-8 block text-center">
-        {t("heroSubtitle")}
-      </Text>
+      <div className="mx-auto mb-8 max-w-2xl text-center">
+        <Text size="5" color="gray">
+          {t("heroSubtitle")}
+        </Text>
+      </div>
+      <SearchField
+        value={query}
+        onChange={setQuery}
+        placeholder={t("searchPlaceholder")}
+        className="mx-auto mb-6 max-w-xl"
+      />
       <Grid
         columns={{ initial: "1", md: "2", lg: "3" }}
         gap="5"
         style={{ width: "100%" }}
       >
-        {scenes.map((scene) => {
+        {filtered.map((scene) => {
           const copy = getLocalizedScene(scene, locale);
           return (
             <Card key={scene.slug} size="3" className="h-full">
@@ -75,7 +99,7 @@ export default function LogoListPage() {
                 </Text>
                 <LocaleLink
                   to={`/logo/${scene.slug}`}
-                  className="text-violet-600 hover:underline dark:text-violet-400"
+                  className="text-brand-500 hover:underline"
                 >
                   {t("seeDetails")} →
                 </LocaleLink>

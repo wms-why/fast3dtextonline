@@ -1,11 +1,14 @@
 // /styles — list of all 18 style presets.
+import { useMemo, useState } from "react";
 import { Grid, Heading, Text } from "@radix-ui/themes";
 import { useTranslations } from "@/lib/i18n/use-translations";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { stylePresets } from "@/lib/presets/style-presets";
 import StylePreviewCard from "@/components/styles/StylePreviewCard";
+import { SearchField } from "@/components/common/SearchField";
 import { buildSeoMeta } from "@/lib/seo/meta";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo/ogImage";
+import { FadeUp } from "@/components/animations/FadeUp";
 import type { Locale } from "@/lib/i18n/config";
 import type { Route } from "./+types/styles-list";
 
@@ -48,31 +51,55 @@ export function meta({ location }: Route.MetaArgs) {
 export default function StylesListPage() {
   const t = useTranslations("StylePage");
   const locale = useLocale();
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return stylePresets;
+    return stylePresets.filter((s) => {
+      const copy = s[locale];
+      return (
+        copy.title.toLowerCase().includes(q) ||
+        copy.summary.toLowerCase().includes(q) ||
+        s.badge.toLowerCase().includes(q) ||
+        s.keywords.some((k) => k.toLowerCase().includes(q))
+      );
+    });
+  }, [query, locale]);
 
   return (
     <div className="mx-auto w-full max-w-310 px-6 py-8">
-      <Heading as="h1" size="8" mb="2" className="text-center">
+      <Heading as="h1" size="8" mb="2" className="text-center font-display tracking-[-0.02em]">
         {t("title")}
       </Heading>
-      <Text size="5" color="gray" className="mx-auto mb-8 block text-center">
-        {t("heroSubtitle")}
-      </Text>
-      <Grid
-        columns={{ initial: "1", md: "2", lg: "3" }}
-        gap="5"
-        style={{ width: "100%" }}
-      >
-        {stylePresets.map((style) => (
-          <StylePreviewCard
-            key={style.slug}
-            style={style}
-            locale={locale}
-            mode="grid"
-            openLabel={t("openInEditor")}
-            detailLabel={t("seeDetails")}
-          />
-        ))}
-      </Grid>
+      <div className="mx-auto mb-8 max-w-2xl text-center">
+        <Text size="5" color="gray">
+          {t("heroSubtitle")}
+        </Text>
+      </div>
+      <SearchField
+        value={query}
+        onChange={setQuery}
+        placeholder={t("searchPlaceholder")}
+        className="mx-auto mb-6 max-w-xl"
+      />
+      <FadeUp>
+        <Grid
+          columns={{ initial: "1", md: "2", lg: "3" }}
+          gap="5"
+          style={{ width: "100%" }}
+        >
+          {filtered.map((style) => (
+            <StylePreviewCard
+              key={style.slug}
+              style={style}
+              locale={locale}
+              mode="grid"
+              detailLabel={t("seeDetails")}
+            />
+          ))}
+        </Grid>
+      </FadeUp>
     </div>
   );
 }

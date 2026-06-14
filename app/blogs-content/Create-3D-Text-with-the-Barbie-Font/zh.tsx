@@ -13,7 +13,7 @@ export default function BarbieFontZh() {
         第一步是获取官方芭比字体文件。你可以从以下可靠的字体库下载Barbie Regular TTF：
       </Text>
       <Flex direction="column" gap="2" mb="4">
-        <a href="https://fontbolt.com/barbie-font" target="_blank" rel="noopener noreferrer" className="text-violet-600 dark:text-violet-400">
+        <a href="https://fontbolt.com/font/barbie-2023-font/" target="_blank" rel="noopener noreferrer" className="text-brand-500">
           🔗 从FontBolt下载芭比字体
         </a>
         <Text as="p" size="2">文件格式: .ttf (TrueType字体)</Text>
@@ -38,7 +38,7 @@ export default function BarbieFontZh() {
       <Text as="p" mb="2">
         字体上传完成后，就可以使用这个免费的在线编辑器创建你的 3D 芭比文字了：
       </Text>
-      <a href="/zh/editor" target="_blank" rel="noopener noreferrer" className="text-violet-600 dark:text-violet-400" style={{ marginBottom: "16px", display: "inline-block" }}>
+      <a href="/zh/editor" target="_blank" rel="noopener noreferrer" className="text-brand-500" style={{ marginBottom: "16px", display: "inline-block" }}>
         🔗 打开3D文字编辑器
       </a>
 

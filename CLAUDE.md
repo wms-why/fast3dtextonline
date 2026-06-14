@@ -81,6 +81,77 @@ Linting 在 `eslint.config.mjs` 用 flat config（无 `FlatCompat` 桥接）。`
   - `app/routes/editor-data.tsx` 的 client-side share-data decode
 `react-hooks/static-components` 是 lint error："Cannot create components during render"。当从 map/barrel 里查表得到组件再渲染时，**不能用 JSX `<Body />`，必须用 `createElement(Body)`**（`blogs-id.tsx` 是当前唯一示例）。同样适用于 `StylePreview` 之类的「按 id 查组件再渲染」场景。
 
+## UI/UX Design System
+
+The product is **template-first 3D text generator**. Visual language is "Modern Creator Tool" (Linear / Vercel 风): marketing 页面保持单色 + 留白 + 强排版；模板详情页才让 preset 视觉（霓虹 / 金属 / 糖果）接管 hero。
+
+### Design tokens — 单一来源：`app/styles/tailwind.css`
+所有颜色、间距、圆角、阴影**必须通过 CSS 变量 / Tailwind v4 `@theme` token 引用**。禁止内联硬编码 `rgba(15,23,42,0.x)`、`bg-blue-600`、`text-violet-600`、`bg-white`、`bg-gray-50/100/900`、`border-gray-200/300`、`dark:` 前缀。**全部收敛到 token**。
+
+- **品牌色 `brand-*`**：仅主色用 `brand-500`（#7B5BFF iris，light/dark 对比度均 AA+）
+  - `bg-brand-500` / `text-brand-500` / `border-brand-300`
+- **Surface 层级**：`bg-surface-0` (page) → `surface-1` (card) → `surface-2` (alt section bg) → `surface-3` (hover)
+- **Text 层级**：`text-text-1` (主文) / `text-2` (次文) / `text-3` (meta)
+- **Border**：`border-border-subtle` / `border-border-strong`
+- **阴影**：`shadow-xs` / `sm` / `md` / `lg` / `xl`（与 `--radius-card: 28px` 配合）
+- **圆角**：胶囊按钮 `radius="full"`、大区块 `var(--radius-card)` 28px / `var(--radius-card-sm)` 20px、控件 12px
+
+### 字体（root.tsx 已加载）
+- **Display** `font-display` = Space Grotesk：Hero H1、H2 标题、`tracking-[-0.025em]`
+- **Body** `font-sans` = Inter：正文、按钮、卡片标题
+- **Mono** `font-mono` = JetBrains Mono：`<Code>`、share link 短码
+
+### 4 个 utility（`@utility`，在 tailwind.css）
+- `glass-panel`：玻璃感底色（`bg-surface-1/78` + `backdrop-blur` + `border-border-subtle`）
+- `card-elevated`：标准卡片（surface-1 + shadow-md + 28px 圆角）
+- `text-gradient-brand`：品牌色渐变文字
+- `checker-bg`：透明 PNG 棋盘格（自动适配暗色）
+
+### 动效（基于 `motion` 12，已在 package.json）
+- **FadeUp** `app/components/animations/FadeUp.tsx`：基于 IntersectionObserver 的滚动入场，respect `prefers-reduced-motion`
+- **Editor Tab** 用 `AnimatePresence mode="wait"` 做 180ms cross-fade
+- **ModeToggle** 用 `motion.span` + spring `{ stiffness: 380, damping: 30 }` 接管 Sun/Moon 旋转
+- **按钮 hover**：transition-colors 200ms；**不要在 Canvas 容器上做 CSS transition**（卡顿）
+- **入场**：`cubic-bezier(0.22, 1, 0.36, 1)`、duration 360–600ms
+- 媒体查询已在 tailwind.css 中加 `prefers-reduced-motion: reduce` 全局收敛
+
+### 配色边界（不要混用）
+- marketing / list 页面：`bg-surface-0/1/2` 单色 + 留白
+- 模板详情页 hero：`style.visual.background/foreground`（preset 自带）
+- **唯一允许的"大色块"位置**：首页 CTA section（已用 iris 渐变）
+- 模板详情页 Hero、StylePreviewCard 内部允许 preset 视觉接管
+
+### 模板视觉硬约束
+- `StylePreviewCard` 内 `boxShadow` / `borderRadius` 必须用 `var(--shadow-*)` / `var(--radius-card)` token
+- `EditorSurface` canvas 棋盘格用 `rgb(var(--surface-2))` / `rgb(var(--surface-1))` 而非硬编码灰白
+- 模板详情页 Hero CTA 按钮颜色由 `style.visual.foreground/panelBackground` 决定（已在 styles-id.tsx 用 `getContrastTextColor`）
+- 模板详情页 Related 卡片必须带 `StylePreview` 缩略图（不只是文字链接）
+
+### 透明 PNG 卖点
+- 透明切换在 `BackgroundSelector`（带 `#transparent-bg-switch` id，是 P3-1 浮动条的 scroll target）
+- `PreviewToolbar` 顶部有"💎 Transparent PNG mode"浮动提示条（AnimatePresence 切换 hint/active 两态）
+- 下载文件名后缀 `_transparent`（已在 `handleDownload` 中实现）
+- 复制反馈：share link 复制成功后按钮 1.2s 内变 "Copied! ✓"，color 切 green
+
+### 列表页（styles / fonts / logo / holiday / industry）
+- H1 + 副标题后接 `SearchField`（实时过滤 title/summary/keywords）
+- 5 个 list 页面已统一接入 `app/components/common/SearchField.tsx`
+- 网格在 `lg` 用 3 列、`md` 用 2 列、`initial` 1 列
+- 卡片 padding `var(--radius-card-sm)` 或 `var(--radius-card)`，hover `-translate-y-0.5` + `shadow-md`
+
+### Radix Theme props（`app/root.tsx`）
+```tsx
+<Theme accentColor="iris" grayColor="slate" radius="large" scaling="100%" panelBackground="translucent">
+```
+- 所有 Radix Button 一律 `radius="full"`（胶囊）
+- `ThemeProvider` `defaultTheme="system"` + `enableSystem`
+- ModeToggle 已用 `motion.span` + spring 接管 Sun/Moon 旋转 + 缩放 + `whileTap={{ scale: 0.9 }}`
+
+### 多语言 i18n 视觉注意
+- 中文 H1 `line-height: 1.4`（中文字符需更松的行距）
+- 胶囊按钮 padding 在中文下略宽（`px-7` 而非 `px-6`）
+- 翻译键在 `dictionary/{en,zh}.json`，**新增键前先确认字典里存在**（参考 `use-translations.ts` 的 `ns?.[key] ?? key` fallback 行为——找不到键时页面上会显示字面字符串）
+
 ## Testing Guidelines
 无自动化测试套件。`pnpm typecheck` + `pnpm build` + `pnpm lint` 是必过的验证关。本地 `pnpm dev` 手测两条关键路径：en 中文切换 + Theme 切换跨页面持久化。Cloudflare 部署后 `wrangler deploy` 到 preview 环境复测。
 

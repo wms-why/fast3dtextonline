@@ -7,9 +7,9 @@ export default function Footer() {
   const t = useTranslations("Header");
 
   return (
-    <footer className="w-full border-t border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/95">
-      <div className="mx-auto flex w-full flex-col items-center gap-2 p-2">
-        <div className="flex w-full flex-wrap justify-center gap-8 align-top">
+    <footer className="w-full border-t border-border-subtle bg-surface-1/95 backdrop-blur-sm">
+      <div className="mx-auto flex w-full flex-col items-center gap-4 p-6">
+        <div className="flex w-full flex-wrap justify-center gap-12 align-top">
           {/* Tools */}
           <div className="flex flex-col gap-2">
             <Heading as="h2" size="4" className="text-base font-semibold">
@@ -17,19 +17,19 @@ export default function Footer() {
             </Heading>
             <LocaleLink
               to="/editor"
-              className="text-sm text-gray-600 hover:text-violet-600 dark:text-gray-300 dark:hover:text-violet-400"
+              className="text-sm text-text-2 transition-colors hover:text-brand-500"
             >
               {t("editorName")}
             </LocaleLink>
             <LocaleLink
               to="/styles"
-              className="text-sm text-gray-600 hover:text-violet-600 dark:text-gray-300 dark:hover:text-violet-400"
+              className="text-sm text-text-2 transition-colors hover:text-brand-500"
             >
               {t("styleName")}
             </LocaleLink>
             <LocaleLink
               to="/blogs"
-              className="text-sm text-gray-600 hover:text-violet-600 dark:text-gray-300 dark:hover:text-violet-400"
+              className="text-sm text-text-2 transition-colors hover:text-brand-500"
             >
               {t("blogName")}
             </LocaleLink>
@@ -42,7 +42,7 @@ export default function Footer() {
             </Heading>
             <LocaleLink
               to="/do-not-write-on-this-page"
-              className="text-sm text-gray-600 hover:text-violet-600 dark:text-gray-300 dark:hover:text-violet-400"
+              className="text-sm text-text-2 transition-colors hover:text-brand-500"
             >
               {f("specialGenerator")}
             </LocaleLink>
@@ -56,14 +56,14 @@ export default function Footer() {
             <RadixLink
               href="https://uiuxdeck.com/"
               target="_blank"
-              className="text-sm text-gray-600 hover:text-violet-600 dark:text-gray-300 dark:hover:text-violet-400"
+              className="text-sm text-text-2 transition-colors hover:text-brand-500"
             >
               UIUXDECK
             </RadixLink>
             <RadixLink
               href="https://twelve.tools"
               target="_blank"
-              className="text-sm text-gray-600 hover:text-violet-600 dark:text-gray-300 dark:hover:text-violet-400"
+              className="text-sm text-text-2 transition-colors hover:text-brand-500"
             >
               {/* next/image dropped — plain <img> since unoptimized was set anyway */}
               <img
@@ -76,7 +76,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="text-sm text-gray-500 dark:text-gray-400">
+        <div className="text-sm text-text-3">
           {f("copyright", { year: new Date().getFullYear() })}
         </div>
       </div>

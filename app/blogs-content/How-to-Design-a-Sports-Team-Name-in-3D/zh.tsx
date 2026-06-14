@@ -15,7 +15,7 @@ export default function SportsTeamZh() {
           </Heading>
           <Text as="p">
             先用{" "}
-            <LocaleLink to="/styles/sports-flame" className="text-violet-600 dark:text-violet-400">
+            <LocaleLink to="/styles/sports-flame" className="text-brand-500">
               运动火焰风 3D 文字生成器
             </LocaleLink>
             作为起点。
@@ -35,7 +35,7 @@ export default function SportsTeamZh() {
 
       <Text as="p">
         如果不想从头调参数，可以直接打开
-        <LocaleLink to="/styles/sports-flame" className="text-violet-600 dark:text-violet-400">
+        <LocaleLink to="/styles/sports-flame" className="text-brand-500">
           运动火焰风模板页
         </LocaleLink>
         再修改文案。

@@ -40,10 +40,10 @@ export function StylePreview({
       className="relative overflow-hidden"
       style={{
         minHeight: size === "lg" ? 320 : size === "sm" ? 180 : 220,
-        borderRadius: 24,
+        borderRadius: "var(--radius-card-sm)",
         background: style.visual.background,
         border: `1px solid ${style.visual.panelBorder}`,
-        boxShadow: "0 28px 56px rgba(15, 23, 42, 0.16)",
+        boxShadow: "var(--shadow-xl)",
       }}
     >
       <Box
@@ -123,11 +123,11 @@ export default function StylePreviewCard({
   style: StylePreset;
   locale: Locale;
   mode?: "grid" | "feature";
-  openLabel: string;
+  openLabel?: string;
   detailLabel: string;
 }) {
   const content = getLocalizedStyle(style, locale);
-  const editorHref = getEditorPath(style.editorPreset, locale);
+  const editorHref = openLabel ? getEditorPath(style.editorPreset, locale) : null;
   const detailHref = `/styles/${style.slug}`; // LocaleLink will prefix /zh
   const altText = `${content.title} — ${style.keywords.slice(0, 2).join(", ")} 3D text generator, transparent background PNG`;
 
@@ -136,9 +136,9 @@ export default function StylePreviewCard({
       size="3"
       className={cn("h-full")}
       style={{
-        borderRadius: 28,
+        borderRadius: "var(--radius-card)",
         backgroundColor: "var(--gray-1)",
-        boxShadow: "0 22px 48px rgba(15, 23, 42, 0.08)",
+        boxShadow: "var(--shadow-lg)",
       }}
     >
       <Flex direction="column" gap="4" height="100%">
@@ -157,11 +157,13 @@ export default function StylePreviewCard({
           </Text>
         </Flex>
         <Flex gap="3" mt="auto" wrap="wrap">
-          <Button asChild radius="full" size="3">
-            <a href={editorHref} aria-label={`${openLabel} — ${altText}`}>
-              {openLabel}
-            </a>
-          </Button>
+          {editorHref && openLabel ? (
+            <Button asChild radius="full" size="3">
+              <a href={editorHref} aria-label={`${openLabel} — ${altText}`}>
+                {openLabel}
+              </a>
+            </Button>
+          ) : null}
           <Button asChild radius="full" size="3" variant="soft">
             <LocaleLink to={detailHref} aria-label={`${detailLabel} — ${altText}`}>
               {detailLabel}

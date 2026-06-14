@@ -58,7 +58,7 @@ export default function BlogPostPage({ params }: Route.ComponentProps) {
         <Heading as="h1" size="6">
           {t("notFound")}
         </Heading>
-        <LocaleLink to="/blogs" className="mt-4 inline-block text-violet-600">
+        <LocaleLink to="/blogs" className="mt-4 inline-block text-brand-500">
           ← {t("backToList")}
         </LocaleLink>
       </div>
@@ -93,7 +93,7 @@ export default function BlogPostPage({ params }: Route.ComponentProps) {
             <p className="text-sm text-gray-500">{t("contentPlaceholder")}</p>
           )}
           <div className="mt-8 border-t pt-4">
-            <LocaleLink to="/blogs" className="text-violet-600 dark:text-violet-400">
+            <LocaleLink to="/blogs" className="text-brand-500">
               ← {t("backToList")}
             </LocaleLink>
           </div>

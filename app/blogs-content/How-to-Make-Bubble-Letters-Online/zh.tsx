@@ -16,7 +16,7 @@ export default function BubbleLettersZh() {
           </Heading>
           <Text as="p">
             1. 打开{" "}
-            <LocaleLink to="/styles/bubble-letters" className="text-violet-600 dark:text-violet-400">
+            <LocaleLink to="/styles/bubble-letters" className="text-brand-500">
               泡泡字 3D 文字生成器
             </LocaleLink>
             。
@@ -43,7 +43,7 @@ export default function BubbleLettersZh() {
 
       <Text as="p">
         如果你想直接拿到可编辑的起点，可以直接打开
-        <LocaleLink to="/styles/bubble-letters" className="text-violet-600 dark:text-violet-400">
+        <LocaleLink to="/styles/bubble-letters" className="text-brand-500">
           泡泡字模板页
         </LocaleLink>
         再继续修改。

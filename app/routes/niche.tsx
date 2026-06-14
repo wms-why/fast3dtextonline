@@ -73,7 +73,7 @@ export default function NichePage() {
           </Box>
         </Section>
 
-        <Section py="8" className="bg-gray-50 dark:bg-gray-900">
+        <Section py="8" className="bg-surface-1">
           <Box className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Heading as="h2" size="8" mb="4" className="text-center">
               {indexT("featuresTitle")}

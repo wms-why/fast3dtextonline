@@ -43,7 +43,7 @@ export default function FontThemeDetailPage({ params }: Route.ComponentProps) {
         <Heading as="h1" size="6">
           {t("notFound")}
         </Heading>
-        <LocaleLink to="/fonts" className="mt-4 inline-block text-violet-600">
+        <LocaleLink to="/fonts" className="mt-4 inline-block text-brand-500">
           ← {t("backToList")}
         </LocaleLink>
       </div>
@@ -58,7 +58,7 @@ export default function FontThemeDetailPage({ params }: Route.ComponentProps) {
 
   return (
     <Flex direction="column">
-      <Section className="w-full bg-gradient-to-b from-violet-50 to-white py-12 dark:from-violet-950/30 dark:to-gray-950">
+      <Section className="w-full bg-gradient-to-b from-brand-50 to-surface-0 py-12">
         <Box className="mx-auto w-full max-w-[1080px] px-6">
           <Heading
             as="h1"

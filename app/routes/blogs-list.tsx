@@ -69,7 +69,7 @@ export default function BlogsListPage() {
               >
                 <LocaleLink
                   to={`/blogs/${blog.id}`}
-                  className="flex flex-col gap-4 text-violet-600 dark:text-violet-400"
+                  className="flex flex-col gap-4 text-brand-500"
                 >
                   <img
                     src={blog.coverImage}

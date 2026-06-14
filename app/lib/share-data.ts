@@ -12,7 +12,11 @@ import LZString from "lz-string";
 import { FontWeight } from "./presets/fonts";
 
 export interface BackgroundGradient {
-  direction: "leftToRight" | "topToBottom" | "topLeftToBottomRight" | "bottomLeftToTopRight";
+  direction:
+    | "leftToRight"
+    | "topToBottom"
+    | "topLeftToBottomRight"
+    | "bottomLeftToTopRight";
   startColor: string;
   endColor: string;
 }
@@ -77,6 +81,9 @@ export function encodeShareData(data: ShareObj): string {
 }
 
 export function getEditorPath(data: ShareObj, locale: string): string {
+  if (locale == "en") {
+    return `/editor/${encodeShareData(data)}`;
+  }
   return `/${locale}/editor/${encodeShareData(data)}`;
 }
 

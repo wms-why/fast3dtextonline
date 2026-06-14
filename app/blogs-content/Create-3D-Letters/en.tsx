@@ -5,7 +5,7 @@ export default function Create3DLettersEn() {
     <Flex gap={"4"} direction={"column"} justify={"start"} className="text-left">
       <Text as="p" mb="4">
         If you're looking to generate eye-catching <strong>3D letters</strong> for your design, presentation, or content project, you're in the right place. Here's a simple step-by-step guide using{" "}
-        <a href="/editor" target="_blank" rel="noopener noreferrer" className="text-violet-600 dark:text-violet-400">
+        <a href="/editor" target="_blank" rel="noopener noreferrer" className="text-brand-500">
           Fast3DText
         </a>
         , a free online 3D text generator that lets you design and export high-quality 3D letter images with ease.
@@ -15,7 +15,7 @@ export default function Create3DLettersEn() {
 
       <Heading as="h3" size="4" mt="4" mb="2">1. Open the Editor</Heading>
       <Text as="p" mb="4">
-        Go to 👉 <a href="/editor" target="_blank" rel="noopener noreferrer" className="text-violet-600 dark:text-violet-400">/editor</a>
+        Go to 👉 <a href="/editor" target="_blank" rel="noopener noreferrer" className="text-brand-500">/editor</a>
       </Text>
 
       <Heading as="h3" size="4" mt="4" mb="2">2. Enter Your Letters</Heading>

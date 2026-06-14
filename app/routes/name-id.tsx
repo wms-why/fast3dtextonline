@@ -45,7 +45,7 @@ export default function NameDetailPage({ params }: Route.ComponentProps) {
         <Heading as="h1" size="6">
           {t("notFound")}
         </Heading>
-        <LocaleLink to="/" className="mt-4 inline-block text-violet-600">
+        <LocaleLink to="/" className="mt-4 inline-block text-brand-500">
           ← {t("backToHome")}
         </LocaleLink>
       </div>
